@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://2deuujkaeb54"]
+[gd_scene load_steps=5 format=3 uid="uid://2deuujkaeb54"]
 
 [ext_resource type="Script" path="res://src/logic/ChatLogic.gd" id="1_akn28"]
 [ext_resource type="PackedScene" uid="uid://bqc1xtpj2h1c5" path="res://src/side_bar/SideBar.tscn" id="1_cuiif"]
+[ext_resource type="Script" path="res://src/World.gd" id="1_ta7mb"]
 [ext_resource type="PackedScene" uid="uid://brk8apg1ijq2o" path="res://src/level/Level.tscn" id="2_dyt3k"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("chat_logic")]
+script = ExtResource("1_ta7mb")
+chat_logic = NodePath("Logic/ChatLogic")
 
 [node name="Logic" type="Node" parent="."]
 
@@ -22,6 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="SideBar" parent="Hud/Content" instance=ExtResource("1_cuiif")]
 layout_mode = 1

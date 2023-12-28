@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://bma5rwm0gxnkw"]
+
+[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_7f1o5"]
+[ext_resource type="Script" path="res://src/side_bar/chat/ChatEntry.gd" id="1_g80va"]
+[ext_resource type="FontFile" uid="uid://ov35bo0r5tah" path="res://res/fonts/Roboto-Medium.ttf" id="3_6tria"]
+
+[node name="ChatEntry" type="MarginContainer" node_paths=PackedStringArray("label", "badge")]
+offset_right = 357.0
+offset_bottom = 45.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_g80va")
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="Content" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="Content"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="FirstBadge" type="TextureRect" parent="Content/Header"]
+layout_mode = 2
+texture = ExtResource("1_7f1o5")
+expand_mode = 3
+
+[node name="SecondBadge" type="TextureRect" parent="Content/Header"]
+visible = false
+layout_mode = 2
+texture = ExtResource("1_7f1o5")
+expand_mode = 3
+
+[node name="TextContent" type="MarginContainer" parent="Content"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 4
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Content/TextContent"]
+layout_mode = 2
+theme_override_constants/line_separation = 6
+theme_override_fonts/normal_font = ExtResource("3_6tria")
+bbcode_enabled = true
+text = "       [b]SuperChater[/b] : I love you Neuro!"
+fit_content = true
+scroll_active = false
+tab_size = 8

@@ -4,4 +4,5 @@
 
 [node name="Root" type="Node"]
 
-[node name="World" parent="." instance=ExtResource("1_t1pn0")]
+[node name="World" parent="." node_paths=PackedStringArray("chat_logic") instance=ExtResource("1_t1pn0")]
+chat_logic = NodePath("Logic/ChatLogic")
