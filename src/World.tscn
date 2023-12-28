@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://2deuujkaeb54"]
+
+[ext_resource type="PackedScene" uid="uid://bqc1xtpj2h1c5" path="res://src/side_bar/SideBar.tscn" id="1_cuiif"]
+
+[node name="World" type="Node2D"]
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Content" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SideBar" parent="Hud/Content" instance=ExtResource("1_cuiif")]
+layout_mode = 1
+offset_right = 360.0
