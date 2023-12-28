@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bqc1xtpj2h1c5"]
+[gd_scene load_steps=2 format=3 uid="uid://bqc1xtpj2h1c5"]
+
+[ext_resource type="Script" path="res://src/side_bar/SideBar.gd" id="1_3gsed"]
 
 [node name="SideBar" type="Control"]
 custom_minimum_size = Vector2(360, 0)
@@ -6,3 +8,4 @@ layout_mode = 3
 anchors_preset = 9
 anchor_bottom = 1.0
 grow_vertical = 2
+script = ExtResource("1_3gsed")
