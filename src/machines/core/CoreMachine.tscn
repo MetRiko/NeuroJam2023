@@ -43,6 +43,7 @@ text = "Handle Sub"
 metadata/_edit_use_anchors_ = true
 
 [node name="HandleChat" type="Button" parent="Control"]
+layout_mode = 0
 offset_left = 9.0
 offset_top = -129.0
 offset_right = 124.0

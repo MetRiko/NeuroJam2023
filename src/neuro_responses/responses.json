@@ -1,0 +1,57 @@
+{
+	"responses": {
+		"low_filter_power": [
+			"Low filter power 1",
+			"Low filter power 2",
+			"Low filter power 3"
+		],
+		"high_filter_power": [
+			"Filtered."
+		],
+		"high_schizo_power": [
+			"High schizo 1",
+			"High schizo 2",
+			"High schizo 3"
+		],
+		"clap_command_angry": [
+			"Clap command angry 1",
+			"Clap command angry 2",
+			"Clap command angry 3"
+		],
+		"hateful": [
+			"Hateful 1",
+			"Hateful 2",
+			"Hateful 3"
+		],
+		"lovely": [
+			"Lovely 1",
+			"Lovely 2",
+			"Lovely 3"
+		],
+		"solidified_memory": [
+			"Solidified memory 1",
+			"Solidified memory 2",
+			"Solidified memory 3"
+		],
+		"sub_thank": [
+			"Sub thank 1",
+			"Sub thank 2",
+			"Sub thank 3"
+		],
+		"bits_thank": [
+			"Bits thank 1",
+			"Bits thank 2",
+			"Bits thank 3"
+		],
+		"dono_thank": [
+			"Dono thank 1",
+			"Dono thank 2",
+			"Dono thank 3"
+		],
+		"normal": [
+			"Normal 1",
+			"Normal 2",
+			"Normal 3"
+		]
+	}
+}

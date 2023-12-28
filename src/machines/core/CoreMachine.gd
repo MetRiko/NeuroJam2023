@@ -43,9 +43,17 @@ func add_chat_message() -> void:
 
 
 func dequeue_sub_message() -> void:
-
-	say_message.emit(sub_queue.dequeue_message())
+	handle_action(sub_queue.dequeue_message())
 
 
 func dequeue_chat_message() -> void:
-	say_message.emit(chat_queue.dequeue_message())
+	handle_action(chat_queue.dequeue_message())
+
+
+func handle_action(action_type) -> void:
+	if action_type != null:
+		say_message.emit(action_type)
+
+		var response = Game.get_neuro_logic().generate_response(action_type)
+		if response != null:
+			print("Neuro: %s - %s" % [NeuroLogic.NeuroResponseType.keys()[response.type], response.content])
