@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=2 format=3 uid="uid://brk8apg1ijq2o"]
+
+[ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 
 [node name="Level" type="Node2D"]
+
+[node name="Core Machine" parent="." node_paths=PackedStringArray("sub_queue", "chat_queue") instance=ExtResource("1_thdch")]
+sub_queue = NodePath("SubQueue")
+chat_queue = NodePath("ChatQueue")

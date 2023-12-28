@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://dcb4h1td2hhtk"]
+
+[node name="FilterMachine" type="Node2D"]

@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://dlw6rh4r7dmdd"]
+
+[ext_resource type="Script" path="res://src/machines/core/CoreMachine.gd" id="1_d4hko"]
+[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_5vu81"]
+[ext_resource type="Script" path="res://src/machines/core/NeuroActionQueue.gd" id="3_bmx3d"]
+
+[node name="CoreMachine" type="Node2D" node_paths=PackedStringArray("sub_queue", "chat_queue", "handle_sub_btn", "handle_chat_btn")]
+position = Vector2(631, 402)
+script = ExtResource("1_d4hko")
+sub_queue = NodePath("SubQueue")
+chat_queue = NodePath("ChatQueue")
+handle_sub_btn = NodePath("Control/HandleSub")
+handle_chat_btn = NodePath("Control/HandleChat")
+
+[node name="Processor" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Processor"]
+z_index = -1
+texture = ExtResource("2_5vu81")
+
+[node name="SubQueue" type="Node2D" parent="."]
+script = ExtResource("3_bmx3d")
+stack_right = false
+
+[node name="ChatQueue" type="Node2D" parent="."]
+script = ExtResource("3_bmx3d")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HandleSub" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = -124.0
+offset_top = -129.0
+offset_right = -9.0
+offset_bottom = -68.0
+action_mode = 0
+text = "Handle Sub"
+metadata/_edit_use_anchors_ = true
+
+[node name="HandleChat" type="Button" parent="Control"]
+offset_left = 9.0
+offset_top = -129.0
+offset_right = 124.0
+offset_bottom = -68.0
+action_mode = 0
+text = "Handle Chat"
+metadata/_edit_use_anchors_ = true
