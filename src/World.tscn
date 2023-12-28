@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://2deuujkaeb54"]
+[gd_scene load_steps=4 format=3 uid="uid://2deuujkaeb54"]
 
+[ext_resource type="Script" path="res://src/logic/ChatLogic.gd" id="1_akn28"]
 [ext_resource type="PackedScene" uid="uid://bqc1xtpj2h1c5" path="res://src/side_bar/SideBar.tscn" id="1_cuiif"]
+[ext_resource type="PackedScene" uid="uid://brk8apg1ijq2o" path="res://src/level/Level.tscn" id="2_dyt3k"]
 
 [node name="World" type="Node2D"]
+
+[node name="Logic" type="Node" parent="."]
+
+[node name="ChatLogic" type="Node" parent="Logic"]
+script = ExtResource("1_akn28")
+
+[node name="Level" parent="." instance=ExtResource("2_dyt3k")]
 
 [node name="Hud" type="CanvasLayer" parent="."]
 
