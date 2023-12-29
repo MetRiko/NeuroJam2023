@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends Interactable
 class_name Grabbable
 
 

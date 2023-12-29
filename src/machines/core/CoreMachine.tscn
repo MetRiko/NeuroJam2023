@@ -4,11 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_5vu81"]
 [ext_resource type="Script" path="res://src/machines/core/NeuroActionQueue.gd" id="3_bmx3d"]
 
-[node name="CoreMachine" type="Node2D" node_paths=PackedStringArray("chat_queue", "handle_sub_btn", "handle_chat_btn")]
+[node name="CoreMachine" type="Node2D" node_paths=PackedStringArray("chat_queue", "handle_chat_btn")]
 position = Vector2(631, 402)
 script = ExtResource("1_d4hko")
 chat_queue = NodePath("RightQueue")
-handle_sub_btn = NodePath("")
 handle_chat_btn = NodePath("Control/HandleChat")
 
 [node name="Processor" type="Node2D" parent="."]

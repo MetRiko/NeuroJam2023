@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=7 format=3 uid="uid://brk8apg1ijq2o"]
 
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="3_m2diq"]
-[ext_resource type="PackedScene" uid="uid://cvr3vnscti1gu" path="res://src/objects/Cookie.tscn" id="4_06bml"]
+[ext_resource type="PackedScene" uid="uid://dqoyrxp5y4dnl" path="res://src/objects/Cookie.tscn" id="4_06bml"]
+[ext_resource type="PackedScene" uid="uid://dcb4h1td2hhtk" path="res://src/machines/filter/FilterMachine.tscn" id="5_5e04j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wsedu"]
-size = Vector2(128, 128)
+size = Vector2(1282, 128)
 
 [node name="Level" type="Node2D"]
 
@@ -21,14 +22,18 @@ position = Vector2(629, 286)
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 modulate = Color(0.281187, 0.281187, 0.281187, 1)
 position = Vector2(638, 470)
-scale = Vector2(10, 1)
 collision_layer = 2
+collision_mask = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(10, 1)
 texture = ExtResource("3_m2diq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_wsedu")
 
 [node name="Cookie" parent="." instance=ExtResource("4_06bml")]
-position = Vector2(277, 309)
+position = Vector2(825, 326)
+
+[node name="FilterMachine" parent="." instance=ExtResource("5_5e04j")]
+position = Vector2(927, 194)

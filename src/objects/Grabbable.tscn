@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c36fqg4i7v5st"]
+[gd_scene load_steps=3 format=3 uid="uid://b1tbddw6jgg43"]
 
 [ext_resource type="Script" path="res://src/objects/Grabbable.gd" id="1_01q7t"]
+[ext_resource type="PackedScene" uid="uid://dlycjt08mf22b" path="res://src/objects/Interactable.tscn" id="1_66hg2"]
 
-[node name="Grabbable" type="RigidBody2D"]
+[node name="Grabbable" instance=ExtResource("1_66hg2")]
 script = ExtResource("1_01q7t")
+reset_position_on_grab = true
