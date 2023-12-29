@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://t1dfcgjipsnk"]
+
+[ext_resource type="Script" path="res://src/machines/sleepy_bell/SleepyBell.gd" id="1_nxr72"]
+[ext_resource type="Script" path="res://src/objects/Grabbable.gd" id="1_puk71"]
+[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_csyi6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6clvo"]
+radius = 14.0
+height = 50.0
+
+[node name="SleepyBell" type="Node2D" node_paths=PackedStringArray("bell")]
+script = ExtResource("1_nxr72")
+bell = NodePath("Grabbable")
+ding_threshold = 0.5
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Grabbable" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_puk71")
+reset_position_on_grab = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Grabbable"]
+position = Vector2(0, 24)
+scale = Vector2(0.375, 0.375)
+texture = ExtResource("2_csyi6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grabbable"]
+position = Vector2(0, 25)
+shape = SubResource("CapsuleShape2D_6clvo")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+z_index = -1
+node_a = NodePath("../StaticBody2D")
+node_b = NodePath("../Grabbable")
+angular_limit_enabled = true
+angular_limit_lower = -0.698132
+angular_limit_upper = 0.698132

@@ -1,4 +1,5 @@
 extends RigidBody2D
+class_name Player
 
 
 @export var max_speed: float
@@ -18,22 +19,29 @@ var _nearest_interactable: Interactable
 
 var thing_to_grab: Grabbable = null
 
+@export var kp: float
+@export var ki: float
+@export var kd: float
+var _error_prior: Vector2
+var _integral_prior: Vector2
+
 
 func _ready():
 	_interaction_area.body_entered.connect(_on_enter_body)
 	_interaction_area.body_exited.connect(_on_exit_body)
 
 
-func _on_enter_body(body: RigidBody2D) -> void:
+func _on_enter_body(body) -> void:
 	if body is Interactable:
 		_interactables.append(body)
 		_nearest_interactable = find_nearest_interactable()
 
 
-func _on_exit_body(body: RigidBody2D) -> void:
+func _on_exit_body(body) -> void:
 	if body is Interactable:
 		_interactables.erase(body)
-		_nearest_interactable =  find_nearest_interactable()
+		body.stop_interacting()
+		_nearest_interactable = find_nearest_interactable()
 
 
 func find_nearest_interactable() -> Interactable:
@@ -59,18 +67,17 @@ func disconnect_joint() -> void:
 
 
 func _physics_process(delta):
-	var pos_delta := get_global_mouse_position() - position
-	var direction := pos_delta.normalized()
-	var speed = ease(clamp(pos_delta.length() / max_distance_to_accel, 0, 1), speed_easing) * max_speed
+	var error := get_global_mouse_position() - position
+	var integral: Vector2 = _integral_prior + error * delta
+	var derivative: Vector2 = (error - _error_prior) / delta
+	var output = kp * error + ki * integral + kd * derivative 
 
-	if pos_delta.length_squared() < 1:
-		speed = Vector2.ZERO
+	apply_central_force(output)
 
-	linear_velocity = direction * speed
+	_error_prior = error
+	_integral_prior = integral
+
 	_sprite.rotation_degrees = ease(abs(linear_velocity.x / max_speed), rotation_easing) * rotation_amount * sign(linear_velocity.x)
-
-	# _process_collisions()
-
 
 	if thing_to_grab != null:
 		_interaction_joint.node_b = thing_to_grab.get_path()
@@ -79,19 +86,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Interact") and len(_interactables) > 0:		
 		print(_nearest_interactable)
 
+		_nearest_interactable.start_interacting()
 		if _nearest_interactable is Grabbable:
 			connect_joint(_nearest_interactable)
 	elif Input.is_action_just_released("Interact"):
+		if _nearest_interactable != null:
+			_nearest_interactable.stop_interacting()
 		disconnect_joint()
-
-
-# func _process_collisions():
-# 	for i in get_slide_collision_count():
-# 		var collision := get_slide_collision(i)
-# 		var body = collision.get_collider() as RigidBody2D
-# 		if body == null:
-# 			continue
-
-# 		var point = collision.get_position() - body.global_position
-# 		var force = 5000
-# 		body.apply_impulse(-collision.get_normal() * force, point)

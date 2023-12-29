@@ -2,10 +2,6 @@ extends Node2D
 
 
 @export var chat_queue : NeuroActionQueue
-
-@export var handle_sub_btn : Button
-@export var handle_chat_btn : Button
-
 @onready var _execute_action_timer : Timer = $ExecuteActionTimer
 
 
@@ -23,7 +19,6 @@ func _input(event):
 
 
 func _ready():
-	handle_chat_btn.pressed.connect(handle_chat_message)
 	_execute_action_timer.timeout.connect(handle_chat_message)
 	_execute_action_timer.start()
 

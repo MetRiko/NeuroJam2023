@@ -1,39 +1,57 @@
-[gd_scene load_steps=7 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=10 format=3 uid="uid://brk8apg1ijq2o"]
 
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="3_m2diq"]
 [ext_resource type="PackedScene" uid="uid://dqoyrxp5y4dnl" path="res://src/objects/Cookie.tscn" id="4_06bml"]
 [ext_resource type="PackedScene" uid="uid://dcb4h1td2hhtk" path="res://src/machines/filter/FilterMachine.tscn" id="5_5e04j"]
+[ext_resource type="PackedScene" uid="uid://ca8gonntqh454" path="res://src/machines/schizo/SchizoMachine.tscn" id="6_k5335"]
+[ext_resource type="PackedScene" uid="uid://bte0qlekgk630" path="res://src/machines/love_hate_wheel/LoveHateWheel.tscn" id="7_yxn88"]
+[ext_resource type="PackedScene" uid="uid://t1dfcgjipsnk" path="res://src/machines/sleepy_bell/SleepyBell.tscn" id="8_1ya4v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wsedu"]
 size = Vector2(1282, 128)
 
 [node name="Level" type="Node2D"]
 
-[node name="Core Machine" parent="." node_paths=PackedStringArray("chat_queue", "handle_chat_btn") instance=ExtResource("1_thdch")]
-position = Vector2(637, 634)
+[node name="Core Machine" parent="." node_paths=PackedStringArray("chat_queue") instance=ExtResource("1_thdch")]
+position = Vector2(81, 640)
+scale = Vector2(0.68, 0.68)
 chat_queue = NodePath("RightQueue")
-handle_chat_btn = NodePath("Control/HandleChat")
 
 [node name="Player" parent="." instance=ExtResource("2_hgt3e")]
-position = Vector2(629, 286)
+position = Vector2(935, 331)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 modulate = Color(0.281187, 0.281187, 0.281187, 1)
-position = Vector2(638, 470)
+position = Vector2(642, 560)
 collision_layer = 2
 collision_mask = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-scale = Vector2(10, 1)
+scale = Vector2(10, 0.480001)
 texture = ExtResource("3_m2diq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(1, 0.44)
 shape = SubResource("RectangleShape2D_wsedu")
 
 [node name="Cookie" parent="." instance=ExtResource("4_06bml")]
-position = Vector2(825, 326)
+position = Vector2(798, 488)
 
 [node name="FilterMachine" parent="." instance=ExtResource("5_5e04j")]
-position = Vector2(927, 194)
+position = Vector2(567, 187)
+rotation = 1.5708
+
+[node name="SchizoMachine" parent="." node_paths=PackedStringArray("pill_spawnpoint") instance=ExtResource("6_k5335")]
+z_index = -1
+position = Vector2(1256, 458)
+pill_spawnpoint = NodePath("PillSpawnPoint")
+
+[node name="LoveHateWheel" parent="." node_paths=PackedStringArray("status_sprite", "wheel") instance=ExtResource("7_yxn88")]
+position = Vector2(899, 132)
+status_sprite = NodePath("StatusBar/Foreground")
+wheel = NodePath("Wheel")
+
+[node name="SleepyBell" parent="." instance=ExtResource("8_1ya4v")]
+position = Vector2(1122, 74)

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlkgxki62dgh8"]
+
+[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_k5msb"]
+
+[node name="SchizoPill" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.203125, 0.203125)
+texture = ExtResource("1_k5msb")

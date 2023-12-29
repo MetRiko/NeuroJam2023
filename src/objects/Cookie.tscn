@@ -9,6 +9,7 @@ radius = 12.0
 [node name="Cookie" instance=ExtResource("1_r72qe")]
 collision_layer = 4
 collision_mask = 2
+freeze = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0"]
 scale = Vector2(0.443124, 0.443124)

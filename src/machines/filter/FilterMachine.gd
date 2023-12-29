@@ -31,3 +31,4 @@ func lower_filter():
 
 func _physics_process(delta):
 	_lever_handle.apply_torque_impulse(lever_torque)
+	# TODO: Fix lever snapping to the other side
