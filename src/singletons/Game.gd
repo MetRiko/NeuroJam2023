@@ -4,7 +4,10 @@ extends Node
 @onready var world : World = root.get_node("World")
 
 func get_neuro_logic() -> NeuroLogic:
-	return root.get_node("World/Logic/NeuroLogic")
+	return world.get_neuro_logic()
 	
 func get_chat_logic() -> ChatLogic:
 	return world.get_chat_logic()
+
+func get_viewership_logic() -> ViewershipLogic:
+	return world.get_viewership_logic()
