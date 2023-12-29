@@ -79,6 +79,9 @@ func update_donowall_power(delta: float) -> void:
 func update_karaoke_status(active: bool) -> void:
     karaoke_active = active
 
+    if karaoke_active:
+        emotional_state = 0
+
 
 func update_sleep_status(active: bool) -> void:
     sleep_active = active
