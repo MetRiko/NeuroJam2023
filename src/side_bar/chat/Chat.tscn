@@ -1,0 +1,106 @@
+[gd_scene load_steps=3 format=3 uid="uid://dkehmxi1kf4bd"]
+
+[ext_resource type="Script" path="res://src/side_bar/chat/Chat.gd" id="1_fp8r6"]
+[ext_resource type="PackedScene" uid="uid://bma5rwm0gxnkw" path="res://src/side_bar/chat/ChatEntry.tscn" id="2_hpbxb"]
+
+[node name="Chat" type="Control" node_paths=PackedStringArray("chat_list")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 288.0
+offset_bottom = 456.0
+size_flags_vertical = 3
+script = ExtResource("1_fp8r6")
+chat_list = NodePath("ChatList")
+
+[node name="ChatList" type="VBoxContainer" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2880.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="ChatEntry" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry2" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry3" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry4" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry5" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry6" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry7" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry8" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry9" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry10" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry11" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry12" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry13" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry14" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry15" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry16" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")

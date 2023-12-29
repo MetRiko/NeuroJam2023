@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" path="res://src/logic/ChatLogic.gd" id="1_akn28"]
 [ext_resource type="PackedScene" uid="uid://bqc1xtpj2h1c5" path="res://src/side_bar/SideBar.tscn" id="1_cuiif"]
+[ext_resource type="Script" path="res://src/World.gd" id="1_ta7mb"]
 [ext_resource type="PackedScene" uid="uid://brk8apg1ijq2o" path="res://src/level/Level.tscn" id="2_dyt3k"]
 [ext_resource type="Script" path="res://src/logic/NeuroLogic.gd" id="2_jjnbv"]
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("chat_logic")]
+script = ExtResource("1_ta7mb")
+chat_logic = NodePath("Logic/ChatLogic")
 
 [node name="Logic" type="Node" parent="."]
 
