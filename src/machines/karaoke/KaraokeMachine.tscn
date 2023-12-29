@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=3 uid="uid://craftysak1elb"]
+
+[ext_resource type="Script" path="res://src/machines/karaoke/KaraokeMachine.gd" id="1_qsr5t"]
+[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_dq33p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1nkbr"]
+size = Vector2(130, 128)
+
+[node name="KaraokeMachine" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_qsr5t")
+notes_to_start = 10
+note_spawn_interval = 5.0
+karaoke_duration = 20.0
+off_color = Color(0.271541, 0.0258799, 0.215163, 1)
+available_color = Color(0.697534, 0.160606, 0.572609, 1)
+active_color = Color(0.966653, 0.792297, 0.905685, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
+texture = ExtResource("2_dq33p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1nkbr")
+
+[node name="NoteSpawnTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="KaraokeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="NoteIcon" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-12, 0)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("2_dq33p")
+
+[node name="NoteProgress" type="TextureProgressBar" parent="."]
+z_index = -1
+offset_left = 34.0
+offset_top = 58.0
+offset_right = 162.0
+offset_bottom = 186.0
+rotation = -1.5708
+scale = Vector2(0.9, 0.2)
+texture_progress = ExtResource("2_dq33p")

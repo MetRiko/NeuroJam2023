@@ -3,8 +3,8 @@ class_name Interactable
 
 
 func start_interacting():
-	pass
+    pass
 
 
 func stop_interacting():
-	pass
+    pass

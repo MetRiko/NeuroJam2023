@@ -1,0 +1,2 @@
+extends Grabbable
+class_name SchizoPill

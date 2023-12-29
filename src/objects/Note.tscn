@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgaparfy20ixt"]
+
+[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_a6tgt"]
+[ext_resource type="Script" path="res://src/objects/Note.gd" id="1_yyemd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n83b7"]
+radius = 18.0
+
+[node name="Note" type="Node2D" groups=["Note"]]
+script = ExtResource("1_yyemd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.296875, 0.296875)
+texture = ExtResource("1_a6tgt")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_n83b7")
