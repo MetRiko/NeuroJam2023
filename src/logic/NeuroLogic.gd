@@ -3,18 +3,21 @@ class_name NeuroLogic
 
 
 enum NeuroResponseType { SPEAK, SLEEPY, SINGING, TIMEOUT }
+enum NeuroResponseSpeakType { FILTERED, UNFILTERED, SCHIZO, ANGRY, MEMORIZED, HATE, NEUTRAL, LOVE }
 
 
 class NeuroResponse:
 	var type: NeuroResponseType
+	var speak_type: NeuroResponseSpeakType
 	var content: String
 
-	func _init(type: NeuroResponseType = NeuroResponseType.SPEAK, content: String = ""):
+	func _init(type: NeuroResponseType = NeuroResponseType.SPEAK, speak_type: NeuroResponseSpeakType = NeuroResponseSpeakType.NEUTRAL, content: String = ""):
 		self.type = type
+		self.speak_type = speak_type
 		self.content = content
 
 	func clone() -> NeuroResponse:
-		return NeuroResponse.new(self.type, self.content)
+		return NeuroResponse.new(self.type, self.speak_type, self.content)
 
 
 class WeightedNeuroResponse:
@@ -54,8 +57,8 @@ const NORMAL_RESPONSES = "normal"
 var _last_response: NeuroResponse
 
 
-func _get_speak_responses(type: String) -> Array:
-	return _responses["responses"][type].map(func(response): return NeuroResponse.new(NeuroResponseType.SPEAK, response))
+func _get_speak_responses(type: String, speak_type: NeuroResponseSpeakType = NeuroResponseSpeakType.NEUTRAL) -> Array:
+	return _responses["responses"][type].map(func(response): return NeuroResponse.new(NeuroResponseType.SPEAK, speak_type, response))
 
 
 func _make_weighted_responses(responses: Array, weight: int) -> Array:
@@ -87,7 +90,7 @@ func generate_response(action_type: NeuroAction.Type) -> NeuroResponse:
 		_:
 			normal_response_type = NORMAL_RESPONSES
 
-	_add_responses(response_pool, _get_speak_responses(normal_response_type), 1)
+	_add_responses(response_pool, _get_speak_responses(normal_response_type, NeuroResponseSpeakType.NEUTRAL), 1)
 
 	_handle_memory_solidification(response_pool)
 
@@ -122,10 +125,10 @@ func _handle_filter(response_pool: Array) -> bool:
 	var no_filter_prob = max(0, (0.5 - filter_power) * 2)
 
 	if random < filter_prob:
-		_add_responses(response_pool, _get_speak_responses(HIGH_FILTER_POWER_RESPONSES), clamp(pow(filter_prob, 2) * 1000, 1, 1000))
+		_add_responses(response_pool, _get_speak_responses(HIGH_FILTER_POWER_RESPONSES, NeuroResponseSpeakType.FILTERED), clamp(pow(filter_prob, 2) * 1000, 1, 1000))
 		return true
 	if random < no_filter_prob:
-		_add_responses(response_pool, _get_speak_responses(LOW_FILTER_POWER_RESPONSES), clamp(pow(no_filter_prob, 2) * 100, 1, 100))
+		_add_responses(response_pool, _get_speak_responses(LOW_FILTER_POWER_RESPONSES, NeuroResponseSpeakType.UNFILTERED), clamp(pow(no_filter_prob, 2) * 100, 1, 100))
 
 	return false
 
@@ -135,7 +138,9 @@ func _schizoify(response: NeuroResponse) -> NeuroResponse:
 	
 	var new_response = response.clone()
 	if new_response.type == NeuroResponseType.SPEAK and random < schizo_power:
-		new_response.content += "@"
+		new_response.speak_type = NeuroResponseSpeakType.SCHIZO
+		for i in range(int(schizo_power * 4)):
+			new_response.content = StringUtils.schizoify(new_response.content)
 
 	return new_response
 
@@ -149,7 +154,7 @@ func _handle_sleepy(response_pool: Array) -> void:
 func _handle_justice_factor_anger(response_pool: Array) -> void:
 	var random = randf()
 	if random < justice_factor:
-		_add_responses(response_pool, _get_speak_responses(JUSTICE_FACTOR_ANGRY_RESPONSES), clamp(pow(random * 10, 2), 1, 100))
+		_add_responses(response_pool, _get_speak_responses(JUSTICE_FACTOR_ANGRY_RESPONSES, NeuroResponseSpeakType.ANGRY), clamp(pow(random * 10, 2), 1, 100))
 
 
 func _handle_emotional_state(response_pool: Array) -> void:
@@ -158,28 +163,31 @@ func _handle_emotional_state(response_pool: Array) -> void:
 	var hateful_prob = max(0, (0.5 - emotional_state) * 2)
 
 	if random < hateful_prob:
-		_add_responses(response_pool, _get_speak_responses(HATEFUL_RESPONSES), clamp(pow(hateful_prob * 10, 2), 1, 100))
+		_add_responses(response_pool, _get_speak_responses(HATEFUL_RESPONSES, NeuroResponseSpeakType.HATE), clamp(pow(hateful_prob * 10, 2), 1, 100))
 	if random < lovely_prob:
-		_add_responses(response_pool, _get_speak_responses(LOVELY_RESPONSES), clamp(pow(lovely_prob * 10, 2), 1, 100))
+		_add_responses(response_pool, _get_speak_responses(LOVELY_RESPONSES, NeuroResponseSpeakType.LOVE), clamp(pow(lovely_prob * 10, 2), 1, 100))
 
 
 func _handle_memory_solidification(response_pool: Array) -> void:
 	var random = randf()
 	if random < memory_solidification_power and _last_response != null:
 		response_pool.clear()
-		_add_responses(response_pool, [_last_response], clamp(pow(random * 10, 2), 1, 100))
+
+		var response = _last_response.clone()
+		response.speak_type = NeuroResponseSpeakType.MEMORIZED
+		_add_responses(response_pool, [response], clamp(pow(random * 10, 2), 1, 100))
 
 
 func _handle_timeouts(response_pool: Array) -> void:
 	if justice_factor >= timeout_threshold:
 		response_pool.clear()
-		response_pool.append_array(_make_weighted_responses([NeuroResponse.new(NeuroResponseType.TIMEOUT, "")], 100))
+		response_pool.append_array(_make_weighted_responses([NeuroResponse.new(NeuroResponseType.TIMEOUT, NeuroResponseSpeakType.NEUTRAL, "")], 100))
 
 
 func _handle_karaoke(response_pool: Array) -> void:
 	if karaoke_active:
 		response_pool.clear()
-		response_pool.append_array(_make_weighted_responses([NeuroResponse.new(NeuroResponseType.SINGING, "")], 100))
+		response_pool.append_array(_make_weighted_responses([NeuroResponse.new(NeuroResponseType.SINGING, NeuroResponseSpeakType.NEUTRAL, "")], 100))
 
 
 # Called when the node enters the scene tree for the first time.

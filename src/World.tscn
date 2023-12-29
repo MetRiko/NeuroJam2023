@@ -17,8 +17,6 @@ script = ExtResource("1_akn28")
 
 [node name="NeuroLogic" type="Node" parent="Logic"]
 script = ExtResource("2_jjnbv")
-filter_power = 0.74
-schizo_power = 0.86
 
 [node name="Level" parent="." instance=ExtResource("2_dyt3k")]
 
