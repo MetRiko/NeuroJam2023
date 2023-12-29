@@ -1,11 +1,12 @@
 extends Node2D
 class_name NeuroAction
 
-enum Type { SUB, SUB_GIFT, BITS, DONATION, VEDAL, CHAT_NEUTRAL, CHAT_NEGATIVE, CHAT_POSITIVE, CHAT_HEART, CHAT_SWEAR, CHAT_QUESTION }
+enum Type { SUB, SUB_GIFT, BITS, DONATION, VEDAL, CHAT_NEUTRAL, CHAT_NEGATIVE, CHAT_POSITIVE, CHAT_HEART, CHAT_SWEAR, CHAT_QUESTION, EVENT_HATECOMMENT, EVENT_F_SPAM, EVENT_HI_SPAM }
 
 @export var message_type : Type
 
 var _is_new := true
+var to_be_destroyed := false
 
 
 func _ready():
@@ -25,12 +26,12 @@ func update_pos(pos: Vector2) -> void:
 	_is_new = false
 
 
-func destroy() -> void:
-	# print("%s - bye!" % message_type)
+func execute() -> void:
+	# print("%s - execute!" % message_type)
 
 	var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_EXPO).set_parallel(true)
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.2)
-	tween.tween_property(self, "position", Vector2.ZERO, 0.2)
+	if not to_be_destroyed:
+		tween.tween_property(self, "position", Vector2.ZERO, 0.2)
 	await tween.finished
 	queue_free() 
-	

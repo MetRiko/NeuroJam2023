@@ -20,10 +20,11 @@ func add_message(msg_type: NeuroAction.Type) -> void:
 	arrange_actions()
 
 
-func dequeue_message():
+func dequeue_message(destroy: bool = false):
 	if len(_actions) <= 0:
 		return null
 	var msg : NeuroAction = _actions.pop_front()
+	msg.to_be_destroyed = destroy
 	arrange_actions()
 	return msg.message_type
 
@@ -42,10 +43,10 @@ func arrange_actions() -> void:
 		add_child(action)
 	
 	for action in removed_actions:
-		action.destroy()
+		action.execute()
 
 	for i in range(len(_actions)):
-		var action_pos = Vector2.RIGHT * (i + 1) * (action_width + action_gap) * (1 if stack_right else -1)
+		var action_pos = Vector2.RIGHT * i * (action_width + action_gap) * (1 if stack_right else -1)
 		_actions[i].update_pos(action_pos)
 
 	_prev_actions.clear()

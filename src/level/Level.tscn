@@ -4,8 +4,6 @@
 
 [node name="Level" type="Node2D"]
 
-[node name="Core Machine" parent="." node_paths=PackedStringArray("sub_queue", "chat_queue", "handle_sub_btn", "handle_chat_btn") instance=ExtResource("1_thdch")]
-sub_queue = NodePath("SubQueue")
-chat_queue = NodePath("ChatQueue")
-handle_sub_btn = NodePath("Control/HandleSub")
+[node name="Core Machine" parent="." node_paths=PackedStringArray("chat_queue", "handle_chat_btn") instance=ExtResource("1_thdch")]
+chat_queue = NodePath("RightQueue")
 handle_chat_btn = NodePath("Control/HandleChat")

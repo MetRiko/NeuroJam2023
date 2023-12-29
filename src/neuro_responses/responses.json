@@ -8,15 +8,10 @@
 		"high_filter_power": [
 			"Filtered."
 		],
-		"high_schizo_power": [
-			"High schizo 1",
-			"High schizo 2",
-			"High schizo 3"
-		],
-		"clap_command_angry": [
-			"Clap command angry 1",
-			"Clap command angry 2",
-			"Clap command angry 3"
+		"justice_factor_angry": [
+			"Justice factor angry 1",
+			"Justice factor angry 2",
+			"Justice factor angry 3"
 		],
 		"hateful": [
 			"Hateful 1",
@@ -27,11 +22,6 @@
 			"Lovely 1",
 			"Lovely 2",
 			"Lovely 3"
-		],
-		"solidified_memory": [
-			"Solidified memory 1",
-			"Solidified memory 2",
-			"Solidified memory 3"
 		],
 		"sub_thank": [
 			"Sub thank 1",
@@ -52,6 +42,11 @@
 			"Normal 1",
 			"Normal 2",
 			"Normal 3"
+		],
+		"timeout": [
+			"Timeout 1",
+			"Timeout 2",
+			"Timeout 3"
 		]
 	}
 }
