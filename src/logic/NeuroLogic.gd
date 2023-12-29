@@ -2,7 +2,7 @@ extends Node
 class_name NeuroLogic
 
 
-signal new_response(response: ChatLogic.NeuroFinalAction)
+signal neuro_action_started(neuro_action: ChatLogic.NeuroFinalAction)
 
 
 class NeuroFinalActionChain:
@@ -111,7 +111,7 @@ func generate_response(action: ChatLogic.NeuroPlannedAction) -> ChatLogic.NeuroF
         if not chain.keep_going:
             break
 
-    new_response.emit(chain.action)
+    neuro_action_started.emit(chain.action)
 
     _action_count += 1
     do_natural_growth()
