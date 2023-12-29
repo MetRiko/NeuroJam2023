@@ -21,5 +21,6 @@ func _process(delta):
 
 
 func ding():
-    print("DING")
     print("Lower sleepy power by %s" % sleepy_lower_amount)
+    Game.get_neuro_logic().update_sleepy_power(-sleepy_lower_amount)
+    Game.get_neuro_logic().update_sleep_status(false)

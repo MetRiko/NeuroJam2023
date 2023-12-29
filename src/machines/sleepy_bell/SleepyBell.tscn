@@ -12,6 +12,7 @@ height = 50.0
 script = ExtResource("1_nxr72")
 bell = NodePath("Grabbable")
 ding_threshold = 0.3
+sleepy_lower_amount = 0.01
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -23,6 +24,7 @@ script = ExtResource("1_puk71")
 reset_position_on_grab = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Grabbable"]
+z_index = -1
 position = Vector2(0, 24)
 scale = Vector2(0.375, 0.375)
 texture = ExtResource("2_csyi6")

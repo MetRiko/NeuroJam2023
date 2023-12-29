@@ -23,7 +23,9 @@ func _on_eat(body):
 
 func eat_schizo_pill():
     print("Lower schizo by %s" % schizo_lower_amount)
+    Game.get_neuro_logic().update_schizo_power(-schizo_lower_amount)
 
 
 func eat_cookie():
     print("Lower anger by %s" % anger_lower_amount)
+    Game.get_neuro_logic().update_justice_factor(-anger_lower_amount)

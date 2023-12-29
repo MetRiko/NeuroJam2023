@@ -42,7 +42,9 @@ func _process(delta):
 
 func increase_love():
     print("Increase emotional state by %s" % adjustment_per_revolution)
+    Game.get_neuro_logic().update_emotional_state(adjustment_per_revolution)
 
 
 func increase_hate():
     print("Decrease emotional state by %s" % -adjustment_per_revolution)
+    Game.get_neuro_logic().update_emotional_state(-adjustment_per_revolution)

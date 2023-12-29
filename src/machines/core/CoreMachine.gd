@@ -5,31 +5,28 @@ extends Node2D
 @onready var _execute_action_timer : Timer = $ExecuteActionTimer
 
 
-signal new_message(msg_type: NeuroAction.Type)
-signal say_message(msg_type: NeuroAction.Type)
-
-
 func _input(event):
     if event is InputEventKey and not event.echo and event.pressed:
         match event.keycode:
             KEY_1:
-                add_chat_message()
+                var action := ChatLogic.NeuroPlannedAction.new()
+                action.category = ChatLogic.NeuroActionCategory.InterestingStuff
+                action.origin = ChatLogic.NeuroActionOrigin.Neuro
+                add_planned_action(action)
             KEY_2:
-                handle_chat_message()
+                handle_planned_action()
 
 
 func _ready():
-    _execute_action_timer.timeout.connect(handle_chat_message)
+    _execute_action_timer.timeout.connect(handle_planned_action)
     _execute_action_timer.start()
 
 
-func add_chat_message() -> void:
-    var msg_type := NeuroAction.Type.SUB
-    chat_queue.add_message(msg_type)
-    new_message.emit(msg_type)
+func add_planned_action(action: ChatLogic.NeuroPlannedAction) -> void:
+    chat_queue.add_message(action)
 
 
-func handle_chat_message() -> void:
+func handle_planned_action() -> void:
     handle_action(chat_queue.dequeue_message())
     _execute_action_timer.start()
 
@@ -39,10 +36,17 @@ func destroy_chat_message() -> void:
     _execute_action_timer.start()
 
 
-func handle_action(action_type) -> void:
-    if action_type != null:
-        say_message.emit(action_type)
-
-        var response = Game.get_neuro_logic().generate_response(action_type)
+func handle_action(action) -> void:
+    if action != null:
+        var response = Game.get_neuro_logic().generate_response(action)
         if response != null:
-            print("Neuro: %s - %s" % [NeuroLogic.NeuroResponseType.keys()[response.type], response.content])
+            print("Response: Category %s\nOrigin %s\nIntention %s\nContains bad words: %s\nOopsie: %s\nSchizo factor: %s\nTimeouted: %s\nTo Tutel: %s" % [
+                ChatLogic.NeuroActionCategory.keys()[response.category],
+                ChatLogic.NeuroActionOrigin.keys()[response.origin],
+                response.intention,
+                response.contains_bad_words,
+                ChatLogic.NeuroActionOopsie.keys()[response.action_oopsie],
+                response.schizo_factor,
+                response.neuro_timeouted_someone,
+                response.is_tutel_receiver
+            ])

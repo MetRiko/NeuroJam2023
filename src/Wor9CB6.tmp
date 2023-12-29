@@ -49,39 +49,31 @@ script = ExtResource("6_bwoap")
 [node name="FilterLabel" type="Label" parent="Hud/Content/VBoxContainer"]
 layout_mode = 2
 text = "aaaaaa"
-horizontal_alignment = 2
 
 [node name="SchizoLabel" type="Label" parent="Hud/Content/VBoxContainer"]
 layout_mode = 2
 text = "aaaaaa"
-horizontal_alignment = 2
 
 [node name="SleepyLabel" type="Label" parent="Hud/Content/VBoxContainer"]
 layout_mode = 2
 text = "aaaaaa"
-horizontal_alignment = 2
 
 [node name="JusticeLabel" type="Label" parent="Hud/Content/VBoxContainer"]
 layout_mode = 2
 text = "aaaaaa"
-horizontal_alignment = 2
 
 [node name="EmotionalLabel" type="Label" parent="Hud/Content/VBoxContainer"]
 layout_mode = 2
 text = "aaaaaa"
-horizontal_alignment = 2
 
 [node name="DonowallLabel" type="Label" parent="Hud/Content/VBoxContainer"]
 layout_mode = 2
 text = "aaaaaa"
-horizontal_alignment = 2
 
 [node name="KaraokeLabel" type="Label" parent="Hud/Content/VBoxContainer"]
 layout_mode = 2
 text = "aaaaaa"
-horizontal_alignment = 2
 
 [node name="SleepLabel" type="Label" parent="Hud/Content/VBoxContainer"]
 layout_mode = 2
 text = "aaaaaa"
-horizontal_alignment = 2

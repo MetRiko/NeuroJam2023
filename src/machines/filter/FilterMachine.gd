@@ -27,8 +27,8 @@ func _process(delta):
 
 func lower_filter():
     print("Lower filter by %s" % filter_lower_amount)
+    Game.get_neuro_logic().update_filter_power(-filter_lower_amount)
 
 
 func _physics_process(delta):
     _lever_handle.apply_torque_impulse(lever_torque)
-    # TODO: Fix lever snapping to the other side

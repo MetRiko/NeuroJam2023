@@ -2,203 +2,162 @@ extends Node
 class_name NeuroLogic
 
 
-enum NeuroResponseType { SPEAK, SLEEPY, SINGING, TIMEOUT }
-enum NeuroResponseSpeakType { FILTERED, UNFILTERED, SCHIZO, ANGRY, MEMORIZED, HATE, NEUTRAL, LOVE }
+signal new_response(response: ChatLogic.NeuroFinalAction)
 
 
-class NeuroResponse:
-	var type: NeuroResponseType
-	var speak_type: NeuroResponseSpeakType
-	var content: String
+class NeuroFinalActionChain:
+    var action: ChatLogic.NeuroFinalAction
+    var keep_going: bool
 
-	func _init(type: NeuroResponseType = NeuroResponseType.SPEAK, speak_type: NeuroResponseSpeakType = NeuroResponseSpeakType.NEUTRAL, content: String = ""):
-		self.type = type
-		self.speak_type = speak_type
-		self.content = content
-
-	func clone() -> NeuroResponse:
-		return NeuroResponse.new(self.type, self.speak_type, self.content)
-
-
-class WeightedNeuroResponse:
-	var response: NeuroResponse
-	var weight: int
-
-	func _init(response: NeuroResponse, weight: int):
-		self.response = response
-		self.weight = weight
+    func _init(action: ChatLogic.NeuroFinalAction):
+        self.action = action
+        self.keep_going = true
 
 
 @export var filter_power := 0.5					# Relative to the probability of a response getting filtered (and of bad messages being let through) - 0.5: sweet spot
 @export var schizo_power := 0.0					# Probability of Neuro going wild with her response
 @export var sleepy_power := 0.0					# Probability of Neuro going Bedge instead of responding to an action - do not click anything when sleepy, or else sleep increases
 @export var justice_factor := 0.0				# Probability of Neuro responding to an action with timing a chatter out instead of normally - grows when there's a lot of clapping
-@export var emotional_state := 0.5				# Neuro's emotional state: 0 - extremely hateful, 0.5 - neutral, 1 - extremely lovely
-@export var memory_solidification_power := 0.0	# Probability of Neuro repeating one single thing in her responses
+@export var emotional_state := 0.0				# Neuro's emotional state: -1 - extremely hateful, 0 - neutral, 1 - extremely lovely
+@export var donowall_power := 0.0				# Probability of Neuro ignoring an action
 
-@export var timeout_threshold := 0.9			# When the justice factor is larger than this, every action will result in a timeout instead
-
-@export var karaoke_active := false				# If active, all actions are ignored
-
-var _response_file_path = "res://src/neuro_responses/responses.json"
-var _responses
-
-const LOW_FILTER_POWER_RESPONSES = "low_filter_power"
-const HIGH_FILTER_POWER_RESPONSES = "high_filter_power"
-const JUSTICE_FACTOR_ANGRY_RESPONSES = "justice_factor_angry"
-const TIMEOUT_RESPONSES = "timeout"
-const HATEFUL_RESPONSES = "hateful"
-const LOVELY_RESPONSES = "lovely"
-const SUB_THANK_RESPONSES = "sub_thank"
-const BITS_THANK_RESPONSES = "bits_thank"
-const DONO_THANK_RESPONSES = "dono_thank"
-const NORMAL_RESPONSES = "normal"
-
-var _last_response: NeuroResponse
+@export var karaoke_active := false				# If active, all actions are ignored because karaoke's happening
+@export var sleep_active := false				# If active, all actions are ignored because Neuro dum-dum
 
 
-func _get_speak_responses(type: String, speak_type: NeuroResponseSpeakType = NeuroResponseSpeakType.NEUTRAL) -> Array:
-	return _responses["responses"][type].map(func(response): return NeuroResponse.new(NeuroResponseType.SPEAK, speak_type, response))
+@export var filter_growth_per_action = 0.01
+@export var schizo_growth_per_action = 0.01
+@export var sleepy_growth = 0.3
+@export var sleepy_growth_interval = 50
+@export var justice_growth_per_action = 0.01
+@export var justice_growth_per_timeout = 0.1
+@export var donowall_growth_per_action = 0.01
+
+var _action_count = 0
 
 
-func _make_weighted_responses(responses: Array, weight: int) -> Array:
-	return responses.map(func(response): return WeightedNeuroResponse.new(response, weight))
+func do_natural_growth() -> void:
+    update_filter_power(filter_growth_per_action)
+    update_schizo_power(schizo_growth_per_action)
+    if _action_count % sleepy_growth_interval == 0:
+         update_sleepy_power(sleepy_growth)
+    
+    update_justice_factor(justice_growth_per_action)
+    update_donowall_power(donowall_growth_per_action)
 
 
-func _add_responses(response_pool: Array, responses: Array, weight: int) -> void:
-	response_pool.append_array(_make_weighted_responses(responses, clamp(weight, 1, 1000000)))
+func update_filter_power(delta: float) -> void:
+    filter_power += delta
+    filter_power = clamp(filter_power, 0, 1)
 
 
-func generate_response(action_type: NeuroAction.Type) -> NeuroResponse:
-	var response_pool: Array = []
-
-	var filtered := _handle_filter(response_pool)
-	_handle_sleepy(response_pool)
-	_handle_justice_factor_anger(response_pool)
-	_handle_emotional_state(response_pool)
-
-	var normal_response_type: String
-	match action_type:
-		NeuroAction.Type.SUB:
-			normal_response_type = SUB_THANK_RESPONSES
-		NeuroAction.Type.SUB_GIFT:
-			normal_response_type = SUB_THANK_RESPONSES
-		NeuroAction.Type.BITS:
-			normal_response_type = BITS_THANK_RESPONSES
-		NeuroAction.Type.DONATION:
-			normal_response_type = DONO_THANK_RESPONSES
-		_:
-			normal_response_type = NORMAL_RESPONSES
-
-	_add_responses(response_pool, _get_speak_responses(normal_response_type, NeuroResponseSpeakType.NEUTRAL), 1)
-
-	_handle_memory_solidification(response_pool)
-
-	_handle_timeouts(response_pool)
-	_handle_karaoke(response_pool)
-
-	var response := _pick_random_response(response_pool)
-	_last_response = response
-	return _schizoify(response) if not filtered else response
+func update_schizo_power(delta: float) -> void:
+    schizo_power += delta
+    schizo_power = clamp(schizo_power, 0, 1)
 
 
-func _pick_random_response(response_pool: Array) -> NeuroResponse:
-	var sum_of_weights := 0
-	for choice in response_pool:
-		sum_of_weights += choice.weight
-		
-	if sum_of_weights == 0:
-		return null
-
-	var random := randi_range(0, sum_of_weights - 1)
-	for choice in response_pool:
-		if random < choice.weight:
-			return choice.response
-		random -= choice.weight
-	
-	return null
+func update_sleepy_power(delta: float) -> void:
+    sleepy_power += delta
+    sleepy_power = clamp(sleepy_power, 0, 1)
 
 
-func _handle_filter(response_pool: Array) -> bool:
-	var random = randf()
-	var filter_prob = max(0, (filter_power - 0.5) * 2)
-	var no_filter_prob = max(0, (0.5 - filter_power) * 2)
-
-	if random < filter_prob:
-		_add_responses(response_pool, _get_speak_responses(HIGH_FILTER_POWER_RESPONSES, NeuroResponseSpeakType.FILTERED), clamp(pow(filter_prob, 2) * 1000, 1, 1000))
-		return true
-	if random < no_filter_prob:
-		_add_responses(response_pool, _get_speak_responses(LOW_FILTER_POWER_RESPONSES, NeuroResponseSpeakType.UNFILTERED), clamp(pow(no_filter_prob, 2) * 100, 1, 100))
-
-	return false
+func update_justice_factor(delta: float) -> void:
+    justice_factor += delta
+    justice_factor = clamp(justice_factor, 0, 1)
 
 
-func _schizoify(response: NeuroResponse) -> NeuroResponse:
-	var random = randf()
-	
-	var new_response = response.clone()
-	if new_response.type == NeuroResponseType.SPEAK and random < schizo_power:
-		new_response.speak_type = NeuroResponseSpeakType.SCHIZO
-		for i in range(int(schizo_power * 4)):
-			new_response.content = StringUtils.schizoify(new_response.content)
-
-	return new_response
+func update_emotional_state(delta: float) -> void:
+    emotional_state += delta
+    emotional_state = clamp(emotional_state, -1, 1)
 
 
-func _handle_sleepy(response_pool: Array) -> void:
-	var random = randf()
-	if random < sleepy_power:
-		_add_responses(response_pool, [NeuroResponse.new(NeuroResponseType.SLEEPY)], int(random * 200))
+func update_donowall_power(delta: float) -> void:
+    donowall_power += delta
+    donowall_power = clamp(donowall_power, 0, 1)
 
 
-func _handle_justice_factor_anger(response_pool: Array) -> void:
-	var random = randf()
-	if random < justice_factor:
-		_add_responses(response_pool, _get_speak_responses(JUSTICE_FACTOR_ANGRY_RESPONSES, NeuroResponseSpeakType.ANGRY), clamp(pow(random * 10, 2), 1, 100))
+func update_karaoke_status(active: bool) -> void:
+    karaoke_active = active
 
 
-func _handle_emotional_state(response_pool: Array) -> void:
-	var random = randf()
-	var lovely_prob = max(0, (emotional_state - 0.5) * 2)
-	var hateful_prob = max(0, (0.5 - emotional_state) * 2)
-
-	if random < hateful_prob:
-		_add_responses(response_pool, _get_speak_responses(HATEFUL_RESPONSES, NeuroResponseSpeakType.HATE), clamp(pow(hateful_prob * 10, 2), 1, 100))
-	if random < lovely_prob:
-		_add_responses(response_pool, _get_speak_responses(LOVELY_RESPONSES, NeuroResponseSpeakType.LOVE), clamp(pow(lovely_prob * 10, 2), 1, 100))
+func update_sleep_status(active: bool) -> void:
+    sleep_active = active
 
 
-func _handle_memory_solidification(response_pool: Array) -> void:
-	var random = randf()
-	if random < memory_solidification_power and _last_response != null:
-		response_pool.clear()
-
-		var response = _last_response.clone()
-		response.speak_type = NeuroResponseSpeakType.MEMORIZED
-		_add_responses(response_pool, [response], clamp(pow(random * 10, 2), 1, 100))
-
-
-func _handle_timeouts(response_pool: Array) -> void:
-	if justice_factor >= timeout_threshold:
-		response_pool.clear()
-		response_pool.append_array(_make_weighted_responses([NeuroResponse.new(NeuroResponseType.TIMEOUT, NeuroResponseSpeakType.NEUTRAL, "")], 100))
+func _make_final_action(planned_action: ChatLogic.NeuroPlannedAction, intention: float):
+    var final_action = ChatLogic.NeuroFinalAction.new()
+    final_action.category = planned_action.category
+    final_action.origin = planned_action.origin
+    final_action.intention = intention
+    final_action.is_tutel_receiver = planned_action.origin == ChatLogic.NeuroActionOrigin.Vedal
+    return final_action
 
 
-func _handle_karaoke(response_pool: Array) -> void:
-	if karaoke_active:
-		response_pool.clear()
-		response_pool.append_array(_make_weighted_responses([NeuroResponse.new(NeuroResponseType.SINGING, NeuroResponseSpeakType.NEUTRAL, "")], 100))
+func generate_response(action: ChatLogic.NeuroPlannedAction) -> ChatLogic.NeuroFinalAction:
+    var chain = NeuroFinalActionChain.new(_make_final_action(action, emotional_state))
+
+    var handlers = [
+        _handle_sleepy, 
+        _handle_donowall, 
+        _handle_filter, 
+        _handle_schizo, 
+        _handle_timeouts
+    ]
+    for handler in handlers:
+        handler.call(chain)
+        if not chain.keep_going:
+            break
+
+    new_response.emit(chain.action)
+
+    _action_count += 1
+    do_natural_growth()
+
+    return chain.action
+
+
+func _handle_filter(chain: NeuroFinalActionChain) -> void:
+    var random = randf()
+    var filter_prob = max(0, (filter_power - 0.5) * 2)
+    var no_filter_prob = max(0, (0.5 - filter_power) * 2)
+
+    if random < filter_prob:
+        chain.action.action_oopsie = ChatLogic.NeuroActionOopsie.Filtered
+        chain.keep_going = false
+    if random < no_filter_prob:
+        chain.action.contains_bad_words = true
+
+
+func _handle_schizo(chain: NeuroFinalActionChain) -> void:
+    chain.action.schizo_factor = schizo_power
+
+
+func _handle_sleepy(chain: NeuroFinalActionChain) -> void:
+    if randf() < sleepy_power:
+        sleep_active = true
+
+    if sleep_active:
+        chain.action.action_oopsie = ChatLogic.NeuroActionOopsie.Slept
+        chain.keep_going = false
+
+
+func _handle_timeouts(chain: NeuroFinalActionChain) -> void:
+    if randf() < justice_factor:
+        chain.action.neuro_timeouted_someone = true
+        update_justice_factor(justice_growth_per_timeout)
+
+
+func _handle_donowall(chain: NeuroFinalActionChain) -> void:
+    if randf() < donowall_power:
+        chain.action.action_oopsie = ChatLogic.NeuroActionOopsie.Ignored
+        chain.keep_going = false
+
+
+func _handle_karaoke(chain: NeuroFinalActionChain) -> void:
+    if karaoke_active:
+        chain.keep_going = false
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	randomize()
-
-	if FileAccess.file_exists(_response_file_path):
-		var file = FileAccess.open(_response_file_path, FileAccess.READ)
-		_responses = JSON.parse_string(file.get_as_text())
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+    randomize()

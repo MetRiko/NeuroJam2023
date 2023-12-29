@@ -48,11 +48,13 @@ func start_interacting():
         notes_collected = 0
         karaoke_timer.start(karaoke_duration)
         note_icon.modulate = active_color
+        Game.get_neuro_logic().update_karaoke_status(true)
         print("Karaoke start")
 
         await karaoke_timer.timeout
 
         print("Karaoke end")
+        Game.get_neuro_logic().update_karaoke_status(false)
         note_icon.modulate = off_color
         _active = false
 

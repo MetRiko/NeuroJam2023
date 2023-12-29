@@ -13,3 +13,4 @@ func _ready():
 
 func _on_flush():
     print("Lower donowall by %s" % donowall_lower_amount)
+    Game.get_neuro_logic().update_donowall_power(-donowall_lower_amount)
