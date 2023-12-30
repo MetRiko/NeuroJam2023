@@ -32,7 +32,7 @@ func add_message(action: NeuroLogic.NeuroPlannedAction) -> void:
 func dequeue_message(offset: int = 0, destroy: bool = false):
     if len(_actions) <= 0 or offset >= len(_actions):
         return null
-    var msg : NeuroAction = _actions[offset]
+    var msg: NeuroAction = _actions[offset]
     _actions.pop_front()
     msg.to_be_destroyed = destroy
     arrange_actions()
@@ -56,7 +56,7 @@ func arrange_actions() -> void:
         action.execute()
 
     for i in range(len(_actions)):
-        var action_pos = Vector2.RIGHT * i * (action_width + action_gap) * (1 if stack_right else -1)
+        var action_pos = Vector2.RIGHT * (i + 0) * (action_width + action_gap) * (1 if stack_right else -1)
         _actions[i].update_pos(action_pos)
 
     _prev_actions.clear()
