@@ -317,7 +317,7 @@ func _handle_sleepy(chain: NeuroFinalActionChain) -> void:
         sleep_active = true
 
     if sleep_active:
-        chain.action.action_oopsie = NeuroActionOopsie.Ignored
+        chain.action.action_oopsie = NeuroActionOopsie.None
         chain.keep_going = false
 
 
