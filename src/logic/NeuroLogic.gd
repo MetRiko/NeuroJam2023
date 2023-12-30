@@ -3,11 +3,11 @@ class_name NeuroLogic
 
 
 enum NeuroActionOrigin {
-    Neuro, Chat, Vedal, Donation
+    Neuro, Chat, Vedal, Donation, Bomb
 }
 
 enum NeuroActionCategory {
-    PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+    None, PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
 }
 
 enum NeuroActionOopsie {

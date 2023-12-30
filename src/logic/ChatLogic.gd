@@ -36,6 +36,8 @@ var chat_entries : Array[ChatEntryData] = []
 var chat_cooldown_time := 0.0
 var current_neuro_action : NeuroLogic.NeuroFinalAction = null
 var previous_neuro_action : NeuroLogic.NeuroFinalAction = null
+var bomb_hype := 0.0
+var was_bomb_defused := false
 
 func get_chat_entries() -> Array[ChatEntryData]:
 	return chat_entries 
@@ -52,6 +54,12 @@ var chance_to_react_to_previous_message := 0.0
 
 func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction):
 	previous_neuro_action = current_neuro_action
+
+	if previous_neuro_action != null and previous_neuro_action.origin == NeuroLogic.NeuroActionOrigin.Bomb:
+		var neuro_logic := Game.get_neuro_logic()
+		bomb_hype = 1.0
+		was_bomb_defused = neuro_logic.latest_bomb_defused_successfully
+
 	current_neuro_action = neuro_action
 	chance_to_react_to_previous_message = randf() * 0.5
 
@@ -87,6 +95,12 @@ enum ChatResponseCategory {
 }
 
 func _generate_matching_chat_entry():
+	if bomb_hype > 0.0 and randf() < bomb_hype:
+		bomb_hype -= randf() * 0.05
+		var response_type := ChatResponseCategory.PogStuff if was_bomb_defused else ChatResponseCategory.Joke
+		_queue_chat_response(response_type)
+		return
+
 	if randf() < chance_to_react_to_previous_message:
 		chance_to_react_to_previous_message -= randf() * 0.15
 		chance_to_react_to_previous_message = max(chance_to_react_to_previous_message, 0.0)
