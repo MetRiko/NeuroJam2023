@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcb4h1td2hhtk"]
+[gd_scene load_steps=6 format=3 uid="uid://dcb4h1td2hhtk"]
 
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_bxgcn"]
 [ext_resource type="Script" path="res://src/machines/filter/FilterMachine.gd" id="1_ct0j5"]
@@ -9,9 +9,14 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gbt6n"]
 size = Vector2(12, 82)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ywdmg"]
+radius = 18.0278
+
 [node name="FilterMachine" type="Node2D"]
 script = ExtResource("1_ct0j5")
 lever_torque = -5000.0
+filter_lower_amount = 0.04
+filter_lower_interval = 0.3
 
 [node name="Base" type="StaticBody2D" parent="."]
 scale = Vector2(1, 0.0799999)
@@ -27,7 +32,7 @@ shape = SubResource("RectangleShape2D_uyk00")
 [node name="Handle" type="RigidBody2D" parent="."]
 collision_layer = 8
 collision_mask = 9
-mass = 20.0
+mass = 10.0
 gravity_scale = 0.0
 can_sleep = false
 
@@ -39,6 +44,22 @@ texture = ExtResource("1_bxgcn")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Handle"]
 position = Vector2(0, -41)
 shape = SubResource("RectangleShape2D_gbt6n")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Handle"]
+position = Vector2(0, -81)
+
+[node name="Sprite2D" type="Sprite2D" parent="Handle/RigidBody2D"]
+scale = Vector2(0.3125, 0.3125)
+texture = ExtResource("1_bxgcn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle/RigidBody2D"]
+shape = SubResource("CircleShape2D_ywdmg")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Handle"]
+position = Vector2(0, -81)
+node_a = NodePath("..")
+node_b = NodePath("../RigidBody2D")
+angular_limit_enabled = true
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 node_a = NodePath("../Base")

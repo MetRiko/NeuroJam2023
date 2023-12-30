@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=19 format=3 uid="uid://brk8apg1ijq2o"]
 
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
@@ -26,6 +26,9 @@ size = Vector2(128, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rifwp"]
 size = Vector2(906, 452)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u010i"]
+size = Vector2(1147, 578)
+
 [node name="Level" type="Node2D"]
 
 [node name="CoreMachine" parent="." node_paths=PackedStringArray("chat_queue") instance=ExtResource("1_thdch")]
@@ -33,8 +36,9 @@ position = Vector2(420, 648)
 scale = Vector2(0.68, 0.68)
 chat_queue = NodePath("RightQueue")
 
-[node name="Player" parent="." instance=ExtResource("2_hgt3e")]
+[node name="Player" parent="." node_paths=PackedStringArray("inbounds_area") instance=ExtResource("2_hgt3e")]
 position = Vector2(935, 331)
+inbounds_area = NodePath("../InboundsArea")
 
 [node name="Floor" type="StaticBody2D" parent="."]
 modulate = Color(0.281187, 0.281187, 0.281187, 1)
@@ -121,12 +125,12 @@ position = Vector2(1260, 453)
 pill_spawnpoint = NodePath("PillSpawnPoint")
 
 [node name="LoveHateWheel" parent="Machines" node_paths=PackedStringArray("status_sprite", "wheel") instance=ExtResource("7_yxn88")]
-position = Vector2(1015, 255)
+position = Vector2(1011, 307)
 status_sprite = NodePath("StatusBar/Foreground")
 wheel = NodePath("Wheel")
 
 [node name="SleepyBell" parent="Machines" node_paths=PackedStringArray("bell") instance=ExtResource("8_1ya4v")]
-position = Vector2(1178, 81)
+position = Vector2(1011, 59)
 bell = NodePath("Grabbable")
 
 [node name="KaraokeMachine" parent="Machines" node_paths=PackedStringArray("note_spawn_area") instance=ExtResource("9_2fh78")]
@@ -147,9 +151,17 @@ position = Vector2(1253, 203)
 button = NodePath("Button")
 
 [node name="NoteSpawnArea" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NoteSpawnArea"]
 position = Vector2(822, 291)
 shape = SubResource("RectangleShape2D_rifwp")
 
 [node name="NeuroActionScreen" parent="." instance=ExtResource("13_ww6ex")]
+
+[node name="InboundsArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InboundsArea"]
+position = Vector2(819.5, 292)
+shape = SubResource("RectangleShape2D_u010i")
+debug_color = Color(0.405078, 0.607678, 9.62615e-07, 0.42)

@@ -13,11 +13,12 @@ func _ready():
 
 
 func _on_flush():
-    print("Reset fixation, donowall on for %s secs" % donowall_time)
-    Game.get_neuro_logic().update_donowall_status(true)
-    Game.get_neuro_logic().reset_fixation()
+    if not Game.get_neuro_logic().donowall_active:
+        print("Reset fixation, donowall on for %s secs" % donowall_time)
+        Game.get_neuro_logic().update_donowall_status(true)
+        Game.get_neuro_logic().reset_fixation()
 
-    _donowall_timer.start(donowall_time)
-    await _donowall_timer.timeout
-    
-    Game.get_neuro_logic().update_donowall_status(false)
+        _donowall_timer.start(donowall_time)
+        await _donowall_timer.timeout
+        
+        Game.get_neuro_logic().update_donowall_status(false)

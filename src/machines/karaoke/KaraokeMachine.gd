@@ -28,7 +28,6 @@ var notes_collected: int:
 @export var max_notes_in_world: int = 3
 
 var _active = false
-var _progress_tween: Tween
 
 
 func _ready():
@@ -36,8 +35,6 @@ func _ready():
     note_progress_bar.value = 0
     note_spawn_timer.start(note_spawn_interval)
     note_spawn_timer.timeout.connect(spawn_note)
-
-    _progress_tween = create_tween().set_trans(Tween.TRANS_LINEAR)
 
     note_icon.modulate = off_color
 
