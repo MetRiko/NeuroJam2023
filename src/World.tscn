@@ -24,8 +24,6 @@ script = ExtResource("2_jjnbv")
 filter_growth_per_action = 0.006
 schizo_growth_per_action = 0.006
 sleepy_growth = 0.1
-justice_growth_per_action = 0.007
-donowall_growth_per_action = 0.003
 
 [node name="ViewershipLogic" type="Node" parent="Logic"]
 script = ExtResource("4_q44ob")

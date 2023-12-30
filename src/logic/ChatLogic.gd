@@ -118,9 +118,10 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 	if neuro_logic.karaoke_active:
 		return ChatResponseCategory.Karaoke
 
-	match neuro_action.action_oopsie:
-		NeuroLogic.NeuroActionOopsie.Slept:
-			return ChatResponseCategory.Bedge
+	if neuro_logic.sleep_active:
+		return ChatResponseCategory.Bedge
+
+	match neuro_action.action_oopsie:			
 		NeuroLogic.NeuroActionOopsie.Ignored:
 			return ChatResponseCategory.Ignored
 		NeuroLogic.NeuroActionOopsie.Filtered:

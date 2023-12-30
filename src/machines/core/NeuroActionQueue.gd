@@ -13,6 +13,15 @@ var _prev_actions : Array[NeuroAction] = []
 @export var action_gap = 16
 
 
+func size() -> int:
+    return len(_actions)
+
+
+func clear() -> void:
+    _actions.clear()
+    arrange_actions()
+
+
 func add_message(action: NeuroLogic.NeuroPlannedAction) -> void:
     var action_inst: NeuroAction = action_tscn.instantiate()
     action_inst.action = action

@@ -14,7 +14,6 @@ radius = 25.02
 
 [node name="EatingTube" type="Node2D"]
 script = ExtResource("1_24od1")
-anger_lower_amount = 0.4
 schizo_lower_amount = 0.4
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

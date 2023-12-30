@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var eat_trigger_area: Area2D = $EatTrigger
 
-@export var anger_lower_amount: float
 @export var schizo_lower_amount: float
 
 
@@ -18,7 +17,6 @@ func _on_eat(body):
     elif body is Cookie:
         eat_cookie()
         body.queue_free()
-    
 
 
 func eat_schizo_pill():
@@ -27,5 +25,5 @@ func eat_schizo_pill():
 
 
 func eat_cookie():
-    print("Lower anger by %s" % anger_lower_amount)
-    Game.get_neuro_logic().update_justice_factor(-anger_lower_amount)
+    print("Set cookie flag")
+    Game.get_neuro_logic().give_cookie()

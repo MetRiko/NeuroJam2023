@@ -6,8 +6,12 @@ extends Node2D
 @onready var _new_action_timer : Timer = $NewActionTimer
 
 @export var execute_action_interval: float = 3.2
+@export var execute_action_variance: float = 0.5
 
-@export var new_action_interval: float = 3.2    # TODO: Make this dependent on viewer count?
+@export var new_action_interval: float = 3.2
+@export var new_action_variance: float = 0.5
+
+@export var planned_action_limit: int = 20
 
 
 func _input(event):
@@ -25,44 +29,36 @@ func _input(event):
 func _ready():
     randomize()
     _execute_action_timer.timeout.connect(handle_planned_action)
-    _execute_action_timer.start(execute_action_interval)
-
     _new_action_timer.timeout.connect(func(): add_random_planned_action(); _new_action_timer.start(new_action_interval))
-    _new_action_timer.start(new_action_interval)
+
+    Game.do_reset.connect(reset)
+
+    reset()
+
+
+func reset() -> void:
+    chat_queue.clear()
+
+    _execute_action_timer.start(execute_action_interval + randf_range(-1, 1) * execute_action_variance)
+    _new_action_timer.start(new_action_interval + randf_range(-1, 1) * new_action_variance)
 
     add_hi_action()
 
 
 func add_hi_action() -> void:
     var hi_action = NeuroLogic.NeuroPlannedAction.new()
-    hi_action.origin = NeuroLogic.NeuroActionOrigin.Neuro
+    hi_action.origin = NeuroLogic.NeuroActionOrigin.Chat
     hi_action.category = NeuroLogic.NeuroActionCategory.HiChat
     add_planned_action(hi_action)
 
 
 func add_random_planned_action() -> void:
-    var origin = randi() % len(NeuroLogic.NeuroActionOrigin.keys()) as NeuroLogic.NeuroActionOrigin
-
-    var categories = [ 
-        NeuroLogic.NeuroActionCategory.PogStuff, 
-        NeuroLogic.NeuroActionCategory.AboutHerself, 
-        NeuroLogic.NeuroActionCategory.InterestingStuff, 
-        NeuroLogic.NeuroActionCategory.Joke, 
-        NeuroLogic.NeuroActionCategory.Story, 
-        NeuroLogic.NeuroActionCategory.CorpaMoment, 
-        NeuroLogic.NeuroActionCategory.Question, 
-        NeuroLogic.NeuroActionCategory.Answer
-    ]
-    var category = categories[randi() % len(categories)]
-
-    var action = NeuroLogic.NeuroPlannedAction.new()
-    action.origin = origin
-    action.category = category
-    add_planned_action(action)
+    add_planned_action(Game.get_neuro_logic().plan_random_action())
 
 
 func add_planned_action(action: NeuroLogic.NeuroPlannedAction) -> void:
-    chat_queue.add_message(action)
+    if chat_queue.size() < planned_action_limit:
+        chat_queue.add_message(action)
 
 
 func handle_planned_action() -> void:
