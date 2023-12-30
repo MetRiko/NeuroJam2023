@@ -22,7 +22,7 @@ size = Vector2(763, 515)
 [node name="Level" type="Node2D"]
 
 [node name="CoreMachine" parent="." node_paths=PackedStringArray("chat_queue") instance=ExtResource("1_thdch")]
-position = Vector2(81, 640)
+position = Vector2(476, 648)
 scale = Vector2(0.68, 0.68)
 chat_queue = NodePath("RightQueue")
 
