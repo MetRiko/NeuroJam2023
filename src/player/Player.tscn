@@ -39,8 +39,8 @@ position = Vector2(0, 25)
 node_a = NodePath("..")
 
 [node name="InteractionArea2D" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
+collision_layer = 20
+collision_mask = 20
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
 shape = SubResource("RectangleShape2D_653yr")

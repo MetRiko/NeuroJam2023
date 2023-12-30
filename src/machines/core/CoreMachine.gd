@@ -4,6 +4,8 @@ extends Node2D
 @export var chat_queue : NeuroActionQueue
 @onready var _execute_action_timer : Timer = $ExecuteActionTimer
 
+@export var execute_action_interval: float = 3.2
+
 
 func _input(event):
     if event is InputEventKey and event.pressed:
@@ -19,7 +21,7 @@ func _input(event):
 
 func _ready():
     _execute_action_timer.timeout.connect(handle_planned_action)
-    _execute_action_timer.start()
+    _execute_action_timer.start(execute_action_interval)
 
 
 func add_planned_action(action: NeuroLogic.NeuroPlannedAction) -> void:
