@@ -39,7 +39,7 @@ func _ready():
 
 func add_hi_action() -> void:
     var hi_action = NeuroLogic.NeuroPlannedAction.new()
-    hi_action.origin = NeuroLogic.NeuroActionOrigin.Neuro
+    hi_action.origin = NeuroLogic.NeuroActionOrigin.Chat
     hi_action.category = NeuroLogic.NeuroActionCategory.HiChat
     add_planned_action(hi_action)
 

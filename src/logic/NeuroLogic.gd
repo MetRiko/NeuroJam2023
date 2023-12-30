@@ -73,6 +73,7 @@ var latest_bomb_defused_successfully := false
 @export var justice_factor_variance_frequency = 0.01
 
 var _action_count = 0
+var _has_vedal_appeared := false
 
 @export var origin_weights: Dictionary = {
     NeuroActionOrigin.Neuro: 5, 
@@ -91,8 +92,6 @@ var _action_count = 0
     NeuroActionCategory.CorpaMoment: 1, 
     NeuroActionCategory.Question: 1, 
     NeuroActionCategory.Answer: 1,
-    NeuroActionCategory.HiChat: 1,
-    NeuroActionCategory.None: 1,
 }
 
 var _categories_by_origin: Dictionary = {
@@ -150,12 +149,17 @@ func reset_fixation() -> void:
 
 func plan_random_action() -> NeuroPlannedAction:
     var origin = WeightedRandom.pick_random(origin_weights)
+    
+    var category: NeuroActionCategory
+    if origin == NeuroActionOrigin.Vedal and not _has_vedal_appeared:
+        category = NeuroActionCategory.HiChat
+        _has_vedal_appeared = true
+    else:
+        var categories := {}
+        for cat in _categories_by_origin[origin]:
+            categories[cat] = category_weights[cat] if cat in category_weights else 1
 
-    var categories := {}
-    for category in _categories_by_origin[origin]:
-        categories[category] = category_weights[category]
-
-    var category = WeightedRandom.pick_random(categories)
+        category = WeightedRandom.pick_random(categories)
 
     var action = NeuroLogic.NeuroPlannedAction.new()
     action.origin = origin
@@ -259,7 +263,7 @@ func generate_response(action: NeuroPlannedAction) -> NeuroFinalAction:
             break
 
     latest_bomb_defused_successfully = prev_action_was_bomb and prev_action_had_cookie
-    
+
     neuro_action_started.emit(chain.action)
     prev_action_had_cookie = false
     prev_action_was_bomb = chain.action.origin == NeuroActionOrigin.Bomb
