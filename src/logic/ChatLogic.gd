@@ -95,7 +95,7 @@ func _generate_matching_chat_entry():
 	if post_additional_comment_instead:
 		var comment_types := []
 
-		if current_neuro_action.is_tutel_reciver:
+		if current_neuro_action.is_tutel_receiver:
 			comment_types.append(1)
 			
 		if current_neuro_action.contains_bad_words:
@@ -106,7 +106,7 @@ func _generate_matching_chat_entry():
 
 		if comment_types.size() > 0:
 			match comment_types.pick_random():
-				1:	# is_tutel_reciver -> Tutel
+				1:	# is_tutel_receiver -> Tutel
 					_queue_chat_answer("tutel")
 				2:	# contains_bad_words -> D:
 					_queue_chat_answer("bad_words")
@@ -139,7 +139,7 @@ func _generate_matching_chat_entry():
 			_queue_chat_answer("pog_stuff")
 		NeuroLogic.NeuroActionCategory.AboutHerself:
 			_queue_chat_answer("about_herself")
-		NeuroLogic.NeuroActionCategory.IterestingStuff:
+		NeuroLogic.NeuroActionCategory.InterestingStuff:
 			_queue_chat_answer("iteresting_stuff")
 		NeuroLogic.NeuroActionCategory.Joke:
 			_queue_chat_answer("joke")
@@ -159,7 +159,7 @@ func _generate_matching_chat_entry():
 # }
 
 # enum NeuroActionCategory {
-# 	PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+# 	PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
 # }
 
 # enum NeuroActionOopsie {
@@ -168,7 +168,7 @@ func _generate_matching_chat_entry():
 
 # class NeuroPlannedAction:
 # 	var origin : NeuroActionOrigin # Neuro, Chat, Vedal, Donation
-# 	var category : NeuroActionCategory # PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer
+# 	var category : NeuroActionCategory # PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer
 
 # class NeuroFinalAction extends NeuroPlannedAction:
 # 	# var message : String # will be getter, depends on category
@@ -177,4 +177,4 @@ func _generate_matching_chat_entry():
 # 	var action_oopsie : NeuroActionOopsie
 # 	var schizo_factor : float
 # 	var neuro_timeouted_someone : bool
-# 	var is_tutel_reciver : bool
+# 	var is_tutel_receiver : bool

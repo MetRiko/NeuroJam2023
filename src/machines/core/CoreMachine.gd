@@ -12,7 +12,7 @@ func _input(event):
         match event.keycode:
             KEY_1:
                 var action := NeuroLogic.NeuroPlannedAction.new()
-                action.category = NeuroLogic.NeuroActionCategory.IterestingStuff
+                action.category = NeuroLogic.NeuroActionCategory.InterestingStuff
                 action.origin = NeuroLogic.NeuroActionOrigin.Neuro
                 add_planned_action(action)
             KEY_2:
@@ -50,5 +50,5 @@ func handle_action(action) -> void:
                 NeuroLogic.NeuroActionOopsie.keys()[response.action_oopsie],
                 response.schizo_factor,
                 response.neuro_timeouted_someone,
-                response.is_tutel_reciver
+                response.is_tutel_receiver
             ])

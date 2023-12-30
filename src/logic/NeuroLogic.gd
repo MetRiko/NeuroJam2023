@@ -7,7 +7,7 @@ enum NeuroActionOrigin {
 }
 
 enum NeuroActionCategory {
-    PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+    PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
 }
 
 enum NeuroActionOopsie {
@@ -16,7 +16,7 @@ enum NeuroActionOopsie {
 
 class NeuroPlannedAction:
     var origin : NeuroActionOrigin # Neuro, Chat, Vedal, Donation
-    var category : NeuroActionCategory # PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer
+    var category : NeuroActionCategory # PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer
 
 class NeuroFinalAction extends NeuroPlannedAction:
     # var message : String # will be getter, depends on category
@@ -25,7 +25,7 @@ class NeuroFinalAction extends NeuroPlannedAction:
     var action_oopsie : NeuroActionOopsie
     var schizo_factor : float
     var neuro_timeouted_someone : bool
-    var is_tutel_reciver : bool
+    var is_tutel_receiver : bool
 
 
 signal neuro_action_started(neuro_action: NeuroFinalAction)
@@ -118,7 +118,7 @@ func _make_final_action(planned_action: NeuroPlannedAction, intention: float):
     final_action.category = planned_action.category
     final_action.origin = planned_action.origin
     final_action.intention = intention
-    final_action.is_tutel_reciver = planned_action.origin == NeuroActionOrigin.Vedal
+    final_action.is_tutel_receiver = planned_action.origin == NeuroActionOrigin.Vedal
     return final_action
 
 
