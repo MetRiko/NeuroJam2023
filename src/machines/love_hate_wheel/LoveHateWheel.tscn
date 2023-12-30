@@ -12,7 +12,7 @@ script = ExtResource("1_wigi7")
 love_status_texture = ExtResource("2_y8745")
 hate_status_texture = ExtResource("2_y8745")
 status_sprite = NodePath("StatusBar/Foreground")
-adjustment_per_revolution = 0.05
+adjustment_per_revolution = 0.1
 wheel = NodePath("Wheel")
 wheel_speed_for_max_brightness = 20.0
 

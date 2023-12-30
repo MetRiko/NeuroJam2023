@@ -102,8 +102,7 @@ func _generate_matching_chat_entry():
 		return
 
 	if randf() < chance_to_react_to_previous_message:
-		chance_to_react_to_previous_message -= randf() * 0.15
-		chance_to_react_to_previous_message = max(chance_to_react_to_previous_message, 0.0)
+		chance_to_react_to_previous_message -= randf_range(0.05, 0.15)
 		var response_category := _determine_chat_response_category(previous_neuro_action)
 		_queue_chat_response(response_category)
 	else:
@@ -127,6 +126,10 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 		NeuroLogic.NeuroActionOopsie.Filtered:
 			return ChatResponseCategory.Filtered
 
+	# schizo_factor
+	if randf() < neuro_action.schizo_factor:
+		return ChatResponseCategory.Schizo
+		
 	var post_additional_comment_instead := randf() < 0.2
 	if post_additional_comment_instead:
 		var comment_types := []
@@ -142,10 +145,6 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 				1:	return ChatResponseCategory.Tutel
 				2:	return ChatResponseCategory.BadWords
 				3:	return ChatResponseCategory.Timeout
-
-	# schizo_factor
-	if randf() < neuro_action.schizo_factor:
-		return ChatResponseCategory.Schizo
 
 	# pick reaction to intention
 	var intention_factor := absf(neuro_action.intention)
