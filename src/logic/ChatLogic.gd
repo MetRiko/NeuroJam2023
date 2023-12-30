@@ -56,12 +56,12 @@ func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction):
 	previous_neuro_action = current_neuro_action
 
 	if previous_neuro_action != null and previous_neuro_action.origin == NeuroLogic.NeuroActionOrigin.Bomb:
-		var neuro_logic := Game.get_neuro_logic()
+		var neuro_logic : NeuroLogic = Game.get_neuro_logic()
 		bomb_hype = 1.0
 		was_bomb_defused = neuro_logic.latest_bomb_defused_successfully
 
 	current_neuro_action = neuro_action
-	chance_to_react_to_previous_message = randf() * 0.5
+	chance_to_react_to_previous_message = randf() * 0.3
 
 func _process(delta):
 	chat_cooldown_time -= delta
@@ -121,7 +121,7 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 	if neuro_logic.sleep_active:
 		return ChatResponseCategory.Bedge
 
-	match neuro_action.action_oopsie:			
+	match neuro_action.action_oopsie:
 		NeuroLogic.NeuroActionOopsie.Ignored:
 			return ChatResponseCategory.Ignored
 		NeuroLogic.NeuroActionOopsie.Filtered:

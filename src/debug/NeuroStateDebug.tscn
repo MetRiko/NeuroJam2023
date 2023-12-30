@@ -13,60 +13,120 @@ script = ExtResource("1_pa222")
 
 [node name="FilterLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="SchizoLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="SleepyLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="JusticeLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="EmotionalLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="DonowallLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="KaraokeLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="SleepLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="TimeoutBlockLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="HadCookieLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="LatestBombDefusedLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "aaaaaa"
 horizontal_alignment = 2
 
 [node name="CategoryWeightLabel" type="Label" parent="."]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.13913, 0.13913, 0.13913, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 6
 text = "Categories"
 horizontal_alignment = 2

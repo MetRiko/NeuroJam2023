@@ -101,8 +101,9 @@ position = Vector2(871, 507)
 [node name="Flusher" parent="." instance=ExtResource("12_7wsug")]
 position = Vector2(645, 45)
 
-[node name="AntiTimeoutMachine" parent="." instance=ExtResource("13_x0fab")]
+[node name="AntiTimeoutMachine" parent="." node_paths=PackedStringArray("button") instance=ExtResource("13_x0fab")]
 position = Vector2(1253, 203)
+button = NodePath("Button")
 
 [node name="Walls" type="Node2D" parent="."]
 

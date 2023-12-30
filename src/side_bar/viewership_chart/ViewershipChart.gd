@@ -4,7 +4,7 @@ extends Control
 @export var line : Line2D
 @export var viewers_amount_label : Label
 
-const max_points_count := 100
+const max_points_count := 500
 var viewership_list : Array[int] = []
 var viewership_start_idx := 0
 
@@ -23,7 +23,8 @@ func _ready():
 func _on_viewership_changed(viewership : int) -> void:
 	push_viewership(viewership)
 	_update_chart()
-	viewers_amount_label.text = str(viewership)
+	var fake_viewership := viewership / 10
+	viewers_amount_label.text = str(fake_viewership)
 	
 func push_viewership(viewership : int) -> void:
 	if viewership_list.size() < max_points_count:
@@ -44,17 +45,25 @@ func _update_chart():
 		var min_viewership : int = viewership_list.min()
 		var y_axis_max := line_rect.get_rect().size.y
 
-		for i : int in points_count:
-			var idx := (i + viewership_start_idx) % max_points_count
-			var viewership := viewership_list[idx]
-			var horizontal_factor := float(i) / (max_points_count - 1)
+		if max_viewership == min_viewership:
+			for i : int in points_count:
+				var horizontal_factor := float(i) / (max_points_count - 1)
+				var point := left_point.lerp(right_point, horizontal_factor)
+				point.y += 0.5 * y_axis_max
+				new_points.append(point)
 
-			var point := left_point.lerp(right_point, horizontal_factor)
+		else:
+			for i : int in points_count:
+				var idx := (i + viewership_start_idx) % max_points_count
+				var viewership := viewership_list[idx]
+				var horizontal_factor := float(i) / (max_points_count - 1)
 
-			var vertical_factor := inverse_lerp(min_viewership, max_viewership, viewership)
-			point.y -= (vertical_factor - 0.5) * y_axis_max
+				var point := left_point.lerp(right_point, horizontal_factor)
 
-			new_points.append(point)
+				var vertical_factor := inverse_lerp(min_viewership, max_viewership, viewership)
+				point.y -= (vertical_factor - 0.5) * y_axis_max
+
+				new_points.append(point)
 	
 	line.points = new_points
 

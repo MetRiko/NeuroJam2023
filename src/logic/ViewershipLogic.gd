@@ -23,6 +23,8 @@ var bad_wording_counter := 0
 
 var bomb_defused_hype := 0.0
 
+var current_neuro_action : NeuroLogic.NeuroFinalAction = null
+
 # + karaoke
 
 func _init():
@@ -33,14 +35,23 @@ func _init():
 
 func _ready():
 	randomize()
-	$Timer.timeout.connect(_on_timer_timeout)
+	# $Timer.timeout.connect(_on_timer_timeout)
 	Game.get_neuro_logic().neuro_action_started.connect(_on_neuro_action_started)
+	await get_tree().process_frame
+	_add_viewers(0)
+
+var next_viewership_time := 0.0
 
 func _process(delta):
 	stream_time += delta
 	
-func _on_timer_timeout():
-	_update_viewership()
+	next_viewership_time -= randf_range(5.0, 8.0) * delta
+	if next_viewership_time <= 0.0:
+		_update_viewership()
+		next_viewership_time += 1.0
+	
+# func _on_timer_timeout():
+# 	_update_viewership()
 	
 func _push_category(category : NeuroLogic.NeuroActionCategory) -> void:
 	latest_categories[latest_categories_start_idx] = category
@@ -51,6 +62,7 @@ func _push_intention(intention_level : int) -> void:
 	latest_intentions_start_idx = (latest_intentions_start_idx + 1) % max_latest_intentions_count
 
 func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction) -> void:
+	current_neuro_action = neuro_action
 	if neuro_action == null:
 		return
 
@@ -62,10 +74,10 @@ func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction) -> voi
 	donowall_counter = max(donowall_counter - 1, 0)
 	filter_counter = max(filter_counter - 1, 0)
 
+	if neuro_logic.sleep_active:
+		bedge_counter = min(bedge_counter + 2, 24)  # tylko pierwsze 1..8 daje hype
+
 	match neuro_action.action_oopsie:
-		NeuroLogic.NeuroActionOopsie.Slept:
-			bedge_counter = min(bedge_counter + 2, 24)  # tylko pierwsze 1..8 daje hype
-			return
 		NeuroLogic.NeuroActionOopsie.Ignored:
 			donowall_counter = min(donowall_counter + 2, 24)  # tylko pierwsze 1..8 daje hype
 			return
@@ -106,7 +118,10 @@ func _calculate_viewership_increment(counter : int, increment_border : int, view
 	return int(viewership_multiplier * factor)
 
 func _update_viewership():
-	var neuro_logic := Game.get_neuro_logic()
+	if current_neuro_action == null:
+		return
+
+	var neuro_logic : NeuroLogic = Game.get_neuro_logic()
 	if neuro_logic.karaoke_active:
 		_add_viewers(randi_range(0, 50))
 		return
@@ -117,13 +132,25 @@ func _update_viewership():
 		new_viewers += int(bomb_defused_hype * randi_range(0, 20))
 		bomb_defused_hype -= randf() * 0.1
 
-	new_viewers += _calculate_viewership_increment(filter_counter, 8, 10.0)
-	new_viewers += _calculate_viewership_increment(donowall_counter, 8, 10.0)
-	new_viewers += _calculate_viewership_increment(bedge_counter, 8, 10.0)
-	new_viewers += _calculate_viewership_increment(timeouts_counter, 8, 10.0)
-	new_viewers += _calculate_viewership_increment(bad_wording_counter, 8, 10.0)
+	var viewers_increment_by_counters : Array[int] = [
+		_calculate_viewership_increment(filter_counter, 4, 10.0),
+		_calculate_viewership_increment(donowall_counter, 4, 10.0),
+		_calculate_viewership_increment(bedge_counter, 4, 10.0),
+		_calculate_viewership_increment(timeouts_counter, 4, 10.0),
+		_calculate_viewership_increment(bad_wording_counter, 4, 10.0)
+	]
 
-	new_viewers -= int(schizo_factor * 10.0)
+	var min_increment_by_counters : int = viewers_increment_by_counters.min()
+	var max_increment_by_counters : int = viewers_increment_by_counters.max()
+	new_viewers += min_increment_by_counters if abs(min_increment_by_counters) > max_increment_by_counters else max_increment_by_counters
+
+	# new_viewers += _calculate_viewership_increment(filter_counter, 4, 10.0)
+	# new_viewers += _calculate_viewership_increment(donowall_counter, 4, 10.0)
+	# new_viewers += _calculate_viewership_increment(bedge_counter, 4, 10.0)
+	# new_viewers += _calculate_viewership_increment(timeouts_counter, 4, 10.0)
+	# new_viewers += _calculate_viewership_increment(bad_wording_counter, 4, 10.0)
+
+	new_viewers -= int(schizo_factor * 20.0)
 
 	if tutel_hype:
 		new_viewers += randi_range(0, 10)
@@ -152,7 +179,7 @@ func _update_viewership():
 
 	for category in categories:
 		var category_count : int = categories[category]
-		new_viewers += _calculate_viewership_increment(category_count, 4, 5.0)
+		new_viewers += min(0, _calculate_viewership_increment(category_count, 3, 5.0))
 
 	_add_viewers(new_viewers)
 
