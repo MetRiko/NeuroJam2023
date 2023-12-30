@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://bte0qlekgk630" path="res://src/machines/love_hate_wheel/LoveHateWheel.tscn" id="7_yxn88"]
 [ext_resource type="PackedScene" uid="uid://t1dfcgjipsnk" path="res://src/machines/sleepy_bell/SleepyBell.tscn" id="8_1ya4v"]
 [ext_resource type="PackedScene" uid="uid://craftysak1elb" path="res://src/machines/karaoke/KaraokeMachine.tscn" id="9_2fh78"]
-[ext_resource type="PackedScene" uid="uid://cgaparfy20ixt" path="res://src/objects/Note.tscn" id="10_i1hkf"]
 [ext_resource type="PackedScene" uid="uid://j1102yne22oh" path="res://src/machines/eating_tube/EatingTube.tscn" id="11_mg8yt"]
 [ext_resource type="PackedScene" uid="uid://l3l3wmv02hg7" path="res://src/machines/flusher/Flusher.tscn" id="12_7wsug"]
 [ext_resource type="PackedScene" uid="uid://3qx4hb7lw4qm" path="res://src/machines/cookie_box/CookieBox.tscn" id="12_x7kqy"]
@@ -18,11 +17,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wsedu"]
 size = Vector2(1282, 128)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rifwp"]
-size = Vector2(906, 452)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3q0p7"]
 size = Vector2(110.296, 522)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcb52"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rifwp"]
+size = Vector2(906, 452)
 
 [node name="Level" type="Node2D"]
 
@@ -62,49 +64,6 @@ texture = ExtResource("3_m2diq")
 scale = Vector2(1, 0.44)
 shape = SubResource("RectangleShape2D_wsedu")
 
-[node name="FilterMachine" parent="." instance=ExtResource("5_5e04j")]
-position = Vector2(366, 209)
-rotation = 1.5708
-
-[node name="SchizoMachine" parent="." node_paths=PackedStringArray("pill_spawnpoint") instance=ExtResource("6_k5335")]
-z_index = -1
-position = Vector2(1260, 453)
-pill_spawnpoint = NodePath("PillSpawnPoint")
-
-[node name="LoveHateWheel" parent="." node_paths=PackedStringArray("status_sprite", "wheel") instance=ExtResource("7_yxn88")]
-position = Vector2(1015, 255)
-status_sprite = NodePath("StatusBar/Foreground")
-wheel = NodePath("Wheel")
-
-[node name="SleepyBell" parent="." node_paths=PackedStringArray("bell") instance=ExtResource("8_1ya4v")]
-position = Vector2(1178, 81)
-bell = NodePath("Grabbable")
-
-[node name="KaraokeMachine" parent="." node_paths=PackedStringArray("note_spawn_area") instance=ExtResource("9_2fh78")]
-position = Vector2(616, 483)
-scale = Vector2(0.6, 0.6)
-note_tscn = ExtResource("10_i1hkf")
-note_spawn_area = NodePath("../NoteSpawnArea/CollisionShape2D")
-
-[node name="NoteSpawnArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NoteSpawnArea"]
-position = Vector2(822, 291)
-shape = SubResource("RectangleShape2D_rifwp")
-
-[node name="EatingTube" parent="." instance=ExtResource("11_mg8yt")]
-position = Vector2(422, 461)
-
-[node name="CookieBox" parent="." instance=ExtResource("12_x7kqy")]
-position = Vector2(871, 507)
-
-[node name="Flusher" parent="." instance=ExtResource("12_7wsug")]
-position = Vector2(645, 45)
-
-[node name="AntiTimeoutMachine" parent="." node_paths=PackedStringArray("button") instance=ExtResource("13_x0fab")]
-position = Vector2(1253, 203)
-button = NodePath("Button")
-
 [node name="Walls" type="Node2D" parent="."]
 
 [node name="Wall" type="StaticBody2D" parent="Walls"]
@@ -134,5 +93,63 @@ texture = ExtResource("3_m2diq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
 position = Vector2(56.8519, 33)
 shape = SubResource("RectangleShape2D_3q0p7")
+
+[node name="AngledSchizoRoof" type="StaticBody2D" parent="Walls"]
+position = Vector2(1264, 236)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Walls/AngledSchizoRoof"]
+rotation = 0.640914
+scale = Vector2(0.543506, 0.320107)
+texture = ExtResource("3_m2diq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/AngledSchizoRoof"]
+rotation = 0.640914
+scale = Vector2(0.544, 0.32)
+shape = SubResource("RectangleShape2D_hcb52")
+
+[node name="Machines" type="Node2D" parent="."]
+
+[node name="FilterMachine" parent="Machines" instance=ExtResource("5_5e04j")]
+position = Vector2(366, 209)
+rotation = 1.5708
+
+[node name="SchizoMachine" parent="Machines" node_paths=PackedStringArray("pill_spawnpoint") instance=ExtResource("6_k5335")]
+z_index = -1
+position = Vector2(1260, 453)
+pill_spawnpoint = NodePath("PillSpawnPoint")
+
+[node name="LoveHateWheel" parent="Machines" node_paths=PackedStringArray("status_sprite", "wheel") instance=ExtResource("7_yxn88")]
+position = Vector2(1015, 255)
+status_sprite = NodePath("StatusBar/Foreground")
+wheel = NodePath("Wheel")
+
+[node name="SleepyBell" parent="Machines" node_paths=PackedStringArray("bell") instance=ExtResource("8_1ya4v")]
+position = Vector2(1178, 81)
+bell = NodePath("Grabbable")
+
+[node name="KaraokeMachine" parent="Machines" node_paths=PackedStringArray("note_spawn_area") instance=ExtResource("9_2fh78")]
+position = Vector2(626, 460)
+note_spawn_area = NodePath("../../NoteSpawnArea/CollisionShape2D")
+
+[node name="EatingTube" parent="Machines" instance=ExtResource("11_mg8yt")]
+position = Vector2(422, 461)
+
+[node name="CookieBox" parent="Machines" instance=ExtResource("12_x7kqy")]
+position = Vector2(871, 507)
+
+[node name="Flusher" parent="Machines" instance=ExtResource("12_7wsug")]
+position = Vector2(645, 45)
+
+[node name="AntiTimeoutMachine" parent="Machines" node_paths=PackedStringArray("button") instance=ExtResource("13_x0fab")]
+position = Vector2(1253, 203)
+button = NodePath("Button")
+
+[node name="NoteSpawnArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NoteSpawnArea"]
+position = Vector2(822, 291)
+shape = SubResource("RectangleShape2D_rifwp")
 
 [node name="NeuroActionScreen" parent="." instance=ExtResource("13_ww6ex")]

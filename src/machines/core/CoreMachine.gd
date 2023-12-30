@@ -62,7 +62,7 @@ func add_planned_action(action: NeuroLogic.NeuroPlannedAction) -> void:
 
 
 func handle_planned_action() -> void:
-    handle_action(chat_queue.dequeue_message())
+    handle_action(chat_queue.dequeue_message(1))
     _execute_action_timer.start()
 
 

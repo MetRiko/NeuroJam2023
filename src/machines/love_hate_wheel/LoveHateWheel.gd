@@ -6,6 +6,7 @@ extends Node2D
 @export var status_sprite: Sprite2D
 
 @export var adjustment_per_revolution: float
+@export var adjustment_resolution: float = 16
 
 @export var wheel: RigidBody2D
 
@@ -32,19 +33,19 @@ func _process(delta):
         status_sprite.texture = love_status_texture
 
     _rotation_counter += _wheel_speed * delta
-    if _rotation_counter > TAU:
+    if _rotation_counter > TAU / adjustment_resolution:
         _rotation_counter = 0
         increase_love()
-    elif _rotation_counter < -TAU:
+    elif _rotation_counter < -TAU / adjustment_resolution:
         _rotation_counter = 0
         increase_hate()
 
 
 func increase_love():
-    print("Increase emotional state by %s" % adjustment_per_revolution)
-    Game.get_neuro_logic().update_emotional_state(adjustment_per_revolution)
+    print("Increase emotional state by %s" % (adjustment_per_revolution / adjustment_resolution))
+    Game.get_neuro_logic().update_emotional_state(adjustment_per_revolution / adjustment_resolution)
 
 
 func increase_hate():
-    print("Decrease emotional state by %s" % -adjustment_per_revolution)
-    Game.get_neuro_logic().update_emotional_state(-adjustment_per_revolution)
+    print("Decrease emotional state by %s" % (-adjustment_per_revolution / adjustment_resolution))
+    Game.get_neuro_logic().update_emotional_state(-adjustment_per_revolution / adjustment_resolution)

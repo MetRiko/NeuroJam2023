@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://craftysak1elb"]
+[gd_scene load_steps=5 format=3 uid="uid://craftysak1elb"]
 
 [ext_resource type="Script" path="res://src/machines/karaoke/KaraokeMachine.gd" id="1_qsr5t"]
+[ext_resource type="PackedScene" uid="uid://cgaparfy20ixt" path="res://src/objects/Note.tscn" id="2_7c2oo"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_dq33p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1nkbr"]
@@ -10,8 +11,9 @@ size = Vector2(130, 128)
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("1_qsr5t")
-notes_to_start = 20
-note_spawn_interval = 10.0
+notes_to_start = 10
+note_tscn = ExtResource("2_7c2oo")
+note_spawn_interval = 7.0
 karaoke_duration = 20.0
 off_color = Color(0.271541, 0.0258799, 0.215163, 1)
 available_color = Color(0.697534, 0.160606, 0.572609, 1)

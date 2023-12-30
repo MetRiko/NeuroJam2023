@@ -38,7 +38,7 @@ func _process(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-    button.apply_central_force(Vector2.LEFT * button_spring_force)
+    button.apply_central_force(Vector2.LEFT * button_spring_force * (-1 if _on_cooldown else 1))
 
 
 func _on_button_pressed() -> void:
