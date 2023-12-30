@@ -1,0 +1,79 @@
+[gd_scene load_steps=7 format=3 uid="uid://2deuujkaeb54"]
+
+[ext_resource type="Script" path="res://src/logic/ChatLogic.gd" id="1_akn28"]
+[ext_resource type="PackedScene" uid="uid://bqc1xtpj2h1c5" path="res://src/side_bar/SideBar.tscn" id="1_cuiif"]
+[ext_resource type="Script" path="res://src/World.gd" id="1_ta7mb"]
+[ext_resource type="PackedScene" uid="uid://brk8apg1ijq2o" path="res://src/level/Level.tscn" id="2_dyt3k"]
+[ext_resource type="Script" path="res://src/logic/NeuroLogic.gd" id="2_jjnbv"]
+[ext_resource type="Script" path="res://src/debug/NeuroStateDebug.gd" id="6_bwoap"]
+
+[node name="World" type="Node2D" node_paths=PackedStringArray("chat_logic")]
+script = ExtResource("1_ta7mb")
+chat_logic = NodePath("Logic/ChatLogic")
+
+[node name="Logic" type="Node" parent="."]
+
+[node name="ChatLogic" type="Node" parent="Logic"]
+script = ExtResource("1_akn28")
+
+[node name="NeuroLogic" type="Node" parent="Logic"]
+script = ExtResource("2_jjnbv")
+
+[node name="Level" parent="." instance=ExtResource("2_dyt3k")]
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Content" type="Control" parent="Hud"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SideBar" parent="Hud/Content" instance=ExtResource("1_cuiif")]
+layout_mode = 1
+offset_right = 360.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hud/Content"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("6_bwoap")
+
+[node name="FilterLabel" type="Label" parent="Hud/Content/VBoxContainer"]
+layout_mode = 2
+text = "aaaaaa"
+
+[node name="SchizoLabel" type="Label" parent="Hud/Content/VBoxContainer"]
+layout_mode = 2
+text = "aaaaaa"
+
+[node name="SleepyLabel" type="Label" parent="Hud/Content/VBoxContainer"]
+layout_mode = 2
+text = "aaaaaa"
+
+[node name="JusticeLabel" type="Label" parent="Hud/Content/VBoxContainer"]
+layout_mode = 2
+text = "aaaaaa"
+
+[node name="EmotionalLabel" type="Label" parent="Hud/Content/VBoxContainer"]
+layout_mode = 2
+text = "aaaaaa"
+
+[node name="DonowallLabel" type="Label" parent="Hud/Content/VBoxContainer"]
+layout_mode = 2
+text = "aaaaaa"
+
+[node name="KaraokeLabel" type="Label" parent="Hud/Content/VBoxContainer"]
+layout_mode = 2
+text = "aaaaaa"
+
+[node name="SleepLabel" type="Label" parent="Hud/Content/VBoxContainer"]
+layout_mode = 2
+text = "aaaaaa"

@@ -1,32 +1,41 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvqgtxxht826g"]
+[gd_scene load_steps=6 format=3 uid="uid://bvqgtxxht826g"]
 
 [ext_resource type="Script" path="res://src/player/Player.gd" id="1_ll6yi"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_g2pik"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dtxbv"]
+friction = 0.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_8mnmc"]
-radius = 62.0081
+radius = 36.0139
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_653yr"]
-size = Vector2(154, 152)
+size = Vector2(64, 64)
 
-[node name="Player" type="CharacterBody2D"]
-collision_mask = 2
-motion_mode = 1
-wall_min_slide_angle = 0.0872665
+[node name="Player" type="RigidBody2D" groups=["Player"]]
+collision_mask = 10
+physics_material_override = SubResource("PhysicsMaterial_dtxbv")
+gravity_scale = 0.0
+can_sleep = false
+lock_rotation = true
+custom_integrator = true
 script = ExtResource("1_ll6yi")
 max_speed = 3000.0
 max_distance_to_accel = 500.0
 rotation_amount = 45.0
 rotation_easing = 1.5
+kp = 50.0
+kd = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.56, 0.56)
 texture = ExtResource("2_g2pik")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8mnmc")
 
 [node name="InteractionJoint2D" type="PinJoint2D" parent="."]
-position = Vector2(0, 64)
+position = Vector2(0, 25)
 node_a = NodePath("..")
 
 [node name="InteractionArea2D" type="Area2D" parent="."]

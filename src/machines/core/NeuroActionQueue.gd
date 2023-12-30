@@ -13,42 +13,42 @@ var _prev_actions : Array[NeuroAction] = []
 @export var action_gap = 16
 
 
-func add_message(msg_type: NeuroAction.Type) -> void:
-	var action_inst : NeuroAction = action_tscn.instantiate()
-	action_inst.message_type = msg_type
-	_actions.push_back(action_inst)
-	arrange_actions()
+func add_message(action: NeuroLogic.NeuroPlannedAction) -> void:
+    var action_inst: NeuroAction = action_tscn.instantiate()
+    action_inst.action = action
+    _actions.push_back(action_inst)
+    arrange_actions()
 
 
 func dequeue_message(destroy: bool = false):
-	if len(_actions) <= 0:
-		return null
-	var msg : NeuroAction = _actions.pop_front()
-	msg.to_be_destroyed = destroy
-	arrange_actions()
-	return msg.message_type
+    if len(_actions) <= 0:
+        return null
+    var msg : NeuroAction = _actions.pop_front()
+    msg.to_be_destroyed = destroy
+    arrange_actions()
+    return msg.action
 
 
 func arrange_actions() -> void:
-	var new_actions = []
-	var removed_actions = []
-	for action in _actions:
-		if action not in _prev_actions:
-			new_actions.append(action)
-	for action in _prev_actions:
-		if action not in _actions:
-			removed_actions.append(action)
+    var new_actions = []
+    var removed_actions = []
+    for action in _actions:
+        if action not in _prev_actions:
+            new_actions.append(action)
+    for action in _prev_actions:
+        if action not in _actions:
+            removed_actions.append(action)
 
-	for action in new_actions:
-		add_child(action)
-	
-	for action in removed_actions:
-		action.execute()
+    for action in new_actions:
+        add_child(action)
+    
+    for action in removed_actions:
+        action.execute()
 
-	for i in range(len(_actions)):
-		var action_pos = Vector2.RIGHT * i * (action_width + action_gap) * (1 if stack_right else -1)
-		_actions[i].update_pos(action_pos)
+    for i in range(len(_actions)):
+        var action_pos = Vector2.RIGHT * i * (action_width + action_gap) * (1 if stack_right else -1)
+        _actions[i].update_pos(action_pos)
 
-	_prev_actions.clear()
-	_prev_actions.append_array(_actions)
+    _prev_actions.clear()
+    _prev_actions.append_array(_actions)
 

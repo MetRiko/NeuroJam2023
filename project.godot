@@ -43,6 +43,10 @@ Interact={
 2d_physics/layer_2="Walls"
 2d_physics/layer_3="Interactables"
 
+[physics]
+
+2d/physics_engine="Rapier2D"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

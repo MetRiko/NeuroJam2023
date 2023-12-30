@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://bte0qlekgk630"]
+
+[ext_resource type="Script" path="res://src/machines/love_hate_wheel/LoveHateWheel.gd" id="1_wigi7"]
+[ext_resource type="Script" path="res://src/objects/Grabbable.gd" id="1_xvpyq"]
+[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_y8745"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6u12p"]
+radius = 61.0
+
+[node name="LoveHateWheel" type="Node2D" node_paths=PackedStringArray("status_sprite", "wheel")]
+script = ExtResource("1_wigi7")
+love_status_texture = ExtResource("2_y8745")
+hate_status_texture = ExtResource("2_y8745")
+status_sprite = NodePath("StatusBar/Foreground")
+adjustment_per_revolution = 0.05
+wheel = NodePath("Wheel")
+wheel_speed_for_max_brightness = 20.0
+
+[node name="Base" type="StaticBody2D" parent="."]
+
+[node name="Wheel" type="RigidBody2D" parent="."]
+z_index = -1
+collision_layer = 4
+collision_mask = 0
+can_sleep = false
+freeze_mode = 1
+angular_damp = 1.0
+script = ExtResource("1_xvpyq")
+reset_position_on_grab = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Wheel"]
+texture = ExtResource("2_y8745")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wheel"]
+shape = SubResource("CircleShape2D_6u12p")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("../Base")
+node_b = NodePath("../Wheel")
+
+[node name="StatusBar" type="Node2D" parent="."]
+position = Vector2(0, -90)
+
+[node name="Background" type="Sprite2D" parent="StatusBar"]
+scale = Vector2(1, 0.2)
+texture = ExtResource("2_y8745")
+
+[node name="Foreground" type="Sprite2D" parent="StatusBar"]
+scale = Vector2(0.9, 0.15)
+texture = ExtResource("2_y8745")

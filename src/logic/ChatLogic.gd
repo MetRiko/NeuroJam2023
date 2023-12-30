@@ -3,15 +3,16 @@ class_name ChatLogic
 
 signal chat_entry_added(entry : ChatEntryData)
 
+
 class UserData:
 	var color : Color = Color.CORNFLOWER_BLUE
 	var username : String = "TestUser"
 	var badge : Database.UserBadge = Database.UserBadge.None
-	
+
 class ContentDataBase:
 	func get_text() -> String:
 		return ""
-	
+
 class Emoji extends ContentDataBase:
 	var emoji : Database.EmojiType = Database.EmojiType.None
 	func get_text() -> String:
@@ -27,7 +28,7 @@ class Msg extends ContentDataBase:
 
 	func _init(text : String):
 		self.text = text
-		
+	
 class ChatEntryData:
 	var user_data : UserData
 	var content : Array[ContentDataBase]
@@ -41,13 +42,13 @@ func add_chat_entry(entry : ChatEntryData):
 	chat_entries.push_back(entry)
 	chat_entry_added.emit(entry)
 
-var current_neuro_action : NeuroFinalAction = null
+var current_neuro_action : NeuroLogic.NeuroFinalAction = null
 
 func _ready():
 	randomize()
 	Game.get_neuro_logic().neuro_action_started.connect(_on_neuro_action_started)
 
-func _on_neuro_action_started(neuro_action : NeuroFinalAction):
+func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction):
 	current_neuro_action = neuro_action
 
 var chat_cooldown_time := 0.0
@@ -75,13 +76,13 @@ func _generate_matching_chat_entry():
 	# todo: karaoke
 
 	match current_neuro_action.action_oopsie:
-		NeuroActionOopsie.Slept:
+		NeuroLogic.NeuroActionOopsie.Slept:
 			_queue_chat_answer("bedge")
 			return
-		NeuroActionOopsie.Ignored:
+		NeuroLogic.NeuroActionOopsie.Ignored:
 			_queue_chat_answer("ignored")
 			return
-		NeuroActionOopsie.Filtered:
+		NeuroLogic.NeuroActionOopsie.Filtered:
 			_queue_chat_answer("filtered")
 			return
 
@@ -129,23 +130,23 @@ func _generate_matching_chat_entry():
 			return
 
 	match current_neuro_action.category:
-		NeuroActionCategory.PogStuff:
+		NeuroLogic.NeuroActionCategory.PogStuff:
 			_queue_chat_answer("pog_stuff")
-		NeuroActionCategory.AboutHerself:
+		NeuroLogic.NeuroActionCategory.AboutHerself:
 			_queue_chat_answer("about_herself")
-		NeuroActionCategory.IterestingStuff:
+		NeuroLogic.NeuroActionCategory.IterestingStuff:
 			_queue_chat_answer("iteresting_stuff")
-		NeuroActionCategory.Joke:
+		NeuroLogic.NeuroActionCategory.Joke:
 			_queue_chat_answer("joke")
-		NeuroActionCategory.Story:
+		NeuroLogic.NeuroActionCategory.Story:
 			_queue_chat_answer("story")
-		NeuroActionCategory.CorpaMoment:
+		NeuroLogic.NeuroActionCategory.CorpaMoment:
 			_queue_chat_answer("corpa_moment")
-		NeuroActionCategory.Question:
+		NeuroLogic.NeuroActionCategory.Question:
 			_queue_chat_answer("question")
-		NeuroActionCategory.Answer:
+		NeuroLogic.NeuroActionCategory.Answer:
 			_queue_chat_answer("answer")
-		NeuroActionCategory.HiChat:
+		NeuroLogic.NeuroActionCategory.HiChat:
 			_queue_chat_answer("hi_chat")
 
 # enum NeuroActionOrigin {

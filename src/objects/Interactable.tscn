@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://dlycjt08mf22b"]
+[gd_scene load_steps=2 format=3 uid="uid://dlycjt08mf22b"]
 
-[node name="Interactable" type="Node2D"]
+[ext_resource type="Script" path="res://src/objects/Interactable.gd" id="1_0sspp"]
+
+[node name="Interactable" type="RigidBody2D"]
+script = ExtResource("1_0sspp")
