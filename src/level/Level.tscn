@@ -21,8 +21,8 @@ size = Vector2(1282, 128)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3q0p7"]
 size = Vector2(110.296, 522)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nkfwk"]
-size = Vector2(32.3103, 78)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcb52"]
+size = Vector2(128, 128)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n83b7"]
 radius = 18.0
@@ -111,15 +111,20 @@ texture = ExtResource("3_m2diq")
 position = Vector2(56.8519, 33)
 shape = SubResource("RectangleShape2D_3q0p7")
 
-[node name="Wall3" type="StaticBody2D" parent="Walls"]
-position = Vector2(1275, 222)
+[node name="AngledSchizoRoof" type="StaticBody2D" parent="Walls"]
+position = Vector2(1264, 236)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall3"]
-position = Vector2(-10.2637, 15.8046)
-rotation = -0.994838
-shape = SubResource("RectangleShape2D_nkfwk")
+[node name="Sprite2D" type="Sprite2D" parent="Walls/AngledSchizoRoof"]
+rotation = 0.640914
+scale = Vector2(0.543506, 0.320107)
+texture = ExtResource("3_m2diq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/AngledSchizoRoof"]
+rotation = 0.640914
+scale = Vector2(0.544, 0.32)
+shape = SubResource("RectangleShape2D_hcb52")
 
 [node name="Machines" type="Node2D" parent="."]
 
