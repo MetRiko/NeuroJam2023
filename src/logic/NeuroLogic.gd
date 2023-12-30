@@ -94,7 +94,6 @@ var _has_vedal_appeared := false
 
 var _categories_by_origin: Dictionary = {
     NeuroActionOrigin.Neuro: [
-        NeuroActionCategory.Question,
         NeuroActionCategory.Joke, 
         NeuroActionCategory.Story,
         NeuroActionCategory.PogStuff, 
@@ -317,7 +316,7 @@ func _handle_sleepy(chain: NeuroFinalActionChain) -> void:
         sleep_active = true
 
     if sleep_active:
-        chain.action.action_oopsie = NeuroActionOopsie.Ignored
+        chain.action.action_oopsie = NeuroActionOopsie.None
         chain.keep_going = false
 
 
