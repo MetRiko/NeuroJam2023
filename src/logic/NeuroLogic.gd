@@ -94,7 +94,6 @@ var _has_vedal_appeared := false
 
 var _categories_by_origin: Dictionary = {
     NeuroActionOrigin.Neuro: [
-        NeuroActionCategory.Question,
         NeuroActionCategory.Joke, 
         NeuroActionCategory.Story,
         NeuroActionCategory.PogStuff, 
