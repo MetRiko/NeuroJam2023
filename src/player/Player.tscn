@@ -1,7 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvqgtxxht826g"]
+[gd_scene load_steps=10 format=3 uid="uid://bvqgtxxht826g"]
 
 [ext_resource type="Script" path="res://src/player/Player.gd" id="1_ll6yi"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_g2pik"]
+[ext_resource type="AudioStream" uid="uid://db303p8q5uyb5" path="res://assets/audio/sfx/DroneHum.ogg" id="3_isjns"]
+[ext_resource type="AudioStream" uid="uid://b7hjvpyr6cxps" path="res://assets/audio/sfx/DroneBump.ogg" id="4_akicp"]
+[ext_resource type="AudioStream" uid="uid://bgq8rhte33y0y" path="res://assets/audio/sfx/DronePickUp.ogg" id="5_x440r"]
+[ext_resource type="AudioStream" uid="uid://dmqyhje64tjww" path="res://assets/audio/sfx/DroneRelease.ogg" id="6_ul45h"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dtxbv"]
 friction = 0.0
@@ -45,3 +49,16 @@ collision_mask = 20
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea2D"]
 shape = SubResource("RectangleShape2D_653yr")
 debug_color = Color(0.866846, 0.000555236, 0.858308, 0.42)
+
+[node name="MoveAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_isjns")
+volume_db = -14.995
+
+[node name="BumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_akicp")
+
+[node name="GrabAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_x440r")
+
+[node name="ReleaseAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ul45h")

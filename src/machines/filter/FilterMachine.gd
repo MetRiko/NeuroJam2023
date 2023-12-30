@@ -21,6 +21,8 @@ var _status: bool = false
 var _prev_status: bool = false
 
 var state := 1
+var _filter_active := false
+var _prev_filter_active := false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -39,28 +41,33 @@ func _process(delta):
         1:
             if _lever_handle.rotation_degrees > untrigger_angle:
                 state = 2
+                filter_on()
             elif _lever_handle.rotation_degrees < trigger_angle:
                 state = 0
+                filter_off()
         2:
             if _lever_handle.rotation_degrees < untrigger_angle:
                 state = 1
                 filter_off()
 
-
 func filter_on():
-    print("Filter on")
-    filter_off_audio.stop()
-    filter_on_audio.play()
+    if not _filter_active:
+        print("Filter on")
+        filter_off_audio.stop()
+        filter_on_audio.play()
+        _filter_active = true
 
 
 func filter_off():
-    print("Filter off")
-    filter_on_audio.stop()
-    filter_off_audio.play()
+    if _filter_active:
+        print("Filter off")
+        filter_on_audio.stop()
+        filter_off_audio.play()
+        _filter_active = false
 
 
 func lower_filter():
-    if state == 1:
+    if _filter_active:
         print("Lower filter by %s" % filter_lower_amount)
         Game.get_neuro_logic().update_filter_power(-filter_lower_amount)
 

@@ -15,6 +15,11 @@ class_name Player
 
 @export var inbounds_area: Area2D
 
+@onready var _move_audio: AudioStreamPlayer = $MoveAudio
+@onready var _bump_audio: AudioStreamPlayer = $BumpAudio
+@onready var _grab_audio: AudioStreamPlayer = $GrabAudio
+@onready var _release_audio: AudioStreamPlayer = $ReleaseAudio
+
 
 var _interactables: Array[Interactable] = []
 var _nearest_interactable: Interactable

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcu05n18yjc5e"]
+[gd_scene load_steps=7 format=3 uid="uid://dcu05n18yjc5e"]
 
 [ext_resource type="Script" path="res://src/machines/anti_timeout/AntiTimeoutMachine.gd" id="1_31kib"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_irvho"]
+[ext_resource type="AudioStream" uid="uid://diepdve4k6il5" path="res://assets/audio/sfx/AntiTimeoutButtonHit.ogg" id="3_c7xem"]
+[ext_resource type="AudioStream" uid="uid://k2afs714rxm2" path="res://assets/audio/sfx/AntiTimeoutCooldownOver.ogg" id="4_5k1rf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_brvug"]
 size = Vector2(60, 60)
@@ -64,3 +66,9 @@ offset_bottom = 149.0
 rotation = -1.5708
 scale = Vector2(0.319999, 0.2)
 texture_progress = ExtResource("1_irvho")
+
+[node name="ButtonHitAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_c7xem")
+
+[node name="CooldownOverAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5k1rf")
