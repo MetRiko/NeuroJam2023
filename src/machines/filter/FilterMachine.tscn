@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dcb4h1td2hhtk"]
+[gd_scene load_steps=8 format=3 uid="uid://dcb4h1td2hhtk"]
 
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_bxgcn"]
 [ext_resource type="Script" path="res://src/machines/filter/FilterMachine.gd" id="1_ct0j5"]
+[ext_resource type="AudioStream" uid="uid://b6b8bwi4cqj8s" path="res://assets/audio/sfx/FilterEnd.ogg" id="3_7icci"]
+[ext_resource type="AudioStream" uid="uid://bfsk05468alqb" path="res://assets/audio/sfx/FilterStartAndLoop2.ogg" id="3_ykqdm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uyk00"]
 size = Vector2(128, 128)
@@ -16,7 +18,7 @@ radius = 18.0278
 script = ExtResource("1_ct0j5")
 lever_torque = -5000.0
 filter_lower_amount = 0.04
-filter_lower_interval = 0.3
+filter_lower_interval = 0.18
 
 [node name="Base" type="StaticBody2D" parent="."]
 scale = Vector2(1, 0.0799999)
@@ -45,20 +47,20 @@ texture = ExtResource("1_bxgcn")
 position = Vector2(0, -41)
 shape = SubResource("RectangleShape2D_gbt6n")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="Handle"]
+[node name="Ball" type="RigidBody2D" parent="Handle"]
 position = Vector2(0, -81)
 
-[node name="Sprite2D" type="Sprite2D" parent="Handle/RigidBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Handle/Ball"]
 scale = Vector2(0.3125, 0.3125)
 texture = ExtResource("1_bxgcn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle/RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle/Ball"]
 shape = SubResource("CircleShape2D_ywdmg")
 
 [node name="PinJoint2D" type="PinJoint2D" parent="Handle"]
 position = Vector2(0, -81)
 node_a = NodePath("..")
-node_b = NodePath("../RigidBody2D")
+node_b = NodePath("../Ball")
 angular_limit_enabled = true
 
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
@@ -70,4 +72,13 @@ angular_limit_upper = 1.0472
 motor_target_velocity = -1.67028
 
 [node name="FilterLowerTimer" type="Timer" parent="."]
-one_shot = true
+autostart = true
+
+[node name="FilterOnAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ykqdm")
+volume_db = -4.353
+bus = &"SFX"
+
+[node name="FilterOffAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_7icci")
+bus = &"SFX"

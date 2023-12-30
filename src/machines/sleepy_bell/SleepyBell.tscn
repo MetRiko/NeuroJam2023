@@ -1,12 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://t1dfcgjipsnk"]
+[gd_scene load_steps=9 format=3 uid="uid://t1dfcgjipsnk"]
 
 [ext_resource type="Script" path="res://src/machines/sleepy_bell/SleepyBell.gd" id="1_nxr72"]
 [ext_resource type="Script" path="res://src/objects/Grabbable.gd" id="1_puk71"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_csyi6"]
+[ext_resource type="AudioStream" uid="uid://bb8l63iucm02b" path="res://assets/audio/sfx/Bell1.ogg" id="4_0pxwt"]
+[ext_resource type="AudioStream" uid="uid://dbnat5ndhcba8" path="res://assets/audio/sfx/Bell2.ogg" id="5_d3omp"]
+[ext_resource type="AudioStream" uid="uid://dbpi5jv7ok6wo" path="res://assets/audio/sfx/Bell3.ogg" id="6_loees"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6clvo"]
 radius = 14.0
 height = 50.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_n8u8a"]
+random_volume_offset_db = 0.98
+streams_count = 3
+stream_0/stream = ExtResource("4_0pxwt")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("5_d3omp")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("6_loees")
+stream_2/weight = 1.0
 
 [node name="SleepyBell" type="Node2D" node_paths=PackedStringArray("bell")]
 script = ExtResource("1_nxr72")
@@ -40,3 +53,7 @@ node_b = NodePath("../Grabbable")
 angular_limit_enabled = true
 angular_limit_lower = -0.698132
 angular_limit_upper = 0.698132
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_n8u8a")
+bus = &"SFX"

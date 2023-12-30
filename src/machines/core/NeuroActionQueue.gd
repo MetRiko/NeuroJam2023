@@ -12,7 +12,6 @@ var _prev_actions : Array[NeuroAction] = []
 @export var action_width = 128
 @export var action_gap = 16
 
-
 func size() -> int:
     return len(_actions)
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://l3l3wmv02hg7"]
+[gd_scene load_steps=6 format=3 uid="uid://l3l3wmv02hg7"]
 
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_510im"]
 [ext_resource type="Script" path="res://src/machines/flusher/Flusher.gd" id="1_pryo0"]
 [ext_resource type="Script" path="res://src/machines/flusher/Handle.gd" id="2_5rokc"]
+[ext_resource type="AudioStream" uid="uid://bainwqdrgy4jr" path="res://assets/audio/sfx/MemoryFlush.ogg" id="4_xp0e1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6p145"]
 size = Vector2(12, 139)
@@ -39,3 +40,6 @@ initial_offset = 1.0
 
 [node name="DonowallTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="FlushAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xp0e1")
