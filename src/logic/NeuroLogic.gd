@@ -27,6 +27,9 @@ class NeuroFinalAction extends NeuroPlannedAction:
     var neuro_timeouted_someone : bool
     var is_tutel_receiver : bool
 
+    func get_perceived_schizo_factor() -> float:
+        return max(schizo_factor - 0.6, 0.0) / 0.4
+
 
 signal neuro_action_started(neuro_action: NeuroFinalAction)
 signal karaoke_status_changed(karaoke_active: bool)

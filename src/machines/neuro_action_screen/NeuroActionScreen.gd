@@ -1,18 +1,37 @@
 extends Control
 
-@onready var label : Label = $Label
+@onready var label : Label = $LabelPivot/Label
+@onready var label_pivot : Control = $LabelPivot
+
+var karaoke_active := false
 
 func _ready():
 	randomize()
 	_set_screen_text("")
 	var neuro_logic := Game.get_neuro_logic()
 	neuro_logic.neuro_action_started.connect(_on_neuro_action_started)
-	#neuro_logic.neuro_karaoke_state_changed.connect(_on_neuro_action_started)
+	neuro_logic.karaoke_status_changed.connect(_on_karaoke_status_changed)
+
+func _on_karaoke_status_changed(karaoke_active : bool) -> void:
+	_on_neuro_action_started(null)
 
 func _set_screen_text(text : String) -> void:
+	if text == label.text:
+		return
+
 	label.text = text
+	
+	var tween := create_tween()
+	label_pivot.scale = Vector2.ZERO
+	tween.tween_property(label_pivot, "scale", Vector2.ONE, 0.2).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	tween.play()
 
 func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction) -> void:
+	var neuro_logic : NeuroLogic = Game.get_neuro_logic()
+	if neuro_logic.karaoke_active:
+		_set_screen_text("Neuro is singing!")
+		return
+
 	_set_screen_text("...")
 
 	match neuro_action.origin:
