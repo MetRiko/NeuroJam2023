@@ -11,7 +11,7 @@ enum NeuroActionCategory {
 }
 
 enum NeuroActionOopsie {
-    None, Filtered, Ignored, Slept
+    None, Filtered, Ignored
 }
 
 class NeuroPlannedAction:
@@ -29,6 +29,8 @@ class NeuroFinalAction extends NeuroPlannedAction:
 
 
 signal neuro_action_started(neuro_action: NeuroFinalAction)
+signal karaoke_status_changed(karaoke_active: bool)
+signal sleep_status_changed(sleep_active: bool)
 
 
 class NeuroFinalActionChain:
@@ -59,10 +61,17 @@ class NeuroFinalActionChain:
 @export var justice_growth_per_timeout = 0.1
 @export var donowall_growth_per_action = 0.01
 
+@export var emotional_state_variance_amplitude = 0.05
+@export var emotional_state_variance_frequency = 0.02
+
 var _action_count = 0
 
 
-func do_natural_growth() -> void:
+func is_sleeping() -> bool:
+    return sleep_active
+
+
+func _do_natural_growth() -> void:
     update_filter_power(filter_growth_per_action)
     update_schizo_power(schizo_growth_per_action)
     if _action_count % sleepy_growth_interval == 0:
@@ -70,6 +79,9 @@ func do_natural_growth() -> void:
     
     update_justice_factor(justice_growth_per_action)
     update_donowall_power(donowall_growth_per_action)
+
+    var emotional_state_change = sin((_action_count * emotional_state_variance_frequency) * TAU) * emotional_state_variance_amplitude
+    update_emotional_state(emotional_state_change)
 
 
 func update_filter_power(delta: float) -> void:
@@ -107,10 +119,13 @@ func update_karaoke_status(active: bool) -> void:
 
     if karaoke_active:
         emotional_state = 0
+    
+    karaoke_status_changed.emit(karaoke_active)
 
 
 func update_sleep_status(active: bool) -> void:
     sleep_active = active
+    sleep_status_changed.emit(sleep_active)
 
 
 func _make_final_action(planned_action: NeuroPlannedAction, intention: float):
@@ -140,7 +155,7 @@ func generate_response(action: NeuroPlannedAction) -> NeuroFinalAction:
     neuro_action_started.emit(chain.action)
 
     _action_count += 1
-    do_natural_growth()
+    _do_natural_growth()
 
     return chain.action
 
@@ -166,7 +181,7 @@ func _handle_sleepy(chain: NeuroFinalActionChain) -> void:
         sleep_active = true
 
     if sleep_active:
-        chain.action.action_oopsie = NeuroActionOopsie.Slept
+        chain.action.action_oopsie = NeuroActionOopsie.Ignored
         chain.keep_going = false
 
 
