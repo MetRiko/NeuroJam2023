@@ -155,6 +155,10 @@ func reset():
     reset_fixation()
 
 
+func get_perceived_schizo_factor() -> float:
+    return max(schizo_power - 0.6, 0.0) / 0.4
+
+
 func _ready():
     randomize()
     reset()

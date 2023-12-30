@@ -5,7 +5,7 @@ extends Node2D
 @onready var _execute_action_timer : Timer = $ExecuteActionTimer
 @onready var _new_action_timer : Timer = $NewActionTimer
 
-@export var execute_action_interval: float = 3.2
+@export var execute_action_interval: float = 2.2
 @export var execute_action_variance: float = 0.5
 
 @export var new_action_interval: float = 3.2
@@ -13,9 +13,9 @@ extends Node2D
 
 @export var planned_action_limit: int = 20
 
-@export var dono_action_time_multiplier: float = 0.6
+@export var dono_action_time_multiplier: float = 0.8
 @export var vedal_action_time_multiplier: float = 1.7
-@export var bomb_action_time_multiplier: float = 2.5
+@export var bomb_action_time_multiplier: float = 2.6
 
 
 func _input(event):

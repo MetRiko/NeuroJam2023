@@ -138,7 +138,7 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 			return ChatResponseCategory.Filtered
 
 	# schizo_factor
-	if randf() < neuro_action.get_perceived_schizo_factor() * 2.0:
+	if randf() < neuro_logic.get_perceived_schizo_factor() * 1.5:
 		return ChatResponseCategory.Schizo
 
 	var post_additional_comment_instead := randf() < 0.2

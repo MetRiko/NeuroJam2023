@@ -39,6 +39,8 @@ var chat_answers := {
 		[ ChatLogic.Msg.new("Tutel") ]
 	],
 	ChatLogic.ChatResponseCategory.BadWords: [
+		[ ChatLogic.Msg.new("D: Wording") ],
+		[ ChatLogic.Msg.new("D: F word") ],
 		[ ChatLogic.Msg.new("D:") ],
 		[ ChatLogic.Msg.new("FrickU") ]
 	],
@@ -46,7 +48,8 @@ var chat_answers := {
 		[ ChatLogic.Msg.new("RIPBOZO") ]
 	],
 	ChatLogic.ChatResponseCategory.Schizo: [
-		[ ChatLogic.Msg.new("SCHIZO") ]
+		[ ChatLogic.Msg.new("SCHIZO") ],
+		[ ChatLogic.Msg.new("NeuroPossessed") ]
 	],
 	ChatLogic.ChatResponseCategory.Lovely_1: [
 		[ ChatLogic.Msg.new("<3") ]
@@ -56,7 +59,9 @@ var chat_answers := {
 		[ ChatLogic.Msg.new("SoCute") ]
 	],
 	ChatLogic.ChatResponseCategory.Lovely_3: [
-		[ ChatLogic.Msg.new("<3 <3 <3") ]
+		[ ChatLogic.Msg.new("<3 <3 <3") ],
+		[ ChatLogic.Msg.new("HUH") ],
+		[ ChatLogic.Msg.new("uhh") ]
 	],
 	ChatLogic.ChatResponseCategory.Evil_1: [
 		[ ChatLogic.Msg.new("D:") ]
@@ -65,6 +70,7 @@ var chat_answers := {
 		[ ChatLogic.Msg.new("D: D:") ]
 	],
 	ChatLogic.ChatResponseCategory.Evil_3: [
+		[ ChatLogic.Msg.new("D: D: D:") ],
 		[ ChatLogic.Msg.new("BAND") ]
 	],
 	ChatLogic.ChatResponseCategory.PogStuff: [
