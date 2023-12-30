@@ -25,7 +25,6 @@ lock_rotation = true
 custom_integrator = true
 script = ExtResource("1_ll6yi")
 max_speed = 3000.0
-max_distance_to_accel = 500.0
 rotation_amount = 45.0
 rotation_easing = 1.5
 kp = 50.0

@@ -3,8 +3,6 @@ class_name Player
 
 
 @export var max_speed: float
-@export var max_distance_to_accel: float
-@export var speed_easing: float = 0.3
 
 @export var rotation_amount: float
 @export var rotation_easing: float = 0.3
@@ -42,6 +40,9 @@ func _ready():
     inbounds_area.body_exited.connect(_on_inbounds_area_exited)
 
     _initial_pos = position
+
+    _move_audio.volume_db = -80
+    _move_audio.play()
 
 
 func _on_inbounds_area_exited(body) -> void:
@@ -82,6 +83,10 @@ func connect_joint(body: Grabbable) -> void:
 
 func disconnect_joint() -> void:
     _interaction_joint.node_b = ""
+
+
+func _process(delta):
+    var vel_magnitude = linear_velocity.length()
 
 
 func _physics_process(delta):
