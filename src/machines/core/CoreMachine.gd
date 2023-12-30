@@ -13,6 +13,10 @@ extends Node2D
 
 @export var planned_action_limit: int = 20
 
+@export var dono_action_time_multiplier: float = 0.6
+@export var vedal_action_time_multiplier: float = 1.7
+@export var bomb_action_time_multiplier: float = 2.5
+
 
 func _input(event):
     if event is InputEventKey and event.pressed:
@@ -42,6 +46,7 @@ func reset() -> void:
     _execute_action_timer.start(execute_action_interval + randf_range(-1, 1) * execute_action_variance)
     _new_action_timer.start(new_action_interval + randf_range(-1, 1) * new_action_variance)
 
+    add_hi_action()
     add_hi_action()
 
 
@@ -85,3 +90,13 @@ func handle_action(action) -> void:
                 response.neuro_timeouted_someone,
                 response.is_tutel_receiver
             ])
+        
+        var time = execute_action_interval + randf_range(-1, 1) * execute_action_variance
+        match action.origin:
+            NeuroLogic.NeuroActionOrigin.Donation:
+                time *= dono_action_time_multiplier
+            NeuroLogic.NeuroActionOrigin.Bomb:
+                time *= bomb_action_time_multiplier
+            NeuroLogic.NeuroActionOrigin.Vedal:
+                time *= vedal_action_time_multiplier
+        _execute_action_timer.start(time)
