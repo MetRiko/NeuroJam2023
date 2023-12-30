@@ -58,7 +58,7 @@ func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction):
 func _process(delta):
 	chat_cooldown_time -= delta
 	if chat_cooldown_time <= 0.0:
-		chat_cooldown_time = randf_range(0.02, 0.3)
+		chat_cooldown_time = randf_range(0.05, 0.4)
 		_generate_matching_chat_entry()
 
 func _queue_chat_response(response_category : ChatResponseCategory):
