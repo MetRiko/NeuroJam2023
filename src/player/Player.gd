@@ -13,6 +13,8 @@ class_name Player
 @onready var _interaction_joint = $InteractionJoint2D
 @onready var _interaction_area = $InteractionArea2D
 
+@export var inbounds_area: Area2D
+
 
 var _interactables: Array[Interactable] = []
 var _nearest_interactable: Interactable
@@ -25,10 +27,21 @@ var thing_to_grab: Grabbable = null
 var _error_prior: Vector2
 var _integral_prior: Vector2
 
+var _initial_pos: Vector2
+var _reset_pos := false
+
 
 func _ready():
     _interaction_area.body_entered.connect(_on_enter_body)
     _interaction_area.body_exited.connect(_on_exit_body)
+    inbounds_area.body_exited.connect(_on_inbounds_area_exited)
+
+    _initial_pos = position
+
+
+func _on_inbounds_area_exited(body) -> void:
+    if body == self:
+        _reset_pos = true
 
 
 func _on_enter_body(body) -> void:
@@ -93,3 +106,9 @@ func _physics_process(delta):
         if _nearest_interactable != null:
             _nearest_interactable.stop_interacting()
         disconnect_joint()
+
+
+func _integrate_forces(state):
+    if _reset_pos:
+        state.transform = Transform2D(0.0, _initial_pos)
+    _reset_pos = false

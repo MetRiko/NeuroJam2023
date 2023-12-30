@@ -78,7 +78,7 @@ var _has_vedal_appeared := false
     NeuroActionOrigin.Chat: 4, 
     NeuroActionOrigin.Vedal: 3, 
     NeuroActionOrigin.Donation: 3, 
-    NeuroActionOrigin.Bomb: 1
+    NeuroActionOrigin.Bomb: 2
 }
 
 @export var category_weights: Dictionary = {

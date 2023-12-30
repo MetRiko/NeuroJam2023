@@ -9,7 +9,7 @@ size = Vector2(12, 139)
 
 [node name="Flusher" type="Node2D"]
 script = ExtResource("1_pryo0")
-donowall_time = 10.0
+donowall_time = 6.0
 
 [node name="Base" type="StaticBody2D" parent="."]
 
