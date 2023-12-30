@@ -29,9 +29,17 @@ func _input(event):
 func _ready():
     randomize()
     _execute_action_timer.timeout.connect(handle_planned_action)
-    _execute_action_timer.start(execute_action_interval + randf_range(-1, 1) * execute_action_variance)
-
     _new_action_timer.timeout.connect(func(): add_random_planned_action(); _new_action_timer.start(new_action_interval))
+
+    Game.do_reset.connect(reset)
+
+    reset()
+
+
+func reset() -> void:
+    chat_queue.clear()
+
+    _execute_action_timer.start(execute_action_interval + randf_range(-1, 1) * execute_action_variance)
     _new_action_timer.start(new_action_interval + randf_range(-1, 1) * new_action_variance)
 
     add_hi_action()

@@ -33,8 +33,6 @@ signal karaoke_status_changed(karaoke_active: bool)
 signal sleep_status_changed(sleep_active: bool)
 signal donowall_status_changed(donowall_active: bool)
 
-signal bomb_defused
-
 
 class NeuroFinalActionChain:
     var action: NeuroFinalAction
@@ -132,9 +130,32 @@ var _current_fixation_category: NeuroActionCategory
 @export var fixation_weight_growth: float = 0.2
 
 
+func reset():
+    filter_power = 0.0
+    schizo_power = 0.0
+    sleepy_power = 0.0
+    justice_factor = 0.0
+    emotional_state = 0.0
+
+    karaoke_active = false
+    sleep_active = false
+    donowall_active = false
+    timeout_block_active = false
+
+    _action_count = 0
+    _has_vedal_appeared = false
+
+    prev_action_was_bomb = false
+    prev_action_had_cookie = false
+
+    latest_bomb_defused_successfully = false
+
+    reset_fixation()
+
+
 func _ready():
     randomize()
-    reset_fixation()
+    reset()
 
 
 func _update_fixation() -> void:
