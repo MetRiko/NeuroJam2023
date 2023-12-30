@@ -8,6 +8,8 @@ extends Node2D
 
 var _prev_bell_angular_velocity: float
 
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -24,3 +26,5 @@ func ding():
     print("Lower sleepy power by %s" % sleepy_lower_amount)
     Game.get_neuro_logic().update_sleepy_power(-sleepy_lower_amount)
     Game.get_neuro_logic().update_sleep_status(false)
+
+    audio_stream_player.play()

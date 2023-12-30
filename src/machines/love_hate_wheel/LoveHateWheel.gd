@@ -13,12 +13,22 @@ extends Node2D
 var _wheel_speed: float
 @export var wheel_speed_for_max_brightness: float
 
+@onready var _love_audio: AudioStreamPlayer = $LoveAudio
+@onready var _hate_audio: AudioStreamPlayer = $HateAudio
+@onready var _tick_audio: AudioStreamPlayer = $TickAudio
+
+@export var pad_volume: float = 0.5
+
 var _rotation_counter: float = 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    pass # Replace with function body.
+    _love_audio.volume_db = -80
+    _hate_audio.volume_db = -80
+
+    _love_audio.play()
+    _hate_audio.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,9 +46,14 @@ func _process(delta):
     if _rotation_counter > TAU / adjustment_resolution:
         _rotation_counter = 0
         increase_love()
+        _tick_audio.play()
     elif _rotation_counter < -TAU / adjustment_resolution:
         _rotation_counter = 0
         increase_hate()
+        _tick_audio.play()
+    
+    _love_audio.volume_db = Conversions.power_to_db(max(0, brightness * sign(_wheel_speed) * pad_volume))
+    _hate_audio.volume_db = Conversions.power_to_db(max(0, brightness * -sign(_wheel_speed) * pad_volume))
 
 
 func increase_love():

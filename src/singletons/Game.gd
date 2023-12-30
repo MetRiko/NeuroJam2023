@@ -20,6 +20,11 @@ func reset() -> void:
     do_reset.emit()
 
 
+func _ready():
+	# TODO: Remove this - for testing only
+    AudioServer.set_bus_volume_db(0, -10.0)
+
+
 func _input(event):
     if event is InputEventKey:
         if event.keycode == KEY_R and not event.echo and event.pressed:
