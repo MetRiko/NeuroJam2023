@@ -56,23 +56,28 @@ var chat_cooldown_time := 0.0
 func _process(delta):
 	chat_cooldown_time -= delta
 	if chat_cooldown_time <= 0.0:
-		chat_cooldown_time = randf_range(0.2, 3.5) * 60.0
+		chat_cooldown_time = randf_range(0.02, 0.3)
 		_generate_matching_chat_entry()
 
 func _queue_chat_answer(answer_id : String):
 	var test_user := ChatLogic.UserData.new()
 	test_user.badge = Database.UserBadge.Sub1
-	test_user.username = "TestUser_" + str(randi() % 100)
+	test_user.username = "User_" + str(randi() % 100)
 	test_user.color = Color.from_hsv(randf(), 0.7, 0.9)
 
 	var chat_entry := ChatLogic.ChatEntryData.new()
 	chat_entry.user_data = test_user
 	var possible_answers : Array = Database.chat_answers[answer_id]
-	chat_entry.content = possible_answers.pick_random()
+	var arr : Array[ContentDataBase] = []
+	arr.assign(possible_answers.pick_random())
+	chat_entry.content = arr
 
 	add_chat_entry(chat_entry)
 
 func _generate_matching_chat_entry():
+	if current_neuro_action == null:
+		return
+
 	# todo: karaoke
 
 	match current_neuro_action.action_oopsie:

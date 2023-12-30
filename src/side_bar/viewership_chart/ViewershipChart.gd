@@ -38,7 +38,6 @@ func _update_chart():
 
 		var left_point := get_left_side_point()
 		var right_point := get_right_side_point()
-		print(line_rect.get_rect().size.x)
 
 		var points_count := viewership_list.size()
 		var max_viewership : int = viewership_list.max()

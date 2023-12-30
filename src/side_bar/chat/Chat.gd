@@ -23,7 +23,7 @@ func add_test_entry() -> void:
 
 func _input(event):
 	if event is InputEventKey:
-		if event.is_pressed() and event.keycode == KEY_1:
+		if event.is_pressed() and event.keycode == KEY_Q:
 			add_test_entry()
 
 func _ready():

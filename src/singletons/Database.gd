@@ -22,7 +22,7 @@ const user_badges := {
 }
 
 var chat_answers := {
-	"slept": [
+	"bedge": [
 		[ ChatLogic.Msg.new("Bedge") ]
 	],
 	"ignored": [
