@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=18 format=3 uid="uid://brk8apg1ijq2o"]
 
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://l3l3wmv02hg7" path="res://src/machines/flusher/Flusher.tscn" id="12_7wsug"]
 [ext_resource type="PackedScene" uid="uid://3qx4hb7lw4qm" path="res://src/machines/cookie_box/CookieBox.tscn" id="12_x7kqy"]
 [ext_resource type="PackedScene" uid="uid://btjok8rmqsy1e" path="res://src/machines/neuro_action_screen/NeuroActionScreen.tscn" id="13_ww6ex"]
+[ext_resource type="PackedScene" uid="uid://dcu05n18yjc5e" path="res://src/machines/anti_timeout/AntiTimeoutMachine.tscn" id="13_x0fab"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wsedu"]
 size = Vector2(1282, 128)
@@ -80,7 +81,8 @@ position = Vector2(1178, 81)
 bell = NodePath("Grabbable")
 
 [node name="KaraokeMachine" parent="." node_paths=PackedStringArray("note_spawn_area") instance=ExtResource("9_2fh78")]
-position = Vector2(991, 464)
+position = Vector2(616, 483)
+scale = Vector2(0.6, 0.6)
 note_tscn = ExtResource("10_i1hkf")
 note_spawn_area = NodePath("../NoteSpawnArea/CollisionShape2D")
 
@@ -94,10 +96,13 @@ shape = SubResource("RectangleShape2D_rifwp")
 position = Vector2(422, 461)
 
 [node name="CookieBox" parent="." instance=ExtResource("12_x7kqy")]
-position = Vector2(692, 505)
+position = Vector2(871, 507)
 
 [node name="Flusher" parent="." instance=ExtResource("12_7wsug")]
 position = Vector2(645, 45)
+
+[node name="AntiTimeoutMachine" parent="." instance=ExtResource("13_x0fab")]
+position = Vector2(1253, 203)
 
 [node name="Walls" type="Node2D" parent="."]
 

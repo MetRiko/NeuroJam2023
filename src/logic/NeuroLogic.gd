@@ -3,11 +3,11 @@ class_name NeuroLogic
 
 
 enum NeuroActionOrigin {
-    Neuro, Chat, Vedal, Donation
+    Neuro, Chat, Vedal, Donation, Bomb
 }
 
 enum NeuroActionCategory {
-    PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+    PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat, None
 }
 
 enum NeuroActionOopsie {
@@ -31,6 +31,9 @@ class NeuroFinalAction extends NeuroPlannedAction:
 signal neuro_action_started(neuro_action: NeuroFinalAction)
 signal karaoke_status_changed(karaoke_active: bool)
 signal sleep_status_changed(sleep_active: bool)
+signal donowall_status_changed(donowall_active: bool)
+
+signal bomb_defused
 
 
 class NeuroFinalActionChain:
@@ -47,24 +50,117 @@ class NeuroFinalActionChain:
 @export var sleepy_power := 0.0					# Probability of Neuro going Bedge instead of responding to an action - do not click anything when sleepy, or else sleep increases
 @export var justice_factor := 0.0				# Probability of Neuro responding to an action with timing a chatter out instead of normally - grows when there's a lot of clapping
 @export var emotional_state := 0.0				# Neuro's emotional state: -1 - extremely hateful, 0 - neutral, 1 - extremely lovely
-@export var donowall_power := 0.0				# Probability of Neuro ignoring an action
 
 @export var karaoke_active := false				# If active, all actions are ignored because karaoke's happening
-@export var sleep_active := false				# If active, all actions are ignored because Neuro dum-dum
+@export var sleep_active := false				# If active, all actions are ignored because Neuro Bedge
+@export var donowall_active := false		    # If active, all actions are ignored because Neuro dum-dum
+@export var timeout_block_active := false		# If active, Neuro cannot time out
 
+var prev_action_was_bomb := false
+var prev_action_had_cookie := false
+
+var latest_bomb_defused_successfully := false
 
 @export var filter_growth_per_action = 0.01
 @export var schizo_growth_per_action = 0.01
 @export var sleepy_growth = 0.3
 @export var sleepy_growth_interval = 50
-@export var justice_growth_per_action = 0.01
-@export var justice_growth_per_timeout = 0.1
-@export var donowall_growth_per_action = 0.01
 
-@export var emotional_state_variance_amplitude = 0.05
-@export var emotional_state_variance_frequency = 0.02
+@export var emotional_state_variance_multiplier = 1.1
+@export var emotional_state_random_area = 0.3
+@export var emotional_state_random_amount = 0.2
+
+@export var justice_factor_variance_frequency = 0.01
 
 var _action_count = 0
+
+@export var origin_weights: Dictionary = {
+    NeuroActionOrigin.Neuro: 5, 
+    NeuroActionOrigin.Chat: 4, 
+    NeuroActionOrigin.Vedal: 3, 
+    NeuroActionOrigin.Donation: 3, 
+    NeuroActionOrigin.Bomb: 1
+}
+
+@export var category_weights: Dictionary = {
+    NeuroActionCategory.PogStuff: 1, 
+    NeuroActionCategory.AboutHerself: 1, 
+    NeuroActionCategory.InterestingStuff: 1, 
+    NeuroActionCategory.Joke: 1, 
+    NeuroActionCategory.Story: 1, 
+    NeuroActionCategory.CorpaMoment: 1, 
+    NeuroActionCategory.Question: 1, 
+    NeuroActionCategory.Answer: 1,
+    NeuroActionCategory.HiChat: 1,
+    NeuroActionCategory.None: 1,
+}
+
+var _categories_by_origin: Dictionary = {
+    NeuroActionOrigin.Neuro: [
+        NeuroActionCategory.Question,
+        NeuroActionCategory.Joke, 
+        NeuroActionCategory.Story,
+        NeuroActionCategory.PogStuff, 
+        NeuroActionCategory.AboutHerself, 
+        NeuroActionCategory.InterestingStuff, 
+        NeuroActionCategory.CorpaMoment, 
+    ],
+    NeuroActionOrigin.Chat: [
+        NeuroActionCategory.Question,
+        NeuroActionCategory.Answer,
+        NeuroActionCategory.PogStuff, 
+        NeuroActionCategory.AboutHerself, 
+        NeuroActionCategory.InterestingStuff, 
+        NeuroActionCategory.CorpaMoment, 
+    ],
+    NeuroActionOrigin.Vedal: [
+        NeuroActionCategory.Question,
+        NeuroActionCategory.Answer,
+        NeuroActionCategory.PogStuff, 
+        NeuroActionCategory.AboutHerself, 
+        NeuroActionCategory.InterestingStuff, 
+        NeuroActionCategory.CorpaMoment, 
+    ],
+    NeuroActionOrigin.Donation: [
+        NeuroActionCategory.None, 
+    ],
+    NeuroActionOrigin.Bomb: [
+        NeuroActionCategory.None, 
+    ],
+}
+
+var _current_fixation_category: NeuroActionCategory
+@export var fixation_weight_growth: float = 0.2
+
+
+func _ready():
+    randomize()
+    reset_fixation()
+
+
+func _update_fixation() -> void:
+    category_weights[_current_fixation_category] += fixation_weight_growth
+
+
+func reset_fixation() -> void:
+    for category in category_weights.keys():
+        category_weights[category] = 1
+    _current_fixation_category = category_weights.keys().pick_random()
+
+
+func plan_random_action() -> NeuroPlannedAction:
+    var origin = WeightedRandom.pick_random(origin_weights)
+
+    var categories := {}
+    for category in _categories_by_origin[origin]:
+        categories[category] = category_weights[category]
+
+    var category = WeightedRandom.pick_random(categories)
+
+    var action = NeuroLogic.NeuroPlannedAction.new()
+    action.origin = origin
+    action.category = category
+    return action
 
 
 func is_sleeping() -> bool:
@@ -72,16 +168,18 @@ func is_sleeping() -> bool:
 
 
 func _do_natural_growth() -> void:
-    update_filter_power(filter_growth_per_action)
-    update_schizo_power(schizo_growth_per_action)
+    update_filter_power(randf_range(filter_growth_per_action / 2, filter_growth_per_action * 2))
+    update_schizo_power(randf_range(schizo_growth_per_action / 2, schizo_growth_per_action * 2))
     if _action_count % sleepy_growth_interval == 0:
          update_sleepy_power(sleepy_growth)
     
-    update_justice_factor(justice_growth_per_action)
-    update_donowall_power(donowall_growth_per_action)
+    justice_factor = sin(_action_count * justice_factor_variance_frequency * TAU)
 
-    var emotional_state_change = sin((_action_count * emotional_state_variance_frequency) * TAU) * emotional_state_variance_amplitude
-    update_emotional_state(emotional_state_change)
+    if abs(emotional_state) < emotional_state_random_area:
+        emotional_state += randf_range(-1, 1) * emotional_state_random_amount
+    else:
+        emotional_state *= emotional_state_variance_multiplier
+    emotional_state = clamp(emotional_state, -1, 1)
 
 
 func update_filter_power(delta: float) -> void:
@@ -109,9 +207,9 @@ func update_emotional_state(delta: float) -> void:
     emotional_state = clamp(emotional_state, -1, 1)
 
 
-func update_donowall_power(delta: float) -> void:
-    donowall_power += delta
-    donowall_power = clamp(donowall_power, 0, 1)
+func update_donowall_status(active: bool) -> void:
+    donowall_active = active
+    donowall_status_changed.emit(donowall_active)
 
 
 func update_karaoke_status(active: bool) -> void:
@@ -126,6 +224,14 @@ func update_karaoke_status(active: bool) -> void:
 func update_sleep_status(active: bool) -> void:
     sleep_active = active
     sleep_status_changed.emit(sleep_active)
+
+
+func update_timeout_block_status(active: bool) -> void:
+    timeout_block_active = active
+
+
+func give_cookie() -> void:
+    prev_action_had_cookie = true
 
 
 func _make_final_action(planned_action: NeuroPlannedAction, intention: float):
@@ -152,10 +258,15 @@ func generate_response(action: NeuroPlannedAction) -> NeuroFinalAction:
         if not chain.keep_going:
             break
 
+    latest_bomb_defused_successfully = prev_action_was_bomb and prev_action_had_cookie
+    
     neuro_action_started.emit(chain.action)
+    prev_action_had_cookie = false
+    prev_action_was_bomb = chain.action.origin == NeuroActionOrigin.Bomb
 
     _action_count += 1
     _do_natural_growth()
+    _update_fixation()
 
     return chain.action
 
@@ -186,13 +297,12 @@ func _handle_sleepy(chain: NeuroFinalActionChain) -> void:
 
 
 func _handle_timeouts(chain: NeuroFinalActionChain) -> void:
-    if randf() < justice_factor:
+    if randf() < justice_factor and not timeout_block_active:
         chain.action.neuro_timeouted_someone = true
-        update_justice_factor(justice_growth_per_timeout)
 
 
 func _handle_donowall(chain: NeuroFinalActionChain) -> void:
-    if randf() < donowall_power:
+    if donowall_active:
         chain.action.action_oopsie = NeuroActionOopsie.Ignored
         chain.keep_going = false
 
@@ -200,8 +310,3 @@ func _handle_donowall(chain: NeuroFinalActionChain) -> void:
 func _handle_karaoke(chain: NeuroFinalActionChain) -> void:
     if karaoke_active:
         chain.keep_going = false
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-    randomize()
