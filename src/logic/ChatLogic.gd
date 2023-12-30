@@ -3,31 +3,6 @@ class_name ChatLogic
 
 signal chat_entry_added(entry : ChatEntryData)
 
-enum NeuroActionOrigin {
-    Neuro, Chat, Vedal, Donation
-}
-
-enum NeuroActionCategory {
-    PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
-}
-
-enum NeuroActionOopsie {
-    None, Filtered, Ignored, Slept
-}
-
-class NeuroPlannedAction:
-    var origin : NeuroActionOrigin # Neuro, Chat, Vedal, Donation
-    var category : NeuroActionCategory # PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer
-
-class NeuroFinalAction extends NeuroPlannedAction:
-    # var message : String # will be getter, depends on category
-    var intention : float  # evil, neutral, love   -1.0..1.0
-    var contains_bad_words : bool
-    var action_oopsie : NeuroActionOopsie
-    var schizo_factor : float
-    var neuro_timeouted_someone : bool
-    var is_tutel_reciver : bool
-
 
 class UserData:
     var color : Color = Color.CORNFLOWER_BLUE

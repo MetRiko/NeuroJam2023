@@ -13,7 +13,7 @@ var _prev_actions : Array[NeuroAction] = []
 @export var action_gap = 16
 
 
-func add_message(action: ChatLogic.NeuroPlannedAction) -> void:
+func add_message(action: NeuroLogic.NeuroPlannedAction) -> void:
     var action_inst: NeuroAction = action_tscn.instantiate()
     action_inst.action = action
     _actions.push_back(action_inst)

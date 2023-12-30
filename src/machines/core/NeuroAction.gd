@@ -1,14 +1,14 @@
 extends Node2D
 class_name NeuroAction
 
-var action : ChatLogic.NeuroPlannedAction
+var action : NeuroLogic.NeuroPlannedAction
 
 var _is_new := true
 var to_be_destroyed := false
 
 
 func _ready():
-	print("New planned action: category %s, origin %s" % [ChatLogic.NeuroActionCategory.keys()[action.category], ChatLogic.NeuroActionOrigin.keys()[action.origin]])
+	print("New planned action: category %s, origin %s" % [NeuroLogic.NeuroActionCategory.keys()[action.category], NeuroLogic.NeuroActionOrigin.keys()[action.origin]])
 
 	$Sprite2D.scale = Vector2.ZERO
 
@@ -23,7 +23,7 @@ func update_pos(pos: Vector2) -> void:
 
 
 func execute() -> void:
-	print("Execute action: category %s, origin %s" % [ChatLogic.NeuroActionCategory.keys()[action.category], ChatLogic.NeuroActionOrigin.keys()[action.origin]])
+	print("Execute action: category %s, origin %s" % [NeuroLogic.NeuroActionCategory.keys()[action.category], NeuroLogic.NeuroActionOrigin.keys()[action.origin]])
 
 	var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_EXPO).set_parallel(true)
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.2)

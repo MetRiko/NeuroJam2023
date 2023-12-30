@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://4a2id2oc63um"]
+
+[ext_resource type="Script" path="res://src/debug/NeuroStateDebug.gd" id="1_pa222"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_pa222")
+
+[node name="FilterLabel" type="Label" parent="."]
+layout_mode = 2
+text = "aaaaaa"
+horizontal_alignment = 2
+
+[node name="SchizoLabel" type="Label" parent="."]
+layout_mode = 2
+text = "aaaaaa"
+horizontal_alignment = 2
+
+[node name="SleepyLabel" type="Label" parent="."]
+layout_mode = 2
+text = "aaaaaa"
+horizontal_alignment = 2
+
+[node name="JusticeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "aaaaaa"
+horizontal_alignment = 2
+
+[node name="EmotionalLabel" type="Label" parent="."]
+layout_mode = 2
+text = "aaaaaa"
+horizontal_alignment = 2
+
+[node name="DonowallLabel" type="Label" parent="."]
+layout_mode = 2
+text = "aaaaaa"
+horizontal_alignment = 2
+
+[node name="KaraokeLabel" type="Label" parent="."]
+layout_mode = 2
+text = "aaaaaa"
+horizontal_alignment = 2
+
+[node name="SleepLabel" type="Label" parent="."]
+layout_mode = 2
+text = "aaaaaa"
+horizontal_alignment = 2

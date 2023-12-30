@@ -2,14 +2,40 @@ extends Node
 class_name NeuroLogic
 
 
-signal neuro_action_started(neuro_action: ChatLogic.NeuroFinalAction)
+enum NeuroActionOrigin {
+    Neuro, Chat, Vedal, Donation
+}
+
+enum NeuroActionCategory {
+    PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+}
+
+enum NeuroActionOopsie {
+    None, Filtered, Ignored, Slept
+}
+
+class NeuroPlannedAction:
+    var origin : NeuroActionOrigin # Neuro, Chat, Vedal, Donation
+    var category : NeuroActionCategory # PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer
+
+class NeuroFinalAction extends NeuroPlannedAction:
+    # var message : String # will be getter, depends on category
+    var intention : float  # evil, neutral, love   -1.0..1.0
+    var contains_bad_words : bool
+    var action_oopsie : NeuroActionOopsie
+    var schizo_factor : float
+    var neuro_timeouted_someone : bool
+    var is_tutel_reciver : bool
+
+
+signal neuro_action_started(neuro_action: NeuroFinalAction)
 
 
 class NeuroFinalActionChain:
-    var action: ChatLogic.NeuroFinalAction
+    var action: NeuroFinalAction
     var keep_going: bool
 
-    func _init(action: ChatLogic.NeuroFinalAction):
+    func _init(action: NeuroFinalAction):
         self.action = action
         self.keep_going = true
 
@@ -87,16 +113,16 @@ func update_sleep_status(active: bool) -> void:
     sleep_active = active
 
 
-func _make_final_action(planned_action: ChatLogic.NeuroPlannedAction, intention: float):
-    var final_action = ChatLogic.NeuroFinalAction.new()
+func _make_final_action(planned_action: NeuroPlannedAction, intention: float):
+    var final_action = NeuroFinalAction.new()
     final_action.category = planned_action.category
     final_action.origin = planned_action.origin
     final_action.intention = intention
-    final_action.is_tutel_reciver = planned_action.origin == ChatLogic.NeuroActionOrigin.Vedal
+    final_action.is_tutel_reciver = planned_action.origin == NeuroActionOrigin.Vedal
     return final_action
 
 
-func generate_response(action: ChatLogic.NeuroPlannedAction) -> ChatLogic.NeuroFinalAction:
+func generate_response(action: NeuroPlannedAction) -> NeuroFinalAction:
     var chain = NeuroFinalActionChain.new(_make_final_action(action, emotional_state))
 
     var handlers = [
@@ -125,7 +151,7 @@ func _handle_filter(chain: NeuroFinalActionChain) -> void:
     var no_filter_prob = max(0, (0.5 - filter_power) * 2)
 
     if random < filter_prob:
-        chain.action.action_oopsie = ChatLogic.NeuroActionOopsie.Filtered
+        chain.action.action_oopsie = NeuroActionOopsie.Filtered
         chain.keep_going = false
     if random < no_filter_prob:
         chain.action.contains_bad_words = true
@@ -140,7 +166,7 @@ func _handle_sleepy(chain: NeuroFinalActionChain) -> void:
         sleep_active = true
 
     if sleep_active:
-        chain.action.action_oopsie = ChatLogic.NeuroActionOopsie.Slept
+        chain.action.action_oopsie = NeuroActionOopsie.Slept
         chain.keep_going = false
 
 
@@ -152,7 +178,7 @@ func _handle_timeouts(chain: NeuroFinalActionChain) -> void:
 
 func _handle_donowall(chain: NeuroFinalActionChain) -> void:
     if randf() < donowall_power:
-        chain.action.action_oopsie = ChatLogic.NeuroActionOopsie.Ignored
+        chain.action.action_oopsie = NeuroActionOopsie.Ignored
         chain.keep_going = false
 
 
