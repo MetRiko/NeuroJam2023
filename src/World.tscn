@@ -1,15 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://2deuujkaeb54"]
+[gd_scene load_steps=8 format=3 uid="uid://2deuujkaeb54"]
 
 [ext_resource type="Script" path="res://src/logic/ChatLogic.gd" id="1_akn28"]
 [ext_resource type="PackedScene" uid="uid://bqc1xtpj2h1c5" path="res://src/side_bar/SideBar.tscn" id="1_cuiif"]
 [ext_resource type="Script" path="res://src/World.gd" id="1_ta7mb"]
 [ext_resource type="PackedScene" uid="uid://brk8apg1ijq2o" path="res://src/level/Level.tscn" id="2_dyt3k"]
 [ext_resource type="Script" path="res://src/logic/NeuroLogic.gd" id="2_jjnbv"]
+[ext_resource type="Script" path="res://src/logic/ViewershipLogic.gd" id="4_q44ob"]
 [ext_resource type="PackedScene" uid="uid://4a2id2oc63um" path="res://src/debug/NeuroStateDebug.tscn" id="6_f7iw2"]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("chat_logic")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("chat_logic", "neuro_logic", "viewership_logic")]
 script = ExtResource("1_ta7mb")
 chat_logic = NodePath("Logic/ChatLogic")
+neuro_logic = NodePath("Logic/NeuroLogic")
+viewership_logic = NodePath("Logic/ViewershipLogic")
 
 [node name="Logic" type="Node" parent="."]
 
@@ -23,6 +26,13 @@ schizo_growth_per_action = 0.006
 sleepy_growth = 0.1
 justice_growth_per_action = 0.007
 donowall_growth_per_action = 0.003
+
+[node name="ViewershipLogic" type="Node" parent="Logic"]
+script = ExtResource("4_q44ob")
+
+[node name="Timer" type="Timer" parent="Logic/ViewershipLogic"]
+wait_time = 0.05
+autostart = true
 
 [node name="Level" parent="." instance=ExtResource("2_dyt3k")]
 

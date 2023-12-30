@@ -9,7 +9,7 @@ func setup_entry(chat_entry : ChatLogic.ChatEntryData):
 	badge.visible = has_badge
 	if has_badge:
 		badge.texture = Database.user_badges[chat_entry.user_data.badge]
-	var indent_text := "       " if has_badge else ""
+	var indent_text := "     " if has_badge else ""
 	
 	var msg_content := " ".join(chat_entry.content.map(func(c): return c.get_text()))
 	var color_str := chat_entry.user_data.color.to_html(false)

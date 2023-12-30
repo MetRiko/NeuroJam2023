@@ -40,7 +40,7 @@ class NeuroFinalActionChain:
         self.keep_going = true
 
 
-@export var filter_power := 0					# Relative to the probability of a response getting filtered (and of bad messages being let through) - 0: sweet spot
+@export var filter_power := 0.0					# Relative to the probability of a response getting filtered (and of bad messages being let through) - 0: sweet spot
 @export var schizo_power := 0.0					# Probability of Neuro going wild with her response
 @export var sleepy_power := 0.0					# Probability of Neuro going Bedge instead of responding to an action - do not click anything when sleepy, or else sleep increases
 @export var justice_factor := 0.0				# Probability of Neuro responding to an action with timing a chatter out instead of normally - grows when there's a lot of clapping

@@ -6,7 +6,7 @@ extends Node2D
 
 
 func _input(event):
-    if event is InputEventKey and not event.echo and event.pressed:
+    if event is InputEventKey and event.pressed:
         match event.keycode:
             KEY_1:
                 var action := NeuroLogic.NeuroPlannedAction.new()

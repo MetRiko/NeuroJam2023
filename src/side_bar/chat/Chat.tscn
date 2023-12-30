@@ -22,7 +22,7 @@ anchor_bottom = 1.0
 offset_top = -2880.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 0
+theme_override_constants/separation = -12
 alignment = 2
 
 [node name="ChatEntry" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
@@ -101,6 +101,76 @@ label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
 
 [node name="ChatEntry16" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry17" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry18" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry19" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry20" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry21" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry22" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry23" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry24" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry25" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry26" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry27" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry28" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry29" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+layout_mode = 2
+label = NodePath("Content/TextContent/RichTextLabel")
+badge = NodePath("Content/Header/FirstBadge")
+
+[node name="ChatEntry30" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
