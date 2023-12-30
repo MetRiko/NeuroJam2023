@@ -8,7 +8,7 @@ enum NeuroActionOrigin {
 }
 
 enum NeuroActionCategory {
-    PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+    PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
 }
 
 enum NeuroActionOopsie {
@@ -17,7 +17,7 @@ enum NeuroActionOopsie {
 
 class NeuroPlannedAction:
     var origin : NeuroActionOrigin # Neuro, Chat, Vedal, Donation
-    var category : NeuroActionCategory # PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer
+    var category : NeuroActionCategory # PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer
 
 class NeuroFinalAction extends NeuroPlannedAction:
     # var message : String # will be getter, depends on category
@@ -26,7 +26,7 @@ class NeuroFinalAction extends NeuroPlannedAction:
     var action_oopsie : NeuroActionOopsie
     var schizo_factor : float
     var neuro_timeouted_someone : bool
-    var is_tutel_receiver : bool
+    var is_tutel_reciver : bool
 
 
 class UserData:

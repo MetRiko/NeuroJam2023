@@ -92,7 +92,7 @@ func _make_final_action(planned_action: ChatLogic.NeuroPlannedAction, intention:
     final_action.category = planned_action.category
     final_action.origin = planned_action.origin
     final_action.intention = intention
-    final_action.is_tutel_receiver = planned_action.origin == ChatLogic.NeuroActionOrigin.Vedal
+    final_action.is_tutel_reciver = planned_action.origin == ChatLogic.NeuroActionOrigin.Vedal
     return final_action
 
 

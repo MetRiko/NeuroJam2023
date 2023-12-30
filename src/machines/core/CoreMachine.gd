@@ -10,7 +10,7 @@ func _input(event):
         match event.keycode:
             KEY_1:
                 var action := ChatLogic.NeuroPlannedAction.new()
-                action.category = ChatLogic.NeuroActionCategory.InterestingStuff
+                action.category = ChatLogic.NeuroActionCategory.IterestingStuff
                 action.origin = ChatLogic.NeuroActionOrigin.Neuro
                 add_planned_action(action)
             KEY_2:
@@ -48,5 +48,5 @@ func handle_action(action) -> void:
                 ChatLogic.NeuroActionOopsie.keys()[response.action_oopsie],
                 response.schizo_factor,
                 response.neuro_timeouted_someone,
-                response.is_tutel_receiver
+                response.is_tutel_reciver
             ])
