@@ -83,7 +83,7 @@ enum ChatResponseCategory {
 	None,	Karaoke, Bedge, Ignored, Filtered,
 	Tutel, BadWords, Timeout, Schizo,
 	Lovely_1, Lovely_2, Lovely_3, Evil_1, Evil_2, Evil_3,
-	PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+	PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
 }
 
 func _generate_matching_chat_entry():
@@ -115,7 +115,7 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 	var post_additional_comment_instead := randf() < 0.2
 	if post_additional_comment_instead:
 		var comment_types := []
-		if neuro_action.is_tutel_reciver:
+		if neuro_action.is_tutel_receiver:
 			comment_types.append(1)
 		if neuro_action.contains_bad_words:
 			comment_types.append(2)
@@ -147,7 +147,7 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 	match neuro_action.category:
 		NeuroLogic.NeuroActionCategory.PogStuff: return ChatResponseCategory.PogStuff
 		NeuroLogic.NeuroActionCategory.AboutHerself: return ChatResponseCategory.AboutHerself
-		NeuroLogic.NeuroActionCategory.IterestingStuff: return ChatResponseCategory.IterestingStuff
+		NeuroLogic.NeuroActionCategory.InterestingStuff: return ChatResponseCategory.InterestingStuff
 		NeuroLogic.NeuroActionCategory.Joke: return ChatResponseCategory.Joke
 		NeuroLogic.NeuroActionCategory.Story: return ChatResponseCategory.Story
 		NeuroLogic.NeuroActionCategory.CorpaMoment: return ChatResponseCategory.CorpaMoment

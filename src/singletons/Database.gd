@@ -73,7 +73,7 @@ var chat_answers := {
 	ChatLogic.ChatResponseCategory.AboutHerself: [
 		[ ChatLogic.Msg.new("GIGANEURO") ]
 	],
-	ChatLogic.ChatResponseCategory.IterestingStuff: [
+	ChatLogic.ChatResponseCategory.InterestingStuff: [
 		[ ChatLogic.Msg.new("NOTED") ]
 	],
 	ChatLogic.ChatResponseCategory.Joke: [

@@ -7,7 +7,7 @@ enum NeuroActionOrigin {
 }
 
 enum NeuroActionCategory {
-    PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+    PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
 }
 
 enum NeuroActionOopsie {
@@ -16,7 +16,7 @@ enum NeuroActionOopsie {
 
 class NeuroPlannedAction:
     var origin : NeuroActionOrigin # Neuro, Chat, Vedal, Donation
-    var category : NeuroActionCategory # PogStuff, AboutHerself, IterestingStuff, Joke, Story, CorpaMoment, Question, Answer
+    var category : NeuroActionCategory # PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer
 
 class NeuroFinalAction extends NeuroPlannedAction:
     # var message : String # will be getter, depends on category
@@ -25,7 +25,7 @@ class NeuroFinalAction extends NeuroPlannedAction:
     var action_oopsie : NeuroActionOopsie
     var schizo_factor : float
     var neuro_timeouted_someone : bool
-    var is_tutel_reciver : bool
+    var is_tutel_receiver : bool
 
 
 signal neuro_action_started(neuro_action: NeuroFinalAction)
@@ -40,7 +40,7 @@ class NeuroFinalActionChain:
         self.keep_going = true
 
 
-@export var filter_power := 0.5					# Relative to the probability of a response getting filtered (and of bad messages being let through) - 0.5: sweet spot
+@export var filter_power := 0.0					# Relative to the probability of a response getting filtered (and of bad messages being let through) - 0: sweet spot
 @export var schizo_power := 0.0					# Probability of Neuro going wild with her response
 @export var sleepy_power := 0.0					# Probability of Neuro going Bedge instead of responding to an action - do not click anything when sleepy, or else sleep increases
 @export var justice_factor := 0.0				# Probability of Neuro responding to an action with timing a chatter out instead of normally - grows when there's a lot of clapping
@@ -74,7 +74,7 @@ func do_natural_growth() -> void:
 
 func update_filter_power(delta: float) -> void:
     filter_power += delta
-    filter_power = clamp(filter_power, 0, 1)
+    filter_power = clamp(filter_power, -1, 1)
 
 
 func update_schizo_power(delta: float) -> void:
@@ -118,7 +118,7 @@ func _make_final_action(planned_action: NeuroPlannedAction, intention: float):
     final_action.category = planned_action.category
     final_action.origin = planned_action.origin
     final_action.intention = intention
-    final_action.is_tutel_reciver = planned_action.origin == NeuroActionOrigin.Vedal
+    final_action.is_tutel_receiver = planned_action.origin == NeuroActionOrigin.Vedal
     return final_action
 
 
@@ -147,8 +147,8 @@ func generate_response(action: NeuroPlannedAction) -> NeuroFinalAction:
 
 func _handle_filter(chain: NeuroFinalActionChain) -> void:
     var random = randf()
-    var filter_prob = max(0, (filter_power - 0.5) * 2)
-    var no_filter_prob = max(0, (0.5 - filter_power) * 2)
+    var filter_prob = max(0, filter_power)
+    var no_filter_prob = max(0, -filter_power)
 
     if random < filter_prob:
         chain.action.action_oopsie = NeuroActionOopsie.Filtered
