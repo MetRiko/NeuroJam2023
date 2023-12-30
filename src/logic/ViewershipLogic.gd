@@ -92,11 +92,11 @@ func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction) -> voi
 
 	var intention_factor := absf(neuro_action.intention)
 	var intention_level : int = 0
-	if intention_factor >= 0.7:
+	if intention_factor >= 0.8:
 		intention_level = 3
-	elif intention_factor >= 0.4:
+	elif intention_factor >= 0.5:
 		intention_level = 2
-	elif intention_factor >= 0.15:
+	elif intention_factor >= 0.2:
 		intention_level = 1
 
 	if intention_level > 0:
@@ -129,15 +129,15 @@ func _update_viewership():
 	var new_viewers := 0
 
 	if bomb_defused_hype > 0.0:
-		new_viewers += int(bomb_defused_hype * randi_range(0, 20))
+		new_viewers += int(bomb_defused_hype * randi_range(0, 50))
 		bomb_defused_hype -= randf() * 0.1
 
 	var viewers_increment_by_counters : Array[int] = [
-		_calculate_viewership_increment(filter_counter, 4, 10.0),
-		_calculate_viewership_increment(donowall_counter, 4, 10.0),
-		_calculate_viewership_increment(bedge_counter, 4, 10.0),
-		_calculate_viewership_increment(timeouts_counter, 4, 10.0),
-		_calculate_viewership_increment(bad_wording_counter, 4, 10.0)
+		_calculate_viewership_increment(filter_counter, 3, 15.0),
+		_calculate_viewership_increment(donowall_counter, 3, 15.0),
+		_calculate_viewership_increment(bedge_counter, 3, 15.0),
+		_calculate_viewership_increment(timeouts_counter, 3, 30.0),
+		_calculate_viewership_increment(bad_wording_counter, 3, 15.0)
 	]
 
 	var min_increment_by_counters : int = viewers_increment_by_counters.min()

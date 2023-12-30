@@ -25,152 +25,182 @@ grow_vertical = 0
 theme_override_constants/separation = -12
 alignment = 2
 
-[node name="ChatEntry" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry2" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry2" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry3" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry3" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry4" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry4" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry5" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry5" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry6" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry6" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry7" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry7" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry8" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry8" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry9" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry9" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry10" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry10" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry11" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry11" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry12" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry12" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry13" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry13" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry14" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry14" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry15" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry15" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry16" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry16" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry17" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry17" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry18" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry18" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry19" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry19" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry20" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry20" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry21" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry21" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry22" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry22" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry23" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry23" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry24" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry24" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry25" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry25" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry26" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry26" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry27" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry27" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry28" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry28" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry29" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry29" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
-[node name="ChatEntry30" parent="ChatList" node_paths=PackedStringArray("label", "badge") instance=ExtResource("2_hpbxb")]
+[node name="ChatEntry30" parent="ChatList" node_paths=PackedStringArray("label", "badge", "timeout") instance=ExtResource("2_hpbxb")]
 layout_mode = 2
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")

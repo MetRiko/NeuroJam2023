@@ -3,8 +3,16 @@ class_name ChatEntry
 
 @export var label : RichTextLabel
 @export var badge : TextureRect
+@export var timeout : Control
 
 func setup_entry(chat_entry : ChatLogic.ChatEntryData):
+	if chat_entry.timeouted_user != "":
+		label.text = "                          [b]%s[/b]" % [chat_entry.timeouted_user]
+		badge.visible = false
+		timeout.visible = true
+		return
+
+	timeout.visible = false
 	var has_badge := chat_entry.user_data.badge != Database.UserBadge.None
 	badge.visible = has_badge
 	if has_badge:

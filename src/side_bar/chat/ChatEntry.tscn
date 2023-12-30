@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://bma5rwm0gxnkw"]
+[gd_scene load_steps=6 format=3 uid="uid://bma5rwm0gxnkw"]
 
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_7f1o5"]
 [ext_resource type="Script" path="res://src/side_bar/chat/ChatEntry.gd" id="1_g80va"]
 [ext_resource type="FontFile" uid="uid://ov35bo0r5tah" path="res://res/fonts/Roboto-Medium.ttf" id="3_6tria"]
+[ext_resource type="FontFile" uid="uid://c0pabp5w3i8ri" path="res://res/fonts/Roboto-Bold.ttf" id="3_cacss"]
 
-[node name="ChatEntry" type="MarginContainer" node_paths=PackedStringArray("label", "badge")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n78um"]
+bg_color = Color(0.87451, 0.270588, 0.270588, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="ChatEntry" type="MarginContainer" node_paths=PackedStringArray("label", "badge", "timeout")]
 offset_right = 357.0
 offset_bottom = 45.0
 theme_override_constants/margin_left = 4
@@ -14,6 +22,7 @@ theme_override_constants/margin_bottom = 4
 script = ExtResource("1_g80va")
 label = NodePath("Content/TextContent/RichTextLabel")
 badge = NodePath("Content/Header/FirstBadge")
+timeout = NodePath("Content/Header/Timeout")
 
 [node name="Content" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -25,6 +34,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="FirstBadge" type="TextureRect" parent="Content/Header"]
+visible = false
 layout_mode = 2
 texture = ExtResource("1_7f1o5")
 expand_mode = 3
@@ -34,6 +44,34 @@ visible = false
 layout_mode = 2
 texture = ExtResource("1_7f1o5")
 expand_mode = 3
+
+[node name="Timeout" type="MarginContainer" parent="Content/Header"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="Content/Header/Timeout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_cacss")
+theme_override_font_sizes/font_size = 16
+text = "Timeout 300s"
+
+[node name="Panel" type="Panel" parent="Content/Header/Timeout/Label"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -2.0
+offset_right = 4.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n78um")
 
 [node name="TextContent" type="MarginContainer" parent="Content"]
 layout_mode = 2
@@ -49,7 +87,7 @@ theme_override_fonts/normal_font = ExtResource("3_6tria")
 theme_override_font_sizes/normal_font_size = 16
 theme_override_font_sizes/bold_font_size = 16
 bbcode_enabled = true
-text = "     [b]SuperChater[/b] : I love you Neuro!"
+text = "                          [b]SuperChater[/b] : I love you Neuro!"
 fit_content = true
 scroll_active = false
 tab_size = 8

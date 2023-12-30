@@ -30,6 +30,7 @@ class Msg extends ContentDataBase:
 	
 class ChatEntryData:
 	var user_data : UserData
+	var timeouted_user : String = ""
 	var content : Array[ContentDataBase]
 		
 var chat_entries : Array[ChatEntryData] = []
@@ -54,6 +55,12 @@ var chance_to_react_to_previous_message := 0.0
 
 func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction):
 	previous_neuro_action = current_neuro_action
+
+	if neuro_action != null and neuro_action.neuro_timeouted_someone:
+		var username = "User_" + str(randi() % 100)
+		var chat_entry := ChatLogic.ChatEntryData.new()
+		chat_entry.timeouted_user = username
+		add_chat_entry(chat_entry)
 
 	if previous_neuro_action != null and previous_neuro_action.origin == NeuroLogic.NeuroActionOrigin.Bomb:
 		var neuro_logic : NeuroLogic = Game.get_neuro_logic()
@@ -91,14 +98,18 @@ enum ChatResponseCategory {
 	None,	Karaoke, Bedge, Ignored, Filtered,
 	Tutel, BadWords, Timeout, Schizo,
 	Lovely_1, Lovely_2, Lovely_3, Evil_1, Evil_2, Evil_3,
-	PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer, HiChat
+	PogStuff, AboutHerself, InterestingStuff, Joke, Story, CorpaMoment, Question, Answer,
+	HiChat, HiVedal,
+	BombDefused, BombExploded, DefusingBomb
 }
 
 func _generate_matching_chat_entry():
 	if bomb_hype > 0.0 and randf() < bomb_hype:
-		bomb_hype -= randf() * 0.05
-		var response_type := ChatResponseCategory.PogStuff if was_bomb_defused else ChatResponseCategory.Joke
-		_queue_chat_response(response_type)
+		bomb_hype -= randf_range(0.05, 0.1)
+		var neuro_logic : NeuroLogic = Game.get_neuro_logic()
+		if !neuro_logic.karaoke_active and !neuro_logic.sleep_active:
+			var response_type := ChatResponseCategory.BombDefused if was_bomb_defused else ChatResponseCategory.BombExploded
+			_queue_chat_response(response_type)
 		return
 
 	if randf() < chance_to_react_to_previous_message:
@@ -151,13 +162,16 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 	if randf() < intention_factor:
 		var intention_chance := randf() * intention_factor
 		var is_lovely := neuro_action.intention > 0
-		if intention_chance >= 0.7: # lvl 3
+		if intention_chance >= 0.8: # lvl 3
 			return ChatResponseCategory.Lovely_3 if is_lovely else ChatResponseCategory.Evil_3
-		elif intention_chance >= 0.4: # lvl 2
+		elif intention_chance >= 0.5: # lvl 2
 			return ChatResponseCategory.Lovely_2 if is_lovely else ChatResponseCategory.Evil_2
-		elif intention_chance >= 0.15: # lvl 1
+		elif intention_chance >= 0.2: # lvl 1
 			return ChatResponseCategory.Lovely_1 if is_lovely else ChatResponseCategory.Evil_1
 
+	if neuro_action.origin == NeuroLogic.NeuroActionOrigin.Bomb:
+		return ChatResponseCategory.DefusingBomb
+				
 	match neuro_action.category:
 		NeuroLogic.NeuroActionCategory.PogStuff: return ChatResponseCategory.PogStuff
 		NeuroLogic.NeuroActionCategory.AboutHerself: return ChatResponseCategory.AboutHerself
@@ -167,6 +181,9 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 		NeuroLogic.NeuroActionCategory.CorpaMoment: return ChatResponseCategory.CorpaMoment
 		NeuroLogic.NeuroActionCategory.Question: return ChatResponseCategory.Question
 		NeuroLogic.NeuroActionCategory.Answer: return ChatResponseCategory.Answer
-		NeuroLogic.NeuroActionCategory.HiChat: return ChatResponseCategory.HiChat
+		NeuroLogic.NeuroActionCategory.HiChat:
+			match neuro_action.origin:
+				NeuroLogic.NeuroActionOrigin.Vedal: return ChatResponseCategory.HiVedal
+				NeuroLogic.NeuroActionOrigin.Chat: return ChatResponseCategory.HiChat
 	
 	return ChatResponseCategory.None

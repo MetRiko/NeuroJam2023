@@ -96,5 +96,21 @@ var chat_answers := {
 	],
 	ChatLogic.ChatResponseCategory.HiChat: [
 		[ ChatLogic.Msg.new("Hi Neuro!") ]
+	],
+	ChatLogic.ChatResponseCategory.HiVedal: [
+		[ ChatLogic.Msg.new("Hi Vedal!") ],
+		[ ChatLogic.Msg.new("Tutel") ]
+	],
+	ChatLogic.ChatResponseCategory.BombDefused: [
+		[ ChatLogic.Msg.new("Pog!") ],
+		[ ChatLogic.Msg.new("Clap! Clap!") ],
+		[ ChatLogic.Msg.new("She did it!") ]
+	],
+	ChatLogic.ChatResponseCategory.BombExploded: [
+		[ ChatLogic.Msg.new("o7") ]
+	],
+	ChatLogic.ChatResponseCategory.DefusingBomb: [
+		[ ChatLogic.Msg.new("You can do it Neuro!") ],
+		[ ChatLogic.Msg.new("NeuroCheer") ]
 	]
 }
