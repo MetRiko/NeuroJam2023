@@ -23,6 +23,7 @@ func _update_viewership():
 	delta_vierwership_2 *= randi_range(1, 50)
 	
 	current_viewership += delta_vierwership + delta_vierwership_2
+	current_viewership = max(current_viewership, 0)
 	# print(current_viewership, ' <-', int(delta_vierwership), ' & ', int(delta_vierwership_2)) 
 	
 	viewership_changed.emit(current_viewership)

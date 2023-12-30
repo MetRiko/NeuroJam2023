@@ -1,0 +1,82 @@
+[gd_scene load_steps=5 format=3 uid="uid://btjok8rmqsy1e"]
+
+[ext_resource type="FontFile" uid="uid://c0pabp5w3i8ri" path="res://res/fonts/Roboto-Bold.ttf" id="1_vo6kn"]
+[ext_resource type="Script" path="res://src/machines/neuro_action_screen/NeuroActionScreen.gd" id="1_yug2v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3ni2"]
+bg_color = Color(0.721739, 0.420492, 0.522654, 1)
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.152174, 0.136295, 0.143337, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+anti_aliasing_size = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adb3o"]
+bg_color = Color(0.721739, 0.420492, 0.522654, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+anti_aliasing_size = 1.5
+
+[node name="NeuroActionScreen" type="Control"]
+z_index = -1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 571.0
+offset_top = 214.0
+offset_right = 830.0
+offset_bottom = 385.0
+script = ExtResource("1_yug2v")
+
+[node name="ColorRect2" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k3ni2")
+
+[node name="ColorRect" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_adb3o")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.926087, 0.945369, 1)
+theme_override_colors/font_shadow_color = Color(0.317391, 0.162836, 0.21525, 1)
+theme_override_colors/font_outline_color = Color(1, 0.92549, 0.945098, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("1_vo6kn")
+theme_override_font_sizes/font_size = 28
+text = "Neuro
+is answering
+a question..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

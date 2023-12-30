@@ -22,76 +22,79 @@ const user_badges := {
 }
 
 var chat_answers := {
-	"bedge": [
+	ChatLogic.ChatResponseCategory.Karaoke: [
+		[ ChatLogic.Msg.new("NeuroCheer") ]
+	],
+	ChatLogic.ChatResponseCategory.Bedge: [
 		[ ChatLogic.Msg.new("Bedge") ]
 	],
-	"ignored": [
+	ChatLogic.ChatResponseCategory.Ignored: [
 		[ ChatLogic.Msg.new("DonoWall") ],
 		[ ChatLogic.Msg.new("PauseSama") ]
 	],
-	"filtered": [
+	ChatLogic.ChatResponseCategory.Filtered: [
 		[ ChatLogic.Msg.new("1984") ]
 	],
-	"tutel": [
+	ChatLogic.ChatResponseCategory.Tutel: [
 		[ ChatLogic.Msg.new("Tutel") ]
 	],
-	"bad_words": [
+	ChatLogic.ChatResponseCategory.BadWords: [
 		[ ChatLogic.Msg.new("D:") ],
 		[ ChatLogic.Msg.new("FrickU") ]
 	],
-	"timeout": [
+	ChatLogic.ChatResponseCategory.Timeout: [
 		[ ChatLogic.Msg.new("RIPBOZO") ]
 	],
-	"schizo": [
+	ChatLogic.ChatResponseCategory.Schizo: [
 		[ ChatLogic.Msg.new("SCHIZO") ]
 	],
-	"lovely_1": [
+	ChatLogic.ChatResponseCategory.Lovely_1: [
 		[ ChatLogic.Msg.new("<3") ]
 	],
-	"lovely_2": [
+	ChatLogic.ChatResponseCategory.Lovely_2: [
 		[ ChatLogic.Msg.new("<3 <3") ],
 		[ ChatLogic.Msg.new("SoCute") ]
 	],
-	"lovely_3": [
+	ChatLogic.ChatResponseCategory.Lovely_3: [
 		[ ChatLogic.Msg.new("<3 <3 <3") ]
 	],
-	"evil_1": [
+	ChatLogic.ChatResponseCategory.Evil_1: [
 		[ ChatLogic.Msg.new("D:") ]
 	],
-	"evil_2": [
+	ChatLogic.ChatResponseCategory.Evil_2: [
 		[ ChatLogic.Msg.new("D: D:") ]
 	],
-	"evil_3": [
+	ChatLogic.ChatResponseCategory.Evil_3: [
 		[ ChatLogic.Msg.new("BAND") ]
 	],
-	"pog_stuff": [
+	ChatLogic.ChatResponseCategory.PogStuff: [
 		[ ChatLogic.Msg.new("Pog") ]
 	],
-	"about_herself": [
+	ChatLogic.ChatResponseCategory.AboutHerself: [
 		[ ChatLogic.Msg.new("GIGANEURO") ]
 	],
-	"iteresting_stuff": [
+	ChatLogic.ChatResponseCategory.InterestingStuff: [
 		[ ChatLogic.Msg.new("NOTED") ]
 	],
-	"joke": [
+	ChatLogic.ChatResponseCategory.Joke: [
 		[ ChatLogic.Msg.new("ICANT") ],
 		[ ChatLogic.Msg.new("GOODONE") ]
 	],
-	"story": [
+	ChatLogic.ChatResponseCategory.Story: [
 		[ ChatLogic.Msg.new("FeelsStrongMan") ]
 	],
-	"corpa_moment": [
+	ChatLogic.ChatResponseCategory.CorpaMoment: [
 		[ ChatLogic.Msg.new("Corpa") ]
 	],
-	"question": [
+	ChatLogic.ChatResponseCategory.Question: [
 		[ ChatLogic.Msg.new("YES") ],
 		[ ChatLogic.Msg.new("NO") ]
 	],
-	"answer": [
+	ChatLogic.ChatResponseCategory.Answer: [
 		[ ChatLogic.Msg.new("NOTED") ],
 		[ ChatLogic.Msg.new("GOODONE") ]
 	],
-	"hi_chat": [
+	ChatLogic.ChatResponseCategory.HiChat: [
 		[ ChatLogic.Msg.new("Hi Neuro!") ]
 	]
 }

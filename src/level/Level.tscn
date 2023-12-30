@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=17 format=3 uid="uid://brk8apg1ijq2o"]
 
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
@@ -12,12 +12,13 @@
 [ext_resource type="PackedScene" uid="uid://j1102yne22oh" path="res://src/machines/eating_tube/EatingTube.tscn" id="11_mg8yt"]
 [ext_resource type="PackedScene" uid="uid://l3l3wmv02hg7" path="res://src/machines/flusher/Flusher.tscn" id="12_7wsug"]
 [ext_resource type="PackedScene" uid="uid://3qx4hb7lw4qm" path="res://src/machines/cookie_box/CookieBox.tscn" id="12_x7kqy"]
+[ext_resource type="PackedScene" uid="uid://btjok8rmqsy1e" path="res://src/machines/neuro_action_screen/NeuroActionScreen.tscn" id="13_ww6ex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wsedu"]
 size = Vector2(1282, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rifwp"]
-size = Vector2(619, 451.75)
+size = Vector2(906, 452)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3q0p7"]
 size = Vector2(110.296, 522)
@@ -25,7 +26,7 @@ size = Vector2(110.296, 522)
 [node name="Level" type="Node2D"]
 
 [node name="CoreMachine" parent="." node_paths=PackedStringArray("chat_queue") instance=ExtResource("1_thdch")]
-position = Vector2(476, 648)
+position = Vector2(420, 648)
 scale = Vector2(0.68, 0.68)
 chat_queue = NodePath("RightQueue")
 
@@ -61,21 +62,21 @@ scale = Vector2(1, 0.44)
 shape = SubResource("RectangleShape2D_wsedu")
 
 [node name="FilterMachine" parent="." instance=ExtResource("5_5e04j")]
-position = Vector2(462, 209)
+position = Vector2(366, 209)
 rotation = 1.5708
 
 [node name="SchizoMachine" parent="." node_paths=PackedStringArray("pill_spawnpoint") instance=ExtResource("6_k5335")]
 z_index = -1
-position = Vector2(1214, 453)
+position = Vector2(1260, 453)
 pill_spawnpoint = NodePath("PillSpawnPoint")
 
 [node name="LoveHateWheel" parent="." node_paths=PackedStringArray("status_sprite", "wheel") instance=ExtResource("7_yxn88")]
-position = Vector2(981, 210)
+position = Vector2(1015, 255)
 status_sprite = NodePath("StatusBar/Foreground")
 wheel = NodePath("Wheel")
 
 [node name="SleepyBell" parent="." node_paths=PackedStringArray("bell") instance=ExtResource("8_1ya4v")]
-position = Vector2(1122, 74)
+position = Vector2(1178, 81)
 bell = NodePath("Grabbable")
 
 [node name="KaraokeMachine" parent="." node_paths=PackedStringArray("note_spawn_area") instance=ExtResource("9_2fh78")]
@@ -86,11 +87,11 @@ note_spawn_area = NodePath("../NoteSpawnArea/CollisionShape2D")
 [node name="NoteSpawnArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NoteSpawnArea"]
-position = Vector2(857.5, 290.875)
+position = Vector2(822, 291)
 shape = SubResource("RectangleShape2D_rifwp")
 
 [node name="EatingTube" parent="." instance=ExtResource("11_mg8yt")]
-position = Vector2(484, 428)
+position = Vector2(422, 461)
 
 [node name="CookieBox" parent="." instance=ExtResource("12_x7kqy")]
 position = Vector2(692, 505)
@@ -101,7 +102,7 @@ position = Vector2(645, 45)
 [node name="Walls" type="Node2D" parent="."]
 
 [node name="Wall" type="StaticBody2D" parent="Walls"]
-position = Vector2(343, 233)
+position = Vector2(247, 233)
 collision_layer = 2
 collision_mask = 0
 
@@ -115,7 +116,7 @@ position = Vector2(56.8519, 33)
 shape = SubResource("RectangleShape2D_3q0p7")
 
 [node name="Wall2" type="StaticBody2D" parent="Walls"]
-position = Vector2(1237, 231)
+position = Vector2(1280, 231)
 collision_layer = 2
 collision_mask = 0
 
@@ -127,3 +128,5 @@ texture = ExtResource("3_m2diq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Wall2"]
 position = Vector2(56.8519, 33)
 shape = SubResource("RectangleShape2D_3q0p7")
+
+[node name="NeuroActionScreen" parent="." instance=ExtResource("13_ww6ex")]
