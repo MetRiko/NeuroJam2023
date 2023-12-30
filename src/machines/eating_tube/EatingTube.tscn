@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://j1102yne22oh"]
+[gd_scene load_steps=9 format=3 uid="uid://j1102yne22oh"]
 
 [ext_resource type="Script" path="res://src/machines/eating_tube/EatingTube.gd" id="1_24od1"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_ydu4m"]
+[ext_resource type="AudioStream" uid="uid://c3jxnsyxxhvc2" path="res://assets/audio/sfx/TubeEnter.ogg" id="3_3hk70"]
+[ext_resource type="AudioStream" uid="uid://dw4ktsujs47ih" path="res://assets/audio/sfx/EatCookie.ogg" id="4_7hs4k"]
+[ext_resource type="AudioStream" uid="uid://u4f42jrjk3hn" path="res://assets/audio/sfx/EatSchizoPill.ogg" id="5_legr2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oxv5f"]
 size = Vector2(9.3955, 115.208)
@@ -40,3 +43,16 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EatTrigger"]
 position = Vector2(12, -3)
 shape = SubResource("CircleShape2D_bolrb")
+
+[node name="TubeEnterAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_3hk70")
+
+[node name="EatCookieAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_7hs4k")
+
+[node name="EatSchizoPillAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_legr2")
+
+[node name="AudioDelay" type="Timer" parent="."]
+wait_time = 0.32
+one_shot = true
