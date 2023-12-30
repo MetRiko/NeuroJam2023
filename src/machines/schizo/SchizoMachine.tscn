@@ -49,13 +49,13 @@ shape = SubResource("RectangleShape2D_cy843")
 [node name="Launcher" type="RigidBody2D" parent="Tube"]
 position = Vector2(0, -4)
 collision_layer = 8
-mass = 1000.0
+mass = 400.0
 gravity_scale = 0.0
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("3_gb64e")
 position_threshold = 50.0
-launch_force = 4e+06
+launch_force = 3e+06
 launch_force_time = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Tube/Launcher"]

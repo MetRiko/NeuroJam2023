@@ -64,9 +64,9 @@ var latest_bomb_defused_successfully := false
 @export var sleepy_growth = 0.3
 @export var sleepy_growth_interval = 50
 
-@export var emotional_state_variance_multiplier = 1.1
-@export var emotional_state_random_area = 0.3
-@export var emotional_state_random_amount = 0.2
+@export var emotional_state_variance_growth = 0.03
+@export var emotional_state_random_area = 0.1
+@export var emotional_state_random_amount = 0.15
 
 @export var justice_factor_variance_frequency = 0.01
 
@@ -202,7 +202,7 @@ func _do_natural_growth() -> void:
     if abs(emotional_state) < emotional_state_random_area:
         emotional_state += randf_range(-1, 1) * emotional_state_random_amount
     else:
-        emotional_state *= emotional_state_variance_multiplier
+        emotional_state += emotional_state_variance_growth
     emotional_state = clamp(emotional_state, -1, 1)
 
 
