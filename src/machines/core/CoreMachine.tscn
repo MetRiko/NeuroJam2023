@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dlw6rh4r7dmdd"]
 
 [ext_resource type="Script" path="res://src/machines/core/CoreMachine.gd" id="1_d4hko"]
-[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_5vu81"]
+[ext_resource type="Texture2D" uid="uid://c374f475kuocc" path="res://res/core_machine/core_machine_back.png" id="2_b1i0i"]
 [ext_resource type="Script" path="res://src/machines/core/NeuroActionQueue.gd" id="3_bmx3d"]
 
 [node name="CoreMachine" type="Node2D" node_paths=PackedStringArray("chat_queue")]
@@ -14,7 +14,7 @@ scale = Vector2(1.2, 1.2)
 
 [node name="Sprite2D" type="Sprite2D" parent="Processor"]
 z_index = -1
-texture = ExtResource("2_5vu81")
+texture = ExtResource("2_b1i0i")
 
 [node name="RightQueue" type="Node2D" parent="."]
 script = ExtResource("3_bmx3d")
