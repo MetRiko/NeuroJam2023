@@ -82,7 +82,6 @@ offset_bottom = 5.0
 progress_bar = NodePath("HBoxContainer/TextureProgressBar")
 
 [node name="DarkOverlay" parent="Hud/Content" instance=ExtResource("11_viw1t")]
-visible = false
 layout_mode = 1
 starting_transparency = 1.0
 initial_delay = 1.0

@@ -167,7 +167,6 @@ shape = SubResource("RectangleShape2D_u010i")
 debug_color = Color(0.405078, 0.607678, 9.62615e-07, 0.42)
 
 [node name="LevelDarkOverlay" parent="." instance=ExtResource("14_jtvl5")]
-visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
