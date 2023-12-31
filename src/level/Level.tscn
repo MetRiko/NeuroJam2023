@@ -60,13 +60,13 @@ scale = Vector2(1, 0.44)
 shape = SubResource("RectangleShape2D_wsedu")
 
 [node name="Ceiling" type="StaticBody2D" parent="."]
+visible = false
 modulate = Color(0.281187, 0.281187, 0.281187, 1)
 position = Vector2(782, 29)
 collision_layer = 2
 collision_mask = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="Ceiling"]
-visible = false
 scale = Vector2(10, 0.480001)
 texture = ExtResource("3_m2diq")
 
@@ -162,6 +162,7 @@ shape = SubResource("RectangleShape2D_u010i")
 debug_color = Color(0.405078, 0.607678, 9.62615e-07, 0.42)
 
 [node name="LevelDarkOverlay" parent="." instance=ExtResource("14_jtvl5")]
+visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
