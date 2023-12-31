@@ -12,6 +12,10 @@ func _ready():
 	var neuro_logic := Game.get_neuro_logic()
 	neuro_logic.neuro_action_started.connect(_on_neuro_action_started)
 	neuro_logic.karaoke_status_changed.connect(_on_karaoke_status_changed)
+	Game.do_reset.connect(_on_do_reset)
+
+func _on_do_reset() -> void:
+	_set_screen_text("")
 
 func _on_karaoke_status_changed(karaoke_active : bool) -> void:
 	_on_neuro_action_started(latest_action)

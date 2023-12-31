@@ -19,6 +19,14 @@ func get_right_side_point() -> Vector2:
 func _ready():
 	viewers_amount_label.text = str(0)
 	Game.get_viewership_logic().viewership_changed.connect(_on_viewership_changed)
+	Game.get_viewership_logic().viewership_resetted.connect(_on_viewership_resetted)
+
+func _on_viewership_resetted(starting_viewership : int) -> void:
+	viewership_list.clear()
+	viewership_start_idx = 0
+	_update_chart()
+	var fake_viewership := starting_viewership / 10
+	viewers_amount_label.text = str(fake_viewership)
 
 func _on_viewership_changed(viewership : int) -> void:
 	push_viewership(viewership)

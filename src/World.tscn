@@ -30,10 +30,6 @@ sleepy_growth = 0.1
 [node name="ViewershipLogic" type="Node" parent="Logic"]
 script = ExtResource("4_q44ob")
 
-[node name="Timer" type="Timer" parent="Logic/ViewershipLogic"]
-wait_time = 0.05
-autostart = true
-
 [node name="RamLogic" type="Node" parent="Logic"]
 script = ExtResource("5_me77c")
 

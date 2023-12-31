@@ -8,7 +8,6 @@
 position = Vector2(631, 402)
 script = ExtResource("1_d4hko")
 chat_queue = NodePath("RightQueue")
-new_action_interval = 1.0
 
 [node name="Processor" type="Node2D" parent="."]
 scale = Vector2(1.2, 1.2)

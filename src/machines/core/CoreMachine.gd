@@ -7,10 +7,10 @@ class_name CoreMachine
 @onready var _new_action_timer : Timer = $NewActionTimer
 
 @export var execute_action_interval: float = 2.2
-@export var execute_action_variance: float = 0.5
+@export var execute_action_variance: float = 0.0#0.5
 
-@export var new_action_interval: float = 3.2
-@export var new_action_variance: float = 0.5
+var new_action_interval: float = 0.1 #3.2
+var new_action_variance: float = 0.0 #0.5
 
 @export var planned_action_limit: int = 20
 
@@ -18,12 +18,19 @@ class_name CoreMachine
 @export var vedal_action_time_multiplier: float = 1.7
 @export var bomb_action_time_multiplier: float = 2.6
 
-@export var execute_action_speedup: float = 1.02
-@export var new_action_speedup: float = 1.02
+var execute_action_speedup: float = 1.02
+var new_action_speedup: float = 1.02
 
 var _actual_execute_action_interval: float
 var _actual_new_action_interval: float
 
+static var ref : CoreMachine = null
+
+static func get_machine() -> CoreMachine:
+    return ref
+
+func _init():
+    ref = self
 
 func _input(event):
     if event is InputEventKey and event.pressed:
@@ -124,6 +131,9 @@ func handle_action(action) -> void:
         
         _actual_execute_action_interval /= execute_action_speedup
         _actual_new_action_interval /= new_action_speedup
+
+        _actual_execute_action_interval = max(_actual_execute_action_interval, 0.05)
+        _actual_new_action_interval = max(_actual_new_action_interval, 0.04)
 
         var time = _actual_execute_action_interval + randf_range(-1, 1) * execute_action_variance
         match action.origin:

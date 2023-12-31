@@ -2,6 +2,7 @@ extends Node
 class_name ViewershipLogic
 
 signal viewership_changed(new_viewership : int)
+signal viewership_resetted(starting_viewership : int)
 
 var current_viewership := 1000
 var stream_time := 0.0
@@ -37,7 +38,6 @@ func _init():
 
 func _ready():
 	randomize()
-	# $Timer.timeout.connect(_on_timer_timeout)
 	Game.get_neuro_logic().neuro_action_started.connect(_on_neuro_action_started)
 	await get_tree().process_frame
 	
@@ -56,9 +56,27 @@ func _on_pause():
 	# TODO: Fill this in
 
 func _on_reset():
+	filter_counter = 0
+	latest_categories.clear()
+	latest_categories_start_idx = 0
+	donowall_counter = 0
+	latest_intentions.clear()
+	latest_intentions_start_idx = 0
+	bedge_counter = 0
+	schizo_factor = 0.0
+	timeouts_counter = 0
+	tutel_hype = false
+	bad_wording_counter = 0
+	bomb_defused_hype = 0.0
+	current_neuro_action = null
+
+	for i in max_latest_categories_count:
+		latest_categories.append(NeuroLogic.NeuroActionCategory.HiChat)
+	for i in max_latest_intentions_count:
+		latest_intentions.append(0)
+
 	current_viewership = 1000
-	_add_viewers(0)
-	# TODO: Fill this in
+	viewership_resetted.emit(current_viewership)
 
 var next_viewership_time := 0.0
 
@@ -70,9 +88,6 @@ func _process(delta):
 		if next_viewership_time <= 0.0:
 			_update_viewership()
 			next_viewership_time += 1.0
-	
-# func _on_timer_timeout():
-# 	_update_viewership()
 	
 func _push_category(category : NeuroLogic.NeuroActionCategory) -> void:
 	latest_categories[latest_categories_start_idx] = category

@@ -32,6 +32,11 @@ func _ready():
 	Game.get_chat_logic().chat_entry_added.connect(_on_chat_entry_added)
 
 func _on_chat_entry_added(new_entry : ChatLogic.ChatEntryData) -> void:
+	if new_entry == null:
+		for entry in chat_list.get_children():
+			entry.visible = false
+		return
+
 	_reload_chat()
 	#var entry := chat_entry_tscn.instantiate()
 	#entry.setup_entry(new_entry)

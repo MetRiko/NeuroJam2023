@@ -64,8 +64,13 @@ func _on_pause():
 	_logic_active = false
 
 func _on_reset():
-	# TODO: Clear chat and do other resetting stuff here
-	pass
+	chat_entries.clear()
+	chat_cooldown_time = 0.0
+	current_neuro_action = null
+	previous_neuro_action = null
+	bomb_hype = 0.0
+	was_bomb_defused = false
+	chat_entry_added.emit(null)
 
 var chance_to_react_to_previous_message := 0.0
 
