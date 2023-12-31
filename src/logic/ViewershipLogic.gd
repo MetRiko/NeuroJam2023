@@ -90,7 +90,12 @@ func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction) -> voi
 
 	tutel_hype = neuro_action.is_tutel_receiver
 	bad_wording_counter = min(bad_wording_counter + randi_range(1, 3), 12) if neuro_action.contains_bad_words else max(bad_wording_counter - 2, 0)
-	timeouts_counter = min(timeouts_counter + randi_range(1, 3), 12) if neuro_action.neuro_timeouted_someone else max(timeouts_counter - 2, 0)
+	
+	if neuro_action.neuro_timeouted_someone:
+		timeouts_counter = min(timeouts_counter + randi_range(1, 2), 12)
+	elif randf() < 0.4:
+		timeouts_counter = max(timeouts_counter - 1, 0)
+		
 	schizo_factor = neuro_logic.get_perceived_schizo_factor()
 
 	var intention_level := neuro_action.get_intention_level()
