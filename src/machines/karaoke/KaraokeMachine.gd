@@ -1,4 +1,4 @@
-extends Interactable
+extends Node2D
 
 
 var _notes_collected: int = 0
@@ -39,21 +39,25 @@ func _ready():
     note_icon.modulate = off_color
 
 
-func start_interacting():
-    if notes_collected >= notes_to_start and not _active:
-        _active = true
-        notes_collected = 0
-        karaoke_timer.start(karaoke_duration)
-        note_icon.modulate = active_color
-        Game.get_neuro_logic().update_karaoke_status(true)
-        print("Karaoke start")
+# func start_interacting():
+#     if notes_collected >= notes_to_start and not _active:
+#         start_karaoke()
 
-        await karaoke_timer.timeout
 
-        print("Karaoke end")
-        Game.get_neuro_logic().update_karaoke_status(false)
-        note_icon.modulate = off_color
-        _active = false
+func start_karaoke():
+    _active = true
+    notes_collected = 0
+    karaoke_timer.start(karaoke_duration)
+    note_icon.modulate = active_color
+    Game.get_neuro_logic().update_karaoke_status(true)
+    print("Karaoke start")
+
+    await karaoke_timer.timeout
+
+    print("Karaoke end")
+    Game.get_neuro_logic().update_karaoke_status(false)
+    note_icon.modulate = off_color
+    _active = false
 
 
 func spawn_note():
@@ -72,3 +76,5 @@ func on_note_collected():
         notes_collected += 1
         if notes_collected >= notes_to_start:
             note_icon.modulate = available_color
+            start_karaoke()
+            
