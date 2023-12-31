@@ -86,7 +86,7 @@ func _on_do_reset() -> void:
     progress_bar_active = false
 
 func _on_prepare() -> void:
-    _set_screen_text("Hover to start stream!\n ")
+    _set_screen_text("Hover here\nto start stream!\n ")
     progress_bar_active = true
     var tween = create_tween().bind_node(self).set_trans(Tween.TRANS_SINE)
     start_progress = 0
