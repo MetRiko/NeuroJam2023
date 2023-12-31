@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqoyrxp5y4dnl"]
 
 [ext_resource type="PackedScene" uid="uid://b1tbddw6jgg43" path="res://src/objects/Grabbable.tscn" id="1_r72qe"]
-[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_54xlh"]
 [ext_resource type="Script" path="res://src/objects/Cookie.gd" id="2_plk6h"]
+[ext_resource type="Texture2D" uid="uid://o8wjc6ax17tm" path="res://res/pickups/cookie.png" id="3_7m1u6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oqkgo"]
-radius = 12.0
+radius = 10.2679
 
 [node name="Cookie" instance=ExtResource("1_r72qe")]
 z_index = 1
@@ -14,8 +14,7 @@ collision_mask = 2
 script = ExtResource("2_plk6h")
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="0"]
-scale = Vector2(0.443124, 0.443124)
-texture = ExtResource("2_54xlh")
+texture = ExtResource("3_7m1u6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 scale = Vector2(2.24, 2.24)

@@ -18,6 +18,8 @@ radius = 25.02
 [node name="EatingTube" type="Node2D"]
 script = ExtResource("1_24od1")
 schizo_lower_amount = 1.0
+cookie_ram_cost = 2.0
+schizo_pill_ram_cost = 5.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2

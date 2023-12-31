@@ -7,6 +7,13 @@ extends BaseMachine
 @export var pill_spawn_time: float
 
 @onready var pill_spawn_timer: Timer = $PillSpawnTimer
+@onready var spring: Sprite2D = $PillLauncherSpring
+@onready var launcher: RigidBody2D = $Tube/Launcher
+
+@export var min_launcher_height: float = -3
+@export var max_launcher_height: float = 55
+@export var min_spring_scale: float
+@export var max_spring_scale: float
 
 var active := false
 
@@ -45,6 +52,11 @@ func _process(delta):
         active = true
         print("Spawn pill")
         pill_spawn_timer.start(pill_spawn_time)
+    
+    var height = inverse_lerp(min_launcher_height, max_launcher_height, launcher.position.y)
+    var spring_scale = lerp(max_spring_scale, min_spring_scale, height)
+    
+    spring.scale.y = spring_scale
 
 
 func _spawn_pill():

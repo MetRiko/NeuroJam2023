@@ -7,7 +7,7 @@ var notes_collected: int:
         return _notes_collected
     set(value):
         _notes_collected = value
-        note_progress_bar.value = _notes_collected * 10
+        notes_remaining_label.text = str(notes_to_start - notes_collected)
 
 @export var notes_to_start: int
 
@@ -18,12 +18,14 @@ var notes_collected: int:
 
 @onready var note_spawn_timer: Timer = $NoteSpawnTimer
 @onready var karaoke_timer: Timer = $KaraokeTimer
-@onready var note_progress_bar: TextureProgressBar = $NoteProgress
-@onready var note_icon: Sprite2D = $NoteIcon
+@onready var notes_remaining_label: Label = $NotesRemainingLabel
+@onready var sprite: Sprite2D = $Sprite2D
 
 @onready var _note_appear_audio: AudioStreamPlayer = $NoteAppearAudio
 @onready var _note_collect_audio: AudioStreamPlayer = $NoteCollectAudio
 @onready var _note_miss_audio: AudioStreamPlayer = $NoteMissAudio
+
+@onready var anim: AnimationPlayer = $Anim
 
 @export var off_color: Color
 @export var available_color: Color
@@ -37,16 +39,14 @@ var _active = false
 
 
 func _ready():
-    note_progress_bar.max_value = notes_to_start * 10
-    note_progress_bar.value = 0
     note_spawn_timer.start(note_spawn_interval)
     note_spawn_timer.timeout.connect(spawn_note)
-
-    note_icon.modulate = off_color
     
     Game.do_pause.connect(_on_pause)
     Game.do_start.connect(_on_start)
     Game.do_reset.connect(_on_reset)
+
+    _on_reset()
     
     
 func _on_pause():
@@ -74,7 +74,8 @@ func start_karaoke():
         _active = true
         notes_collected = 0
         karaoke_timer.start(karaoke_duration)
-        note_icon.modulate = active_color
+        sprite.frame = 1
+        # anim.play("active")
         Game.get_neuro_logic().update_karaoke_status(true)
         Game.get_ram_logic().add_ram(ram_cost)
         print("Karaoke start")
@@ -87,7 +88,8 @@ func end_karaoke():
     if _active:
         print("Karaoke end")
         Game.get_neuro_logic().update_karaoke_status(false)
-        note_icon.modulate = off_color
+        # anim.play("RESET")
+        sprite.frame = 0
         _active = false
 
 
@@ -113,7 +115,6 @@ func on_note_collected():
             notes_collected += 1
 
             if notes_collected >= notes_to_start:
-                note_icon.modulate = available_color
                 start_karaoke()
             
 

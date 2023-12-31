@@ -1,17 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://craftysak1elb"]
+[gd_scene load_steps=11 format=3 uid="uid://craftysak1elb"]
 
 [ext_resource type="Script" path="res://src/machines/karaoke/KaraokeMachine.gd" id="1_qsr5t"]
-[ext_resource type="PackedScene" uid="uid://cgaparfy20ixt" path="res://src/objects/Note.tscn" id="2_7c2oo"]
+[ext_resource type="Script" path="res://src/objects/Note.gd" id="2_cts2q"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_dq33p"]
+[ext_resource type="Texture2D" uid="uid://chgqt6fy0racu" path="res://res/machines/radio_back.png" id="3_wvlgn"]
 [ext_resource type="AudioStream" uid="uid://c7sje7pegbaic" path="res://assets/audio/sfx/NoteAppear.ogg" id="4_ug5qa"]
 [ext_resource type="AudioStream" uid="uid://bdelx4vwibaap" path="res://assets/audio/sfx/NoteCollect.ogg" id="5_rtitv"]
 [ext_resource type="AudioStream" uid="uid://sl3odd52j0um" path="res://assets/audio/sfx/NoteMissed.ogg" id="6_dfopm"]
+[ext_resource type="FontFile" uid="uid://c0pabp5w3i8ri" path="res://res/fonts/Roboto-Bold.ttf" id="7_ptc2k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n83b7"]
+radius = 18.0
+
+[sub_resource type="PackedScene" id="PackedScene_n1w1s"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Note", "Node2D", "Note", "script", "Sprite2D", "Sprite2D", "scale", "texture", "Area2D", "Area2D", "CollisionShape2D", "CollisionShape2D", "shape", "Timer", "Timer", "one_shot"),
+"node_count": 5,
+"node_paths": [NodePath("."), NodePath("."), NodePath("./Area2D"), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 1, 3, 0, 1, 2, 1073741824, 0, 5, 4, -1, 2, 6, 1, 7, 2, 0, 1073741825, 0, 9, 8, -1, 0, 0, 1073741826, 0, 11, 10, -1, 1, 12, 3, 0, 1073741827, 0, 14, 13, -1, 1, 15, 4, 0),
+"variants": [ExtResource("2_cts2q"), Vector2(0.296875, 0.296875), ExtResource("2_dq33p"), SubResource("CircleShape2D_n83b7"), true],
+"version": 3
+}
 
 [node name="KaraokeMachine" type="Node2D"]
 script = ExtResource("1_qsr5t")
-notes_to_start = 1
-note_tscn = ExtResource("2_7c2oo")
-note_spawn_interval = 7.0
+notes_to_start = 10
+note_tscn = SubResource("PackedScene_n1w1s")
+note_spawn_interval = 13.0
 karaoke_duration = 20.0
 off_color = Color(0.271541, 0.0258799, 0.215163, 1)
 available_color = Color(0.697534, 0.160606, 0.572609, 1)
@@ -19,29 +37,14 @@ active_color = Color(0.966653, 0.792297, 0.905685, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -2
-texture = ExtResource("2_dq33p")
+texture = ExtResource("3_wvlgn")
+hframes = 2
 
 [node name="NoteSpawnTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="KaraokeTimer" type="Timer" parent="."]
 one_shot = true
-
-[node name="NoteIcon" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(-12, 0)
-scale = Vector2(0.625, 0.625)
-texture = ExtResource("2_dq33p")
-
-[node name="NoteProgress" type="TextureProgressBar" parent="."]
-z_index = -1
-offset_left = 34.0
-offset_top = 58.0
-offset_right = 162.0
-offset_bottom = 186.0
-rotation = -1.5708
-scale = Vector2(0.9, 0.2)
-texture_progress = ExtResource("2_dq33p")
 
 [node name="NoteAppearAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_ug5qa")
@@ -54,3 +57,17 @@ bus = &"SFX"
 [node name="NoteMissAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_dfopm")
 bus = &"SFX"
+
+[node name="NotesRemainingLabel" type="Label" parent="."]
+offset_left = -50.0
+offset_top = -4.0
+offset_right = -8.0
+offset_bottom = 33.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("7_ptc2k")
+theme_override_font_sizes/font_size = 28
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1

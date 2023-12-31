@@ -3,7 +3,8 @@ extends BaseMachine
 
 @export var love_status_texture: Texture2D
 @export var hate_status_texture: Texture2D
-@export var status_sprite: Sprite2D
+@export var love_label: Label
+@export var hate_label: Label
 
 @export var adjustment_per_revolution: float
 @export var adjustment_resolution: float = 16
@@ -44,13 +45,12 @@ func _on_pause():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
     _wheel_speed = wheel.angular_velocity
-    var brightness = clamp(abs(_wheel_speed / wheel_speed_for_max_brightness), 0, 1)
-    status_sprite.modulate = Color(brightness, brightness, brightness)
-
-    if _wheel_speed < 0:
-        status_sprite.texture = hate_status_texture
-    else:
-        status_sprite.texture = love_status_texture
+    var brightness = clamp(_wheel_speed / wheel_speed_for_max_brightness, -1, 1)
+    
+    var love_brightness = max(0, brightness)
+    var hate_brightness = max(0, -brightness)
+    love_label.modulate = Color(love_brightness, love_brightness, love_brightness, love_brightness)
+    hate_label.modulate = Color(hate_brightness, hate_brightness, hate_brightness, hate_brightness)
 
     _rotation_counter += _wheel_speed * delta
     if _rotation_counter > TAU / adjustment_resolution:
@@ -63,8 +63,8 @@ func _process(delta):
         _tick_audio.play()
     
     if machine_active:
-        _love_audio.volume_db = Conversions.power_to_db(max(0, brightness * sign(_wheel_speed) * pad_volume))
-        _hate_audio.volume_db = Conversions.power_to_db(max(0, brightness * -sign(_wheel_speed) * pad_volume))
+        _love_audio.volume_db = Conversions.power_to_db(max(0, love_brightness * pad_volume))
+        _hate_audio.volume_db = Conversions.power_to_db(max(0, hate_brightness * pad_volume))
 
 
 func increase_love():

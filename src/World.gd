@@ -5,6 +5,7 @@ class_name World
 @export var neuro_logic : NeuroLogic
 @export var viewership_logic : ViewershipLogic
 @export var ram_logic : RamLogic
+@export var gameplay_logic : GameplayLogic
 
 func get_chat_logic() -> ChatLogic:
     return chat_logic
@@ -17,3 +18,6 @@ func get_viewership_logic() -> ViewershipLogic:
 
 func get_ram_logic() -> RamLogic:
     return ram_logic
+
+func get_gameplay_logic() -> GameplayLogic:
+    return gameplay_logic

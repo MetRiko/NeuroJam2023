@@ -6,6 +6,7 @@ extends Node
 signal do_reset
 signal do_pause
 signal do_start
+signal do_prepare
 
 
 func get_neuro_logic() -> NeuroLogic:
@@ -22,6 +23,15 @@ func get_ram_logic() -> RamLogic:
 
 func get_viewership_logic() -> ViewershipLogic:
     return world.get_viewership_logic()
+
+
+func get_gameplay_logic() -> GameplayLogic:
+    return world.get_gameplay_logic()
+
+
+func prepare() -> void:
+    print("--- PREPARING ---")
+    do_prepare.emit()
 
 
 func reset() -> void:
@@ -49,7 +59,9 @@ func _input(event):
         match event.keycode:
             KEY_R:
                 reset()
+                prepare()
             KEY_S:
                 start()
             KEY_P:
                 pause()
+

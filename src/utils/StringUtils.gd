@@ -30,3 +30,12 @@ static func schizoify(input_str: String) -> String:
         words[affected_word_idx] = new_word
     
     return " ".join(words)
+
+
+static func timestamp(seconds: float) -> String:
+    var minutes = int(seconds / 60)
+    var remainingSeconds = int(seconds) % 60
+
+    var result = str(minutes).pad_zeros(2) + ":" + str(remainingSeconds).pad_zeros(2)
+
+    return result
