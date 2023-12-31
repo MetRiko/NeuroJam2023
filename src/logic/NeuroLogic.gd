@@ -76,7 +76,7 @@ var prev_action_had_cookie := false
 
 var latest_bomb_defused_successfully := false
 
-@export var filter_variance_frequency := 0.003
+@export var filter_variance_frequency := 0.008
 @export var filter_fast_variance_frequency := 0.08
 @export var filter_activation_threshold := 0.35
 

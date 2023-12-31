@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://2deuujkaeb54"]
+[gd_scene load_steps=14 format=3 uid="uid://2deuujkaeb54"]
 
 [ext_resource type="Script" path="res://src/logic/ChatLogic.gd" id="1_akn28"]
 [ext_resource type="PackedScene" uid="uid://bqc1xtpj2h1c5" path="res://src/side_bar/SideBar.tscn" id="1_cuiif"]
@@ -8,14 +8,19 @@
 [ext_resource type="Script" path="res://src/logic/ViewershipLogic.gd" id="4_q44ob"]
 [ext_resource type="Script" path="res://src/logic/RamLogic.gd" id="5_me77c"]
 [ext_resource type="PackedScene" uid="uid://4a2id2oc63um" path="res://src/debug/NeuroStateDebug.tscn" id="6_f7iw2"]
+[ext_resource type="Script" path="res://src/logic/GameplayLogic.gd" id="6_wkq73"]
+[ext_resource type="AudioStream" uid="uid://eyu7sxpan0l3" path="res://assets/audio/sfx/GameOver.ogg" id="7_7yl2f"]
 [ext_resource type="PackedScene" uid="uid://278hip3aifva" path="res://src/ram_bar/RamBar.tscn" id="8_khx74"]
+[ext_resource type="AudioStream" uid="uid://b1fdlbna8gvgl" path="res://assets/audio/sfx/StartGame.ogg" id="8_o35ey"]
+[ext_resource type="PackedScene" uid="uid://cyo7ov4bgcdpo" path="res://src/DarkOverlay.tscn" id="11_viw1t"]
 
-[node name="World" type="Node2D" node_paths=PackedStringArray("chat_logic", "neuro_logic", "viewership_logic", "ram_logic")]
+[node name="World" type="Node2D" node_paths=PackedStringArray("chat_logic", "neuro_logic", "viewership_logic", "ram_logic", "gameplay_logic")]
 script = ExtResource("1_ta7mb")
 chat_logic = NodePath("Logic/ChatLogic")
 neuro_logic = NodePath("Logic/NeuroLogic")
 viewership_logic = NodePath("Logic/ViewershipLogic")
 ram_logic = NodePath("Logic/RamLogic")
+gameplay_logic = NodePath("Logic/GameplayLogic")
 
 [node name="Logic" type="Node" parent="."]
 
@@ -32,6 +37,17 @@ script = ExtResource("4_q44ob")
 
 [node name="RamLogic" type="Node" parent="Logic"]
 script = ExtResource("5_me77c")
+
+[node name="GameplayLogic" type="Node" parent="Logic"]
+script = ExtResource("6_wkq73")
+
+[node name="GameEndAudio" type="AudioStreamPlayer" parent="Logic/GameplayLogic"]
+stream = ExtResource("7_7yl2f")
+bus = &"SFX"
+
+[node name="GameStartAudio" type="AudioStreamPlayer" parent="Logic/GameplayLogic"]
+stream = ExtResource("8_o35ey")
+bus = &"SFX"
 
 [node name="Level" parent="." instance=ExtResource("2_dyt3k")]
 
@@ -59,6 +75,16 @@ offset_bottom = 8.0
 
 [node name="RamBar" parent="Hud/Content" node_paths=PackedStringArray("progress_bar") instance=ExtResource("8_khx74")]
 layout_mode = 1
-offset_left = 363.0
-offset_bottom = -660.0
+anchors_preset = 10
+anchor_bottom = 0.0
+offset_left = 356.0
+offset_top = 18.0
+offset_right = -30.0
+offset_bottom = 75.0
+grow_vertical = 1
 progress_bar = NodePath("HBoxContainer/TextureProgressBar")
+
+[node name="DarkOverlay" parent="Hud/Content" instance=ExtResource("11_viw1t")]
+layout_mode = 1
+starting_transparency = 1.0
+initial_delay = 1.0

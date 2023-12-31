@@ -18,6 +18,7 @@ status_sprite = NodePath("StatusBar/Foreground")
 adjustment_per_revolution = 0.1
 wheel = NodePath("Wheel")
 wheel_speed_for_max_brightness = 20.0
+ram_cost = 0.03
 
 [node name="Base" type="StaticBody2D" parent="."]
 

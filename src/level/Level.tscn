@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=20 format=3 uid="uid://brk8apg1ijq2o"]
 
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://3qx4hb7lw4qm" path="res://src/machines/cookie_box/CookieBox.tscn" id="12_x7kqy"]
 [ext_resource type="PackedScene" uid="uid://btjok8rmqsy1e" path="res://src/machines/neuro_action_screen/NeuroActionScreen.tscn" id="13_ww6ex"]
 [ext_resource type="PackedScene" uid="uid://dcu05n18yjc5e" path="res://src/machines/anti_timeout/AntiTimeoutMachine.tscn" id="13_x0fab"]
+[ext_resource type="PackedScene" uid="uid://bffhfxigygbng" path="res://src/level/LevelDarkOverlay.tscn" id="14_jtvl5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wsedu"]
 size = Vector2(1282, 128)
@@ -165,3 +166,14 @@ shape = SubResource("RectangleShape2D_rifwp")
 position = Vector2(819.5, 292)
 shape = SubResource("RectangleShape2D_u010i")
 debug_color = Color(0.405078, 0.607678, 9.62615e-07, 0.42)
+
+[node name="LevelDarkOverlay" parent="." instance=ExtResource("14_jtvl5")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 142.0
+offset_right = 142.0
+grow_horizontal = 1
+grow_vertical = 1
+starting_transparency = 0.3
+final_transparency = 0.3

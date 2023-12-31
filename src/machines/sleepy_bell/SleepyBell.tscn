@@ -26,6 +26,7 @@ script = ExtResource("1_nxr72")
 bell = NodePath("Grabbable")
 ding_threshold = 0.3
 sleepy_lower_amount = 0.006
+ram_cost = 0.13
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

@@ -9,7 +9,7 @@ class_name CoreMachine
 @export var execute_action_interval: float = 2.2
 @export var execute_action_variance: float = 0.0#0.5
 
-var new_action_interval: float = 0.1 #3.2
+var new_action_interval: float = 1.4 #3.2
 var new_action_variance: float = 0.0 #0.5
 
 @export var planned_action_limit: int = 20
