@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=22 format=3 uid="uid://brk8apg1ijq2o"]
 
 [ext_resource type="Texture2D" uid="uid://c2neuclfpdunr" path="res://res/background.png" id="1_rwaqr"]
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
+[ext_resource type="Texture2D" uid="uid://d2gl5s45ynp62" path="res://res/title.png" id="2_jgjt0"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="3_m2diq"]
 [ext_resource type="PackedScene" uid="uid://dcb4h1td2hhtk" path="res://src/machines/filter/FilterMachine.tscn" id="5_5e04j"]
 [ext_resource type="PackedScene" uid="uid://ca8gonntqh454" path="res://src/machines/schizo/SchizoMachine.tscn" id="6_k5335"]
@@ -37,6 +38,12 @@ size = Vector2(1147, 578)
 z_index = -1
 texture = ExtResource("1_rwaqr")
 centered = false
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(898, 134)
+rotation = -0.0523599
+scale = Vector2(1, 1)
+texture = ExtResource("2_jgjt0")
 
 [node name="CoreMachine" parent="." node_paths=PackedStringArray("chat_queue") instance=ExtResource("1_thdch")]
 position = Vector2(420, 648)
