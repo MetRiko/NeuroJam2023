@@ -67,6 +67,7 @@ layout_mode = 1
 offset_right = 360.0
 
 [node name="NeuroStateDebug" parent="Hud/Content" instance=ExtResource("6_f7iw2")]
+visible = false
 layout_mode = 1
 offset_left = -91.0
 offset_top = 8.0
@@ -75,16 +76,14 @@ offset_bottom = 8.0
 
 [node name="RamBar" parent="Hud/Content" node_paths=PackedStringArray("progress_bar") instance=ExtResource("8_khx74")]
 layout_mode = 1
-anchors_preset = 10
-anchor_bottom = 0.0
-offset_left = 356.0
-offset_top = 18.0
-offset_right = -30.0
-offset_bottom = 75.0
-grow_vertical = 1
+offset_left = 368.0
+offset_top = 5.0
+offset_right = 368.0
+offset_bottom = 5.0
 progress_bar = NodePath("HBoxContainer/TextureProgressBar")
 
 [node name="DarkOverlay" parent="Hud/Content" instance=ExtResource("11_viw1t")]
+visible = false
 layout_mode = 1
 starting_transparency = 1.0
 initial_delay = 1.0

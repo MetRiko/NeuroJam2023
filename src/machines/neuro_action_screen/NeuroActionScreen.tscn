@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://btjok8rmqsy1e"]
+[gd_scene load_steps=8 format=3 uid="uid://btjok8rmqsy1e"]
 
 [ext_resource type="FontFile" uid="uid://c0pabp5w3i8ri" path="res://res/fonts/Roboto-Bold.ttf" id="1_vo6kn"]
 [ext_resource type="Script" path="res://src/machines/neuro_action_screen/NeuroActionScreen.gd" id="1_yug2v"]
 [ext_resource type="Texture2D" uid="uid://cgqjeungxihld" path="res://res/machines/screen.png" id="2_xw7mn"]
-[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="3_ghqas"]
+[ext_resource type="Texture2D" uid="uid://esyg1kmlm7yu" path="res://res/start_bar_back.png" id="4_6dgqs"]
+[ext_resource type="Texture2D" uid="uid://ce0wsrk4b0gy" path="res://res/start_bar_front.png" id="5_ypr18"]
 [ext_resource type="AudioStream" uid="uid://clncxxa0x0c2e" path="res://assets/audio/sfx/GameStarting.ogg" id="6_lq3k3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bwlup"]
@@ -79,11 +80,13 @@ offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 0
 nine_patch_stretch = true
-texture_progress = ExtResource("3_ghqas")
+texture_under = ExtResource("4_6dgqs")
+texture_progress = ExtResource("5_ypr18")
 
 [node name="StartArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea"]
+visible = false
 position = Vector2(128.5, 84)
 shape = SubResource("RectangleShape2D_bwlup")
 
