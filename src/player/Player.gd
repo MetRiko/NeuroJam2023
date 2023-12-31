@@ -42,7 +42,7 @@ func _ready():
     _initial_pos = position
 
     _move_audio.volume_db = -80
-    _move_audio.play()
+    # _move_audio.play()
 
 
 func _on_inbounds_area_exited(body) -> void:

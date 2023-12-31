@@ -26,7 +26,7 @@ func _ready():
     $Sprite2D.scale = Vector2.ZERO
 
     var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_EXPO)
-    tween.tween_property($Sprite2D, "scale", Vector2.ONE, 0.2)
+    tween.tween_property($Sprite2D, "scale", Vector2.ONE * 1.4, 0.2)
 
 
 func update_pos(pos: Vector2) -> void:

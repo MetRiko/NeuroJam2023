@@ -30,7 +30,6 @@ script = ExtResource("1_akn28")
 
 [node name="NeuroLogic" type="Node" parent="Logic"]
 script = ExtResource("2_jjnbv")
-schizo_growth_per_action = 0.006
 sleepy_growth = 0.1
 
 [node name="ViewershipLogic" type="Node" parent="Logic"]

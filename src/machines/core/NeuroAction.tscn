@@ -1,11 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://c0adposyjv15w"]
 
 [ext_resource type="Script" path="res://src/machines/core/NeuroAction.gd" id="1_jyw1x"]
-[ext_resource type="Texture2D" uid="uid://bj3o3rgii7g45" path="res://res/planned_action_icons/planned_actions.png" id="2_bjroa"]
+[ext_resource type="Texture2D" uid="uid://ddmlr4w5qvnbj" path="res://res/core_machine/core_action_icons.png" id="2_pftv2"]
 
 [node name="NeuroAction" type="Node2D"]
 script = ExtResource("1_jyw1x")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_bjroa")
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("2_pftv2")
 hframes = 5
