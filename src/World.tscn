@@ -67,6 +67,7 @@ layout_mode = 1
 offset_right = 360.0
 
 [node name="NeuroStateDebug" parent="Hud/Content" instance=ExtResource("6_f7iw2")]
+visible = false
 layout_mode = 1
 offset_left = -91.0
 offset_top = 8.0
