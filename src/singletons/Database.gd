@@ -74,13 +74,16 @@ var chat_answers := {
 		[ ChatLogic.Msg.new("BAND") ]
 	],
 	ChatLogic.ChatResponseCategory.PogStuff: [
-		[ ChatLogic.Msg.new("Pog") ]
+		[ ChatLogic.Msg.new("Pog") ],
+		[ ChatLogic.Msg.new("POGGERS") ],
+		[ ChatLogic.Msg.new("neuroPoggers") ]
 	],
 	ChatLogic.ChatResponseCategory.AboutHerself: [
 		[ ChatLogic.Msg.new("GIGANEURO") ]
 	],
 	ChatLogic.ChatResponseCategory.InterestingStuff: [
-		[ ChatLogic.Msg.new("NOTED") ]
+		[ ChatLogic.Msg.new("NOTED") ],
+		[ ChatLogic.Msg.new("Hmm") ]
 	],
 	ChatLogic.ChatResponseCategory.Joke: [
 		[ ChatLogic.Msg.new("ICANT") ],
@@ -97,8 +100,7 @@ var chat_answers := {
 		[ ChatLogic.Msg.new("NO") ]
 	],
 	ChatLogic.ChatResponseCategory.Answer: [
-		[ ChatLogic.Msg.new("NOTED") ],
-		[ ChatLogic.Msg.new("GOODONE") ]
+		[ ChatLogic.Msg.new("mhm") ]
 	],
 	ChatLogic.ChatResponseCategory.HiChat: [
 		[ ChatLogic.Msg.new("Hi Neuro!") ]

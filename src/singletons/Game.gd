@@ -21,8 +21,8 @@ func reset() -> void:
 
 
 func _ready():
-    # TODO: Remove this - for testing only
-    AudioServer.set_bus_volume_db(0, -10.0)
+   #  TODO: Remove this - for testing only
+    AudioServer.set_bus_volume_db(0, -30.0)
 
 
 func _input(event):

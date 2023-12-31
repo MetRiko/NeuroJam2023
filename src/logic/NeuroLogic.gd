@@ -30,6 +30,20 @@ class NeuroFinalAction extends NeuroPlannedAction:
     func get_perceived_schizo_factor() -> float:
         return max(schizo_factor - 0.6, 0.0) / 0.4
 
+    func get_intention_level() -> int:
+        var intention_factor := absf(intention)
+        var intention_level : int = 0
+        if intention_factor >= 0.7:
+            intention_level = 3
+        elif intention_factor >= 0.45:
+            intention_level = 2
+        elif intention_factor >= 0.2:
+            intention_level = 1
+    
+        if intention_level > 0:
+            intention_level *= sign(intention)
+
+        return intention_level
 
 signal neuro_action_started(neuro_action: NeuroFinalAction)
 signal karaoke_status_changed(karaoke_active: bool)
@@ -71,7 +85,7 @@ var latest_bomb_defused_successfully := false
 @export var emotional_state_random_area = 0.1
 @export var emotional_state_random_amount = 0.15
 
-@export var justice_factor_variance_frequency = 0.01
+var justice_factor_variance_frequency = 0.02
 
 var _action_count = 0
 var _has_vedal_appeared := false
@@ -201,10 +215,14 @@ func is_sleeping() -> bool:
 func _do_natural_growth() -> void:
     update_filter_power(randf_range(filter_growth_per_action / 2, filter_growth_per_action * 2))
     update_schizo_power(randf_range(schizo_growth_per_action / 2, schizo_growth_per_action * 2))
-    if _action_count % sleepy_growth_interval == 0:
-         update_sleepy_power(sleepy_growth)
+
+    if randf() < 0.15:
+        update_sleepy_power(randf_range(0.01, 0.02))
+
+    # if _action_count % sleepy_growth_interval == 0:
+    #      update_sleepy_power(sleepy_growth)
     
-    justice_factor = sin(_action_count * justice_factor_variance_frequency * TAU)
+    justice_factor = sin(_action_count * justice_factor_variance_frequency * TAU + PI)
 
     if abs(emotional_state) < emotional_state_random_area:
         emotional_state += randf_range(-1, 1) * emotional_state_random_amount

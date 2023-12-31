@@ -4,6 +4,7 @@ extends Control
 @onready var label_pivot : Control = $LabelPivot
 
 var karaoke_active := false
+var latest_action : NeuroLogic.NeuroFinalAction = null
 
 func _ready():
 	randomize()
@@ -13,7 +14,7 @@ func _ready():
 	neuro_logic.karaoke_status_changed.connect(_on_karaoke_status_changed)
 
 func _on_karaoke_status_changed(karaoke_active : bool) -> void:
-	_on_neuro_action_started(null)
+	_on_neuro_action_started(latest_action)
 
 func _set_screen_text(text : String) -> void:
 	if text == label.text:
@@ -27,12 +28,16 @@ func _set_screen_text(text : String) -> void:
 	tween.play()
 
 func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction) -> void:
+	latest_action = neuro_action
 	var neuro_logic : NeuroLogic = Game.get_neuro_logic()
 	if neuro_logic.karaoke_active:
 		_set_screen_text("Neuro is singing!")
 		return
 
 	_set_screen_text("...")
+
+	if neuro_action == null:
+		return
 
 	match neuro_action.origin:
 		NeuroLogic.NeuroActionOrigin.Bomb:

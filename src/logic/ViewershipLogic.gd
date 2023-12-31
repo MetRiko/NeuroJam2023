@@ -7,7 +7,7 @@ var current_viewership := 1000
 var stream_time := 0.0
 
 const max_latest_categories_count := 8
-const max_latest_intentions_count := 8
+const max_latest_intentions_count := 5
 
 var filter_counter := 0
 var latest_categories : Array[NeuroLogic.NeuroActionCategory] = []
@@ -70,38 +70,30 @@ func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction) -> voi
 	if neuro_logic.latest_bomb_defused_successfully:
 		bomb_defused_hype = 1.0
 
-	bedge_counter = max(bedge_counter - 1, 0)
-	donowall_counter = max(donowall_counter - 1, 0)
-	filter_counter = max(filter_counter - 1, 0)
-
 	if neuro_logic.sleep_active:
-		bedge_counter = min(bedge_counter + 2, 24)  # tylko pierwsze 1..8 daje hype
+		bedge_counter = min(bedge_counter + randi_range(1, 3), 12)  # tylko pierwsze 1..8 daje hype
+		return
+	else:
+		bedge_counter = max(bedge_counter - 2, 0)
 
-	match neuro_action.action_oopsie:
-		NeuroLogic.NeuroActionOopsie.Ignored:
-			donowall_counter = min(donowall_counter + 2, 24)  # tylko pierwsze 1..8 daje hype
-			return
-		NeuroLogic.NeuroActionOopsie.Filtered:
-			filter_counter = min(filter_counter + 2, 24) # tylko pierwsze 1..8 daje hype
-			return
+	if neuro_action.action_oopsie == NeuroLogic.NeuroActionOopsie.Ignored:
+		donowall_counter = min(donowall_counter + randi_range(1, 3), 12)  # tylko pierwsze 1..8 daje hype
+		return
+	else:
+		donowall_counter = max(donowall_counter - 2, 0)
+
+	if neuro_action.action_oopsie == NeuroLogic.NeuroActionOopsie.Filtered:
+		filter_counter = min(filter_counter + randi_range(1, 3), 12)  # tylko pierwsze 1..8 daje hype
+		return
+	else:
+		filter_counter = max(filter_counter - 2, 0)
 
 	tutel_hype = neuro_action.is_tutel_receiver
-	bad_wording_counter = min(bad_wording_counter + 2, 24) if neuro_action.contains_bad_words else max(bad_wording_counter - 1, 0)
-	timeouts_counter = min(timeouts_counter + 1, 24) if neuro_action.neuro_timeouted_someone else max(timeouts_counter - 1, 0)
+	bad_wording_counter = min(bad_wording_counter + randi_range(1, 3), 12) if neuro_action.contains_bad_words else max(bad_wording_counter - 2, 0)
+	timeouts_counter = min(timeouts_counter + randi_range(1, 3), 12) if neuro_action.neuro_timeouted_someone else max(timeouts_counter - 2, 0)
 	schizo_factor = neuro_logic.get_perceived_schizo_factor()
 
-	var intention_factor := absf(neuro_action.intention)
-	var intention_level : int = 0
-	if intention_factor >= 0.8:
-		intention_level = 3
-	elif intention_factor >= 0.5:
-		intention_level = 2
-	elif intention_factor >= 0.2:
-		intention_level = 1
-
-	if intention_level > 0:
-		intention_level *= sign(neuro_action.intention)
-
+	var intention_level := neuro_action.get_intention_level()
 	_push_intention(intention_level)
 	_push_category(neuro_action.category)
 
@@ -123,38 +115,43 @@ func _update_viewership():
 
 	var neuro_logic : NeuroLogic = Game.get_neuro_logic()
 	if neuro_logic.karaoke_active:
-		_add_viewers(randi_range(0, 50))
+		_add_viewers(randi_range(10, 100))
 		return
 
 	var new_viewers := 0
 
 	if bomb_defused_hype > 0.0:
-		new_viewers += int(bomb_defused_hype * randi_range(0, 50))
+		new_viewers += int(bomb_defused_hype * randi_range(20, 70))
 		bomb_defused_hype -= randf() * 0.1
+
+	
+	new_viewers += min(0, _calculate_viewership_increment(donowall_counter, 4, 40.0))
+	new_viewers += _calculate_viewership_increment(timeouts_counter, 8, 50.0)
+
+	if neuro_logic.sleep_active:
+		new_viewers += _calculate_viewership_increment(bedge_counter, 4, 20.0)
 
 	var viewers_increment_by_counters : Array[int] = [
 		_calculate_viewership_increment(filter_counter, 3, 15.0),
-		_calculate_viewership_increment(donowall_counter, 3, 15.0),
-		_calculate_viewership_increment(bedge_counter, 3, 15.0),
-		_calculate_viewership_increment(timeouts_counter, 3, 30.0),
-		_calculate_viewership_increment(bad_wording_counter, 3, 15.0)
+		_calculate_viewership_increment(bad_wording_counter, 6, 20.0),
 	]
 
 	var min_increment_by_counters : int = viewers_increment_by_counters.min()
 	var max_increment_by_counters : int = viewers_increment_by_counters.max()
 	new_viewers += min_increment_by_counters if abs(min_increment_by_counters) > max_increment_by_counters else max_increment_by_counters
 
-	# new_viewers += _calculate_viewership_increment(filter_counter, 4, 10.0)
-	# new_viewers += _calculate_viewership_increment(donowall_counter, 4, 10.0)
-	# new_viewers += _calculate_viewership_increment(bedge_counter, 4, 10.0)
-	# new_viewers += _calculate_viewership_increment(timeouts_counter, 4, 10.0)
-	# new_viewers += _calculate_viewership_increment(bad_wording_counter, 4, 10.0)
+	# new_viewers += _calculate_viewership_increment(filter_counter, 4, 15.0)
+	# new_viewers += min(0, _calculate_viewership_increment(donowall_counter, 3, 30.0))
+	# new_viewers += _calculate_viewership_increment(bedge_counter, 3, 15.0)
+	# new_viewers += _calculate_viewership_increment(timeouts_counter, 4, 20.0)
+	# new_viewers += _calculate_viewership_increment(bad_wording_counter, 3, 15.0)
 
 	new_viewers -= int(schizo_factor * 20.0)
 
 	if tutel_hype:
 		new_viewers += randi_range(0, 10)
 
+	# var intention = latest_intentions[latest_intentions_start_idx]
 	for intention in latest_intentions:
 		match intention:
 			1: new_viewers += randi_range(0, 5)
@@ -164,22 +161,22 @@ func _update_viewership():
 			-2: new_viewers += randi_range(0, 15)
 			-3: new_viewers -= randi_range(0, 20)
 
-	var categories := {}
+	# var categories := {}
 	for category in latest_categories:
 		match category:
 			NeuroLogic.NeuroActionCategory.HiChat:
 				new_viewers += randi_range(0, 20)
-			NeuroLogic.NeuroActionCategory.None:
-				pass
-			_:
-				if categories.has(category):
-					categories[category] += 1
-				else:
-					categories[category] = 1
+			# NeuroLogic.NeuroActionCategory.None:
+			# 	pass
+			# _:
+			# 	if categories.has(category):
+			# 		categories[category] += 1
+			# 	else:
+			# 		categories[category] = 1
 
-	for category in categories:
-		var category_count : int = categories[category]
-		new_viewers += min(0, _calculate_viewership_increment(category_count, 3, 5.0))
+	# for category in categories:
+	# 	var category_count : int = categories[category]
+	# 	new_viewers += min(0, _calculate_viewership_increment(category_count, 3, 5.0))
 
 	_add_viewers(new_viewers)
 

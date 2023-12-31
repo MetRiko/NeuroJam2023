@@ -73,7 +73,7 @@ func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction):
 func _process(delta):
 	chat_cooldown_time -= delta
 	if chat_cooldown_time <= 0.0:
-		chat_cooldown_time = randf_range(0.05, 0.4)
+		chat_cooldown_time = randf_range(0.05, 0.3)
 		_generate_matching_chat_entry()
 
 func _queue_chat_response(response_category : ChatResponseCategory):
@@ -160,14 +160,14 @@ func _determine_chat_response_category(neuro_action : NeuroLogic.NeuroFinalActio
 	# pick reaction to intention
 	var intention_factor := absf(neuro_action.intention)
 	if randf() < intention_factor:
-		var intention_chance := randf() * intention_factor
-		var is_lovely := neuro_action.intention > 0
-		if intention_chance >= 0.8: # lvl 3
-			return ChatResponseCategory.Lovely_3 if is_lovely else ChatResponseCategory.Evil_3
-		elif intention_chance >= 0.5: # lvl 2
-			return ChatResponseCategory.Lovely_2 if is_lovely else ChatResponseCategory.Evil_2
-		elif intention_chance >= 0.2: # lvl 1
-			return ChatResponseCategory.Lovely_1 if is_lovely else ChatResponseCategory.Evil_1
+		var intetion_level := neuro_action.get_intention_level()
+		match intetion_level:
+			1: return ChatResponseCategory.Lovely_1
+			2: return ChatResponseCategory.Lovely_2
+			3: return ChatResponseCategory.Lovely_3
+			-1: return ChatResponseCategory.Evil_1
+			-2: return ChatResponseCategory.Evil_2
+			-3: return ChatResponseCategory.Evil_3
 
 	if neuro_action.origin == NeuroLogic.NeuroActionOrigin.Bomb:
 		return ChatResponseCategory.DefusingBomb
