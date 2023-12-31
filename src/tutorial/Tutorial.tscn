@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkgcf10bwcudt"]
+
+[ext_resource type="PackedScene" uid="uid://bu6is6uqlu5np" path="res://src/tutorial/TutorialCloud.tscn" id="1_7jt8b"]
+[ext_resource type="Script" path="res://src/tutorial/Tutorial.gd" id="1_shql2"]
+
+[node name="Tutorial" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_shql2")
+
+[node name="Cloud_Filter" parent="." instance=ExtResource("1_7jt8b")]
+
+[node name="Cloud_SchizoDispenser" parent="." instance=ExtResource("1_7jt8b")]
+
+[node name="Cloud_LoveHateWheel" parent="." instance=ExtResource("1_7jt8b")]
+
+[node name="Cloud_SleepyBall" parent="." instance=ExtResource("1_7jt8b")]
+
+[node name="Cloud_KaraokeMachine" parent="." instance=ExtResource("1_7jt8b")]
+
+[node name="Cloud_EatingTube" parent="." instance=ExtResource("1_7jt8b")]
+
+[node name="Cloud_CookieBox" parent="." instance=ExtResource("1_7jt8b")]
+
+[node name="Cloud_Flusher" parent="." instance=ExtResource("1_7jt8b")]
+
+[node name="Cloud_AntiTimeoutMachine" parent="." instance=ExtResource("1_7jt8b")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://2deuujkaeb54"]
+[gd_scene load_steps=15 format=3 uid="uid://2deuujkaeb54"]
 
 [ext_resource type="Script" path="res://src/logic/ChatLogic.gd" id="1_akn28"]
 [ext_resource type="PackedScene" uid="uid://bqc1xtpj2h1c5" path="res://src/side_bar/SideBar.tscn" id="1_cuiif"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://278hip3aifva" path="res://src/ram_bar/RamBar.tscn" id="8_khx74"]
 [ext_resource type="AudioStream" uid="uid://b1fdlbna8gvgl" path="res://assets/audio/sfx/StartGame.ogg" id="8_o35ey"]
 [ext_resource type="PackedScene" uid="uid://cyo7ov4bgcdpo" path="res://src/DarkOverlay.tscn" id="11_viw1t"]
+[ext_resource type="PackedScene" uid="uid://bkgcf10bwcudt" path="res://src/tutorial/Tutorial.tscn" id="14_ix57b"]
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("chat_logic", "neuro_logic", "viewership_logic", "ram_logic", "gameplay_logic")]
 script = ExtResource("1_ta7mb")
@@ -87,3 +88,61 @@ visible = false
 layout_mode = 1
 starting_transparency = 1.0
 initial_delay = 1.0
+
+[node name="Tutorial" parent="Hud" instance=ExtResource("14_ix57b")]
+
+[node name="Cloud_Filter" parent="Hud/Tutorial" index="0"]
+offset_left = 355.0
+offset_top = 227.0
+offset_right = 461.0
+offset_bottom = 333.0
+
+[node name="Cloud_SchizoDispenser" parent="Hud/Tutorial" index="1"]
+offset_left = 1148.0
+offset_top = 457.0
+offset_right = 1254.0
+offset_bottom = 563.0
+
+[node name="Cloud_LoveHateWheel" parent="Hud/Tutorial" index="2"]
+offset_left = 944.0
+offset_top = 351.0
+offset_right = 1050.0
+offset_bottom = 457.0
+
+[node name="Cloud_SleepyBall" parent="Hud/Tutorial" index="3"]
+offset_left = 1038.0
+offset_top = 25.0
+offset_right = 1144.0
+offset_bottom = 131.0
+
+[node name="Cloud_KaraokeMachine" parent="Hud/Tutorial" index="4"]
+offset_left = 684.0
+offset_top = 446.0
+offset_right = 790.0
+offset_bottom = 552.0
+
+[node name="Cloud_EatingTube" parent="Hud/Tutorial" index="5"]
+offset_left = 458.0
+offset_top = 377.0
+offset_right = 564.0
+offset_bottom = 483.0
+
+[node name="Cloud_CookieBox" parent="Hud/Tutorial" index="6"]
+offset_left = 907.0
+offset_top = 447.0
+offset_right = 1013.0
+offset_bottom = 553.0
+
+[node name="Cloud_Flusher" parent="Hud/Tutorial" index="7"]
+offset_left = 666.0
+offset_top = 30.0
+offset_right = 772.0
+offset_bottom = 136.0
+
+[node name="Cloud_AntiTimeoutMachine" parent="Hud/Tutorial" index="8"]
+offset_left = 1169.0
+offset_top = 251.0
+offset_right = 1275.0
+offset_bottom = 357.0
+
+[editable path="Hud/Tutorial"]

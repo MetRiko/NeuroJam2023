@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu6is6uqlu5np"]
+
+[ext_resource type="Texture2D" uid="uid://bsi3oixxvi31h" path="res://res/tutorial_cloud.png" id="1_142rp"]
+[ext_resource type="Script" path="res://src/tutorial/TutorialCloud.gd" id="1_148gg"]
+[ext_resource type="FontFile" uid="uid://ov35bo0r5tah" path="res://res/fonts/Roboto-Medium.ttf" id="3_g4x6l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdxyu"]
+bg_color = Color(0.0470588, 0.027451, 0.0588235, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.32549, 0.337255, 0.376471, 1)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+expand_margin_left = 16.0
+expand_margin_top = 16.0
+expand_margin_right = 16.0
+expand_margin_bottom = 16.0
+shadow_color = Color(0.0470588, 0.027451, 0.0588235, 0.392157)
+shadow_size = 3
+shadow_offset = Vector2(2, 2)
+
+[node name="TutorialCloud" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 411.0
+offset_top = 384.0
+offset_right = 517.0
+offset_bottom = 490.0
+mouse_filter = 2
+script = ExtResource("1_148gg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(58, 65)
+texture = ExtResource("1_142rp")
+hframes = 2
+frame = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = -253.0
+offset_top = -133.0
+offset_right = 22.0
+offset_bottom = 129.0
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+show_behind_parent = true
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cdxyu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g4x6l")
+text = "Filter"
+autowrap_mode = 3
+
+[node name="Desc" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_g4x6l")
+text = "Is what Neuro's saying being filtered too much? Too little? Push this lever to adjust the filter. Don't overdo it, though - the filter may start acting the opposite way!
+"
+autowrap_mode = 3
