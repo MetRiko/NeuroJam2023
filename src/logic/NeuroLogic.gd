@@ -28,7 +28,7 @@ class NeuroFinalAction extends NeuroPlannedAction:
     var is_tutel_receiver : bool
 
     func get_perceived_schizo_factor() -> float:
-        return max(schizo_factor - 0.6, 0.0) / 0.4
+        return max(schizo_factor - 0.3, 0.0) / 0.7
 
     func get_intention_level() -> int:
         var intention_factor := absf(intention)

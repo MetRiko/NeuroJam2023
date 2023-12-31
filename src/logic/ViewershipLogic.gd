@@ -146,7 +146,7 @@ func _update_viewership():
 	# new_viewers += _calculate_viewership_increment(timeouts_counter, 4, 20.0)
 	# new_viewers += _calculate_viewership_increment(bad_wording_counter, 3, 15.0)
 
-	new_viewers -= int(schizo_factor * 20.0)
+	new_viewers -= int(schizo_factor * 60.0)
 
 	if tutel_hype:
 		new_viewers += randi_range(0, 10)
