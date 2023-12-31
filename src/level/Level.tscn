@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=19 format=3 uid="uid://brk8apg1ijq2o"]
 
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
@@ -20,9 +20,6 @@ size = Vector2(1282, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3q0p7"]
 size = Vector2(110.296, 522)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hcb52"]
-size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rifwp"]
 size = Vector2(725, 452)
@@ -99,21 +96,6 @@ texture = ExtResource("3_m2diq")
 position = Vector2(56.8519, 33)
 shape = SubResource("RectangleShape2D_3q0p7")
 
-[node name="AngledSchizoRoof" type="StaticBody2D" parent="Walls"]
-position = Vector2(1264, 236)
-collision_layer = 2
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="Walls/AngledSchizoRoof"]
-rotation = 0.640914
-scale = Vector2(0.543506, 0.320107)
-texture = ExtResource("3_m2diq")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/AngledSchizoRoof"]
-rotation = 0.640914
-scale = Vector2(0.544, 0.32)
-shape = SubResource("RectangleShape2D_hcb52")
-
 [node name="Machines" type="Node2D" parent="."]
 
 [node name="FilterMachine" parent="Machines" instance=ExtResource("5_5e04j")]
@@ -140,10 +122,10 @@ position = Vector2(635, 480)
 note_spawn_area = NodePath("../../NoteSpawnArea/CollisionShape2D")
 
 [node name="EatingTube" parent="Machines" instance=ExtResource("11_mg8yt")]
-position = Vector2(422, 461)
+position = Vector2(422, 442)
 
 [node name="CookieBox" parent="Machines" instance=ExtResource("12_x7kqy")]
-position = Vector2(871, 507)
+position = Vector2(878, 504)
 
 [node name="Flusher" parent="Machines" node_paths=PackedStringArray("core_machine") instance=ExtResource("12_7wsug")]
 position = Vector2(645, 45)

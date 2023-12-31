@@ -18,7 +18,7 @@ func _ready():
     _timer.start(lifetime)
 
     var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_EXPO)
-    tween.tween_property($Sprite2D, "scale", Vector2.ONE * 0.2, 0.2)
+    tween.tween_property($Sprite2D, "scale", Vector2.ONE, 0.2)
 
 
 func _on_body_entered(body):

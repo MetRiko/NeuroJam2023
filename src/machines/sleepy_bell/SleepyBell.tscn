@@ -24,9 +24,9 @@ stream_2/weight = 1.0
 [node name="SleepyBell" type="Node2D" node_paths=PackedStringArray("bell")]
 script = ExtResource("1_nxr72")
 bell = NodePath("Grabbable")
-ding_threshold = 0.3
+ding_threshold = 0.2
 sleepy_lower_amount = 0.006
-ram_cost = 0.13
+ram_cost = 0.18
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -38,7 +38,7 @@ script = ExtResource("1_puk71")
 reset_position_on_grab = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Grabbable"]
-z_index = -1
+z_index = -10
 position = Vector2(0, 24)
 texture = ExtResource("3_bhbgl")
 

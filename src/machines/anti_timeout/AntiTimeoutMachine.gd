@@ -12,7 +12,7 @@ extends BaseMachine
 @export var timeout_disable_time: float
 @onready var timeout_disable_timer: Timer = $TimeoutDisableTimer
 
-@onready var cooldown_progress_bar: TextureProgressBar = $CooldownProgressBar
+@onready var icon: Sprite2D = $Icon
 
 @onready var _button_hit_audio: AudioStreamPlayer = $ButtonHitAudio
 @onready var _cooldown_over_audio: AudioStreamPlayer = $CooldownOverAudio
@@ -63,9 +63,9 @@ func _process(delta):
     _prev_button_pressed = button_pressed
 
     if _on_cooldown:
-        cooldown_progress_bar.value = lerp(cooldown_progress_bar.min_value, cooldown_progress_bar.max_value, cooldown_timer.time_left / cooldown_time)
+        icon.frame = 0
     else:
-        cooldown_progress_bar.value = 0
+        icon.frame = 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -46,6 +46,7 @@ script = ExtResource("1_xvpyq")
 reset_position_on_grab = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Wheel"]
+z_index = -10
 scale = Vector2(0.905, 0.905)
 texture = ExtResource("4_fj4n3")
 

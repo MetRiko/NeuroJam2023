@@ -6,6 +6,8 @@ extends Control
 @onready var start_area: Area2D = $StartArea
 @export var start_time: float = 2
 
+@onready var sprite: Sprite2D = $Sprite2D
+
 var start_progress: float = 0
 
 var karaoke_active := false
@@ -31,17 +33,25 @@ func _ready():
     start_area.body_entered.connect(_on_start_area_entered)
     start_area.body_exited.connect(_on_start_area_exited)
 
+    Game.do_start.connect(_on_start)
     Game.get_gameplay_logic().game_over_ram.connect(_on_game_over_ram)
     Game.get_gameplay_logic().game_over_viewers.connect(_on_game_over_viewers)
     
     game_starting_audio.volume_db = -80
     game_starting_audio.play()
+    sprite.frame = 0
     
 
+func _on_start():
+    sprite.frame = 1
+
+
 func _on_game_over_ram() -> void:
+    sprite.frame = 0
     _set_screen_text("Out of RAM!\nPeak viewers: %s\nTime survived: %s" % [int(Game.get_viewership_logic().peak_viewers / 10.0), StringUtils.timestamp(Game.get_viewership_logic().stream_time)])
 
 func _on_game_over_viewers() -> void:
+    sprite.frame = 0
     _set_screen_text("You lost all your viewers!\nPeak viewers: %s\nTime survived: %s" % [int(Game.get_viewership_logic().peak_viewers / 10.0), StringUtils.timestamp(Game.get_viewership_logic().stream_time)])
 
 func _on_start_area_entered(body) -> void:
@@ -61,7 +71,7 @@ func _process(delta):
         start_progress = clamp(start_progress, 0, 1)
         start_progress_bar.value = start_progress_bar.max_value * pow(start_progress, 3)
 
-        game_starting_audio.pitch_scale = pow(start_progress, 3)
+        game_starting_audio.pitch_scale = max(0.01, pow(start_progress, 3))
         game_starting_audio.volume_db = Conversions.power_to_db(start_progress) / 5
 
         if start_progress >= 1:
