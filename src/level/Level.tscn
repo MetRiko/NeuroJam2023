@@ -43,7 +43,7 @@ centered = false
 
 [node name="Title" type="Sprite2D" parent="."]
 z_index = -100
-position = Vector2(910, 138)
+position = Vector2(918, 154)
 rotation = -0.0523599
 texture = ExtResource("2_jgjt0")
 script = ExtResource("3_22s2a")
@@ -157,6 +157,8 @@ position = Vector2(813, 291)
 shape = SubResource("RectangleShape2D_rifwp")
 
 [node name="NeuroActionScreen" parent="." instance=ExtResource("13_ww6ex")]
+offset_top = 230.0
+offset_bottom = 401.0
 
 [node name="InboundsArea" type="Area2D" parent="."]
 

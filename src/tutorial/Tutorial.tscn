@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkgcf10bwcudt"]
+[gd_scene load_steps=4 format=3 uid="uid://bkgcf10bwcudt"]
 
 [ext_resource type="PackedScene" uid="uid://bu6is6uqlu5np" path="res://src/tutorial/TutorialCloud.tscn" id="1_7jt8b"]
 [ext_resource type="Script" path="res://src/tutorial/Tutorial.gd" id="1_shql2"]
+[ext_resource type="PackedScene" uid="uid://baiciokc1koof" path="res://src/tutorial/TutorialPanel.tscn" id="3_wyvq3"]
 
 [node name="Tutorial" type="Control"]
 layout_mode = 3
@@ -10,20 +11,160 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_shql2")
 
-[node name="Cloud_Filter" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Buttons" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Cloud_SchizoDispenser" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Cloud_Filter" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_Filter")
 
-[node name="Cloud_LoveHateWheel" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Cloud_SchizoDispenser" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_SchizoDispenser")
 
-[node name="Cloud_SleepyBall" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Cloud_LoveHateWheel" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_LoveHateWheel")
 
-[node name="Cloud_KaraokeMachine" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Cloud_SleepyBall" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_SleepyBall")
 
-[node name="Cloud_EatingTube" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Cloud_KaraokeMachine" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_KaraokeMachine")
 
-[node name="Cloud_CookieBox" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Cloud_EatingTube" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_EatingTube")
 
-[node name="Cloud_Flusher" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Cloud_CookieBox" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_CookieBox")
 
-[node name="Cloud_AntiTimeoutMachine" parent="." instance=ExtResource("1_7jt8b")]
+[node name="Cloud_Flusher" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_Flusher")
+
+[node name="Cloud_AntiTimeoutMachine" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_AntiTimeoutMachine")
+
+[node name="Cloud_Ram" parent="Buttons" node_paths=PackedStringArray("panel") instance=ExtResource("1_7jt8b")]
+panel = NodePath("../../Panels/Cloud_Ram")
+
+[node name="Panels" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Cloud_Filter" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+offset_left = 877.0
+offset_top = -143.0
+offset_right = 1152.0
+offset_bottom = 16.0
+
+[node name="Desc" parent="Panels/Cloud_Filter/VBoxContainer" index="1"]
+text = "Is what Neuro's saying being filtered too much? Too little - did she start swearing? Push this lever to adjust the filter. Don't overdo it, though - the filter may start acting the opposite way!
+"
+
+[node name="Cloud_SchizoDispenser" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+offset_left = 868.0
+offset_top = 57.0
+offset_right = 1143.0
+offset_bottom = 194.0
+
+[node name="Name" parent="Panels/Cloud_SchizoDispenser/VBoxContainer" index="0"]
+text = "Schizo Pill Dispenser"
+
+[node name="Desc" parent="Panels/Cloud_SchizoDispenser/VBoxContainer" index="1"]
+text = "When Neuro's responses become really, really weird, give her a schizo pill. Push down on the lever for a while to get one. Then throw the pill into the tube on the left.
+"
+
+[node name="Cloud_LoveHateWheel" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+
+[node name="Name" parent="Panels/Cloud_LoveHateWheel/VBoxContainer" index="0"]
+text = "Love/Hate Wheel"
+
+[node name="Desc" parent="Panels/Cloud_LoveHateWheel/VBoxContainer" index="1"]
+text = "Now you have control over Neuro's mood swings! Turn the wheel clockwise to make her more lovely, and counterclockwise to make her more hateful. Make sure to keep her mood varied and not overdone, or else you'll lose viewers.
+"
+
+[node name="Cloud_SleepyBall" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+
+[node name="Name" parent="Panels/Cloud_SleepyBall/VBoxContainer" index="0"]
+text = "Sleepy Bell"
+
+[node name="Desc" parent="Panels/Cloud_SleepyBall/VBoxContainer" index="1"]
+text = "Grab the bell and ring it to wake Neuro up. The more you ring, the longer Neuro should stay awake. You will lose viewers when Neuro's asleep.
+"
+
+[node name="Cloud_KaraokeMachine" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+offset_left = 882.0
+offset_top = 220.0
+offset_right = 1157.0
+offset_bottom = 357.0
+
+[node name="Name" parent="Panels/Cloud_KaraokeMachine/VBoxContainer" index="0"]
+text = "Karaoke Machine"
+
+[node name="Desc" parent="Panels/Cloud_KaraokeMachine/VBoxContainer" index="1"]
+text = "Put on some beats! Collect 10 notes that appear in the room and Neuro will start singing, which guarantees a boost in viewers.
+"
+
+[node name="Cloud_EatingTube" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+
+[node name="Name" parent="Panels/Cloud_EatingTube/VBoxContainer" index="0"]
+text = "Eating Tube"
+
+[node name="Desc" parent="Panels/Cloud_EatingTube/VBoxContainer" index="1"]
+text = "Throw cookies and schizo pills in here to feed Neuro."
+
+[node name="Cloud_CookieBox" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+
+[node name="Name" parent="Panels/Cloud_CookieBox/VBoxContainer" index="0"]
+text = "Cookie Box"
+
+[node name="Desc" parent="Panels/Cloud_CookieBox/VBoxContainer" index="1"]
+text = "Hold Left Click on this box to obtain a cookie. Cookies are useful when Neuro is defusing a bomb - give her one, and she will succeed! This boosts your viewer count temporarily.
+"
+
+[node name="Cloud_Flusher" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+
+[node name="Name" parent="Panels/Cloud_Flusher/VBoxContainer" index="0"]
+text = "Flusher"
+
+[node name="Desc" parent="Panels/Cloud_Flusher/VBoxContainer" index="1"]
+text = "Are things getting too quick for you to handle? Pull this chain down to flush Neuro's memories down the drain. This resets her and slows things down. Be wary, though - she will ignore chat for some time after you pull the flusher, so people will start leaving.
+"
+
+[node name="Cloud_AntiTimeoutMachine" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+
+[node name="Name" parent="Panels/Cloud_AntiTimeoutMachine/VBoxContainer" index="0"]
+text = "Anti Timeout Machine"
+
+[node name="Desc" parent="Panels/Cloud_AntiTimeoutMachine/VBoxContainer" index="1"]
+text = "Is Neuro too trigger-happy on that timeout button? Hit this button instead - Neuro will stop timing people out for a while. A little timing out won't hurt, though - just don't let her overdo it.
+"
+
+[node name="Cloud_Ram" parent="Panels" instance=ExtResource("3_wyvq3")]
+layout_mode = 0
+
+[node name="Name" parent="Panels/Cloud_Ram/VBoxContainer" index="0"]
+text = "RAM Bar"
+
+[node name="Desc" parent="Panels/Cloud_Ram/VBoxContainer" index="1"]
+text = "Every use of a machine in this room costs some precious RAM. When Neuro's RAM gets full, she will crash and the game will end."
+
+[editable path="Panels/Cloud_Filter"]
+[editable path="Panels/Cloud_SchizoDispenser"]
+[editable path="Panels/Cloud_LoveHateWheel"]
+[editable path="Panels/Cloud_SleepyBall"]
+[editable path="Panels/Cloud_KaraokeMachine"]
+[editable path="Panels/Cloud_EatingTube"]
+[editable path="Panels/Cloud_CookieBox"]
+[editable path="Panels/Cloud_Flusher"]
+[editable path="Panels/Cloud_AntiTimeoutMachine"]
+[editable path="Panels/Cloud_Ram"]
