@@ -1,7 +1,39 @@
 extends Node
 
 enum EmojiType {
-	None, Pog, Kekw
+	None, 
+	Pog, 
+	Kekw,
+	NeuroCheer, 
+	Bedge, 
+	DonoWall, 
+	PauseSama, 
+	Filtered1984, 
+	Tutel, 
+	Gasp, 
+	FrickU, 
+	RipBozo, 
+	Schizo, 
+	NeuroPossessed,
+	Heart,
+	SoCute,
+	Huh,
+	Uhh,
+	Band,
+	Poggers,
+	NeuroPoggers,
+	GigaNeuro,
+	Noted,
+	Hmm,
+	ICant,
+	GoodOne,
+	FeelsStrongMan,
+	Corpa,
+	Yes,
+	No,
+	Mhm,
+	Clap,
+	OSeven
 }
 
 var emojis := {
