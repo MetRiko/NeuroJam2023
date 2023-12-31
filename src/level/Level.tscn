@@ -1,5 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://brk8apg1ijq2o"]
+[gd_scene load_steps=20 format=3 uid="uid://brk8apg1ijq2o"]
 
+[ext_resource type="Texture2D" uid="uid://c2neuclfpdunr" path="res://res/background.png" id="1_rwaqr"]
 [ext_resource type="PackedScene" uid="uid://dlw6rh4r7dmdd" path="res://src/machines/core/CoreMachine.tscn" id="1_thdch"]
 [ext_resource type="PackedScene" uid="uid://bvqgtxxht826g" path="res://src/player/Player.tscn" id="2_hgt3e"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="3_m2diq"]
@@ -29,6 +30,11 @@ size = Vector2(1147, 578)
 
 [node name="Level" type="Node2D"]
 
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1000
+texture = ExtResource("1_rwaqr")
+centered = false
+
 [node name="CoreMachine" parent="." node_paths=PackedStringArray("chat_queue") instance=ExtResource("1_thdch")]
 position = Vector2(420, 648)
 scale = Vector2(0.68, 0.68)
@@ -45,6 +51,7 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="Floor"]
+visible = false
 scale = Vector2(10, 0.480001)
 texture = ExtResource("3_m2diq")
 
@@ -59,6 +66,7 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="Ceiling"]
+visible = false
 scale = Vector2(10, 0.480001)
 texture = ExtResource("3_m2diq")
 
@@ -74,6 +82,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Walls/Wall"]
+visible = false
 position = Vector2(57.8704, 32.5)
 scale = Vector2(0.845775, 4.11719)
 texture = ExtResource("3_m2diq")
@@ -88,6 +97,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Walls/Wall2"]
+visible = false
 position = Vector2(57.8704, 32.5)
 scale = Vector2(0.845775, 4.11719)
 texture = ExtResource("3_m2diq")
@@ -146,12 +156,12 @@ shape = SubResource("RectangleShape2D_rifwp")
 [node name="InboundsArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InboundsArea"]
+modulate = Color(1, 1, 1, 0)
 position = Vector2(819.5, 292)
 shape = SubResource("RectangleShape2D_u010i")
 debug_color = Color(0.405078, 0.607678, 9.62615e-07, 0.42)
 
 [node name="LevelDarkOverlay" parent="." instance=ExtResource("14_jtvl5")]
-visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
