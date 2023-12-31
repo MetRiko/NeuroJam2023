@@ -1,28 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://ca8gonntqh454"]
+[gd_scene load_steps=13 format=3 uid="uid://ca8gonntqh454"]
 
 [ext_resource type="Script" path="res://src/machines/schizo/SchizoMachine.gd" id="1_u2qpq"]
-[ext_resource type="PackedScene" uid="uid://b1tbddw6jgg43" path="res://src/objects/Grabbable.tscn" id="2_bb3st"]
-[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_ybvny"]
-[ext_resource type="Script" path="res://src/objects/SchizoPill.gd" id="3_2epen"]
+[ext_resource type="PackedScene" uid="uid://ccbcan48m71ri" path="res://src/objects/SchizoPill.tscn" id="2_yefvw"]
 [ext_resource type="Script" path="res://src/machines/schizo/Launcher.gd" id="3_gb64e"]
 [ext_resource type="AudioStream" uid="uid://cahwcji7va20x" path="res://assets/audio/sfx/SchizoSpring.ogg" id="5_3srsm"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8opnd"]
-radius = 14.0357
-
-[sub_resource type="PackedScene" id="PackedScene_umaf2"]
-_bundled = {
-"base_scene": 0,
-"conn_count": 0,
-"conns": PackedInt32Array(),
-"editable_instances": [],
-"names": PackedStringArray("SchizoPill", "SchizoPill", "z_index", "collision_layer", "collision_mask", "mass", "script", "Sprite2D", "Sprite2D", "scale", "texture", "CollisionShape2D", "CollisionShape2D", "shape"),
-"node_count": 3,
-"node_paths": [NodePath("."), NodePath(".")],
-"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 5, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 1, 1, 1073741824, 0, 8, 262151, -1, 2, 9, 6, 10, 7, 0, 1073741825, 0, 12, 524299, -1, 1, 13, 8, 0),
-"variants": [ExtResource("2_bb3st"), 1, 4, 10, 0.1, ExtResource("3_2epen"), Vector2(0.21875, 0.21875), ExtResource("2_ybvny"), SubResource("CircleShape2D_8opnd")],
-"version": 3
-}
+[ext_resource type="Texture2D" uid="uid://dficbbhk237x6" path="res://res/machines/pill_launcher_back.png" id="5_jarp2"]
+[ext_resource type="Texture2D" uid="uid://25y5onaeonna" path="res://res/machines/pill_launcher_lever.png" id="7_307jh"]
+[ext_resource type="Texture2D" uid="uid://mul8tx8a6my5" path="res://res/machines/pill_launcher_spring.png" id="9_kf567"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmn4v"]
 size = Vector2(5, 144)
@@ -34,24 +18,25 @@ size = Vector2(5, 143.5)
 size = Vector2(42, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nm3j7"]
-size = Vector2(89, 8)
+size = Vector2(99, 12)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptvry"]
-size = Vector2(44, 7)
+size = Vector2(48, 8.5)
 
 [node name="SchizoMachine" type="Node2D" node_paths=PackedStringArray("pill_spawnpoint")]
 script = ExtResource("1_u2qpq")
-pill_tscn = SubResource("PackedScene_umaf2")
+pill_tscn = ExtResource("2_yefvw")
 pill_spawnpoint = NodePath("PillSpawnPoint")
 pill_spawn_time = 5.0
+min_spring_scale = 0.03
+max_spring_scale = 0.441
 
 [node name="Tube" type="StaticBody2D" parent="."]
 collision_layer = 2
 collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Tube"]
-scale = Vector2(0.328125, 1.10938)
-texture = ExtResource("2_ybvny")
+texture = ExtResource("5_jarp2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tube"]
 position = Vector2(-18.5, 0)
@@ -79,8 +64,7 @@ launch_force_time = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Tube/Launcher"]
 position = Vector2(-28.5, 0)
-scale = Vector2(0.695312, 0.0625)
-texture = ExtResource("2_ybvny")
+texture = ExtResource("7_307jh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tube/Launcher"]
 position = Vector2(-28.5, 0)
@@ -89,7 +73,7 @@ shape = SubResource("RectangleShape2D_nm3j7")
 [node name="Area2D" type="Area2D" parent="Tube/Launcher"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tube/Launcher/Area2D"]
-position = Vector2(-43, -1.5)
+position = Vector2(-50, -4)
 shape = SubResource("RectangleShape2D_ptvry")
 debug_color = Color(0.749425, 0.351772, 0.75804, 0.42)
 
@@ -112,3 +96,10 @@ one_shot = true
 
 [node name="PillSpawnPoint" type="Node2D" parent="."]
 position = Vector2(0, -21)
+
+[node name="PillLauncherSpring" type="Sprite2D" parent="."]
+position = Vector2(-14, 60)
+scale = Vector2(1, 0.440559)
+texture = ExtResource("9_kf567")
+centered = false
+offset = Vector2(0, -143)
