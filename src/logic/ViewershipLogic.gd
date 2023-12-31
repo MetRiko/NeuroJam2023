@@ -25,6 +25,8 @@ var bomb_defused_hype := 0.0
 
 var current_neuro_action : NeuroLogic.NeuroFinalAction = null
 
+var _logic_active := false
+
 # + karaoke
 
 func _init():
@@ -38,17 +40,36 @@ func _ready():
 	# $Timer.timeout.connect(_on_timer_timeout)
 	Game.get_neuro_logic().neuro_action_started.connect(_on_neuro_action_started)
 	await get_tree().process_frame
+	
+	_on_reset()
+
+	Game.do_start.connect(_on_start)
+	Game.do_pause.connect(_on_pause)
+	Game.do_reset.connect(_on_reset)
+
+func _on_start():
+	_logic_active = true
+	# TODO: Fill this in
+
+func _on_pause():
+	_logic_active = false
+	# TODO: Fill this in
+
+func _on_reset():
+	current_viewership = 1000
 	_add_viewers(0)
+	# TODO: Fill this in
 
 var next_viewership_time := 0.0
 
 func _process(delta):
-	stream_time += delta
-	
-	next_viewership_time -= randf_range(5.0, 8.0) * delta
-	if next_viewership_time <= 0.0:
-		_update_viewership()
-		next_viewership_time += 1.0
+	if _logic_active:
+		stream_time += delta
+		
+		next_viewership_time -= randf_range(5.0, 8.0) * delta
+		if next_viewership_time <= 0.0:
+			_update_viewership()
+			next_viewership_time += 1.0
 	
 # func _on_timer_timeout():
 # 	_update_viewership()

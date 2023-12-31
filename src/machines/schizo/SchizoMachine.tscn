@@ -1,10 +1,28 @@
-[gd_scene load_steps=11 format=3 uid="uid://ca8gonntqh454"]
+[gd_scene load_steps=14 format=3 uid="uid://ca8gonntqh454"]
 
 [ext_resource type="Script" path="res://src/machines/schizo/SchizoMachine.gd" id="1_u2qpq"]
-[ext_resource type="PackedScene" uid="uid://ccbcan48m71ri" path="res://src/objects/SchizoPill.tscn" id="2_huhk7"]
+[ext_resource type="PackedScene" uid="uid://b1tbddw6jgg43" path="res://src/objects/Grabbable.tscn" id="2_bb3st"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_ybvny"]
+[ext_resource type="Script" path="res://src/objects/SchizoPill.gd" id="3_2epen"]
 [ext_resource type="Script" path="res://src/machines/schizo/Launcher.gd" id="3_gb64e"]
 [ext_resource type="AudioStream" uid="uid://cahwcji7va20x" path="res://assets/audio/sfx/SchizoSpring.ogg" id="5_3srsm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8opnd"]
+radius = 14.0357
+
+[sub_resource type="PackedScene" id="PackedScene_umaf2"]
+_bundled = {
+"base_scene": 0,
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("SchizoPill", "SchizoPill", "z_index", "collision_layer", "collision_mask", "mass", "script", "Sprite2D", "Sprite2D", "scale", "texture", "CollisionShape2D", "CollisionShape2D", "shape"),
+"node_count": 3,
+"node_paths": [NodePath("."), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 5, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 1, 1, 1073741824, 0, 8, 262151, -1, 2, 9, 6, 10, 7, 0, 1073741825, 0, 12, 524299, -1, 1, 13, 8, 0),
+"variants": [ExtResource("2_bb3st"), 1, 4, 10, 0.1, ExtResource("3_2epen"), Vector2(0.21875, 0.21875), ExtResource("2_ybvny"), SubResource("CircleShape2D_8opnd")],
+"version": 3
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gmn4v"]
 size = Vector2(5, 144)
@@ -23,7 +41,7 @@ size = Vector2(44, 7)
 
 [node name="SchizoMachine" type="Node2D" node_paths=PackedStringArray("pill_spawnpoint")]
 script = ExtResource("1_u2qpq")
-pill_tscn = ExtResource("2_huhk7")
+pill_tscn = SubResource("PackedScene_umaf2")
 pill_spawnpoint = NodePath("PillSpawnPoint")
 pill_spawn_time = 5.0
 

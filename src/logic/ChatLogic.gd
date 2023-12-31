@@ -40,6 +40,8 @@ var previous_neuro_action : NeuroLogic.NeuroFinalAction = null
 var bomb_hype := 0.0
 var was_bomb_defused := false
 
+var _logic_active := false
+
 func get_chat_entries() -> Array[ChatEntryData]:
 	return chat_entries 
 
@@ -50,6 +52,20 @@ func add_chat_entry(entry : ChatEntryData):
 func _ready():
 	randomize()
 	Game.get_neuro_logic().neuro_action_started.connect(_on_neuro_action_started)
+
+	Game.do_start.connect(_on_start)
+	Game.do_pause.connect(_on_pause)
+	Game.do_reset.connect(_on_reset)
+
+func _on_start():
+	_logic_active = true
+
+func _on_pause():
+	_logic_active = false
+
+func _on_reset():
+	# TODO: Clear chat and do other resetting stuff here
+	pass
 
 var chance_to_react_to_previous_message := 0.0
 
@@ -71,10 +87,11 @@ func _on_neuro_action_started(neuro_action : NeuroLogic.NeuroFinalAction):
 	chance_to_react_to_previous_message = randf() * 0.3
 
 func _process(delta):
-	chat_cooldown_time -= delta
-	if chat_cooldown_time <= 0.0:
-		chat_cooldown_time = randf_range(0.05, 0.3)
-		_generate_matching_chat_entry()
+	if _logic_active:
+		chat_cooldown_time -= delta
+		if chat_cooldown_time <= 0.0:
+			chat_cooldown_time = randf_range(0.05, 0.3)
+			_generate_matching_chat_entry()
 
 func _queue_chat_response(response_category : ChatResponseCategory):
 	if response_category == ChatResponseCategory.None:

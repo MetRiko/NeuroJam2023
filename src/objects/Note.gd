@@ -9,6 +9,8 @@ signal miss
 
 @export var lifetime: float = 2
 
+var _alive := true
+
 
 func _ready():
     area.body_entered.connect(_on_body_entered)
@@ -20,7 +22,8 @@ func _ready():
 
 
 func _on_body_entered(body):
-    if body is Player:
+    if body is Player and _alive:
+        _alive = false
         collect.emit()
         disappear()
 

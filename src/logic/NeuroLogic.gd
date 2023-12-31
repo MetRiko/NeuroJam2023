@@ -76,19 +76,27 @@ var prev_action_had_cookie := false
 
 var latest_bomb_defused_successfully := false
 
-@export var filter_growth_per_action = 0.01
-@export var schizo_growth_per_action = 0.01
-@export var sleepy_growth = 0.3
-@export var sleepy_growth_interval = 50
+@export var filter_variance_frequency := 0.003
+@export var filter_fast_variance_frequency := 0.08
+@export var filter_activation_threshold := 0.35
 
-@export var emotional_state_variance_growth = 0.03
-@export var emotional_state_random_area = 0.1
-@export var emotional_state_random_amount = 0.15
+var _filter_fast_mode := false
+
+@export var schizo_growth_per_action := 0.01
+@export var sleepy_growth := 0.3
+@export var sleepy_growth_interval := 50
+
+@export var emotional_state_variance_growth := 0.03
+@export var emotional_state_random_area := 0.1
+@export var emotional_state_random_amount := 0.15
+@export var emotional_state_randomize_interval := 20
 
 var justice_factor_variance_frequency = 0.02
 
 var _action_count = 0
 var _has_vedal_appeared := false
+
+var _filter_phase := 0.0
 
 @export var origin_weights: Dictionary = {
     NeuroActionOrigin.Neuro: 5, 
@@ -146,8 +154,12 @@ var _current_fixation_category: NeuroActionCategory
 @export var fixation_weight_growth: float = 0.2
 
 
+var _logic_active := false
+
+
 func reset():
     filter_power = 0.0
+    _filter_phase = 0.0
     schizo_power = 0.0
     sleepy_power = 0.0
     justice_factor = 0.0
@@ -176,6 +188,16 @@ func get_perceived_schizo_factor() -> float:
 func _ready():
     randomize()
     reset()
+
+    Game.do_pause.connect(func(): _logic_active = false)
+    Game.do_start.connect(func(): _logic_active = true)
+    Game.do_reset.connect(reset)
+
+
+func _process(delta):
+    if _logic_active:
+        _filter_phase += (filter_fast_variance_frequency if _filter_fast_mode else filter_variance_frequency) * delta
+        filter_power = pingpong(_filter_phase * 4 + 1, 2.0) - 1
 
 
 func _update_fixation() -> void:
@@ -213,7 +235,6 @@ func is_sleeping() -> bool:
 
 
 func _do_natural_growth() -> void:
-    update_filter_power(randf_range(filter_growth_per_action / 2, filter_growth_per_action * 2))
     update_schizo_power(randf_range(schizo_growth_per_action / 2, schizo_growth_per_action * 2))
 
     if randf() < 0.15:
@@ -229,6 +250,13 @@ func _do_natural_growth() -> void:
     else:
         emotional_state += emotional_state_variance_growth
     emotional_state = clamp(emotional_state, -1, 1)
+
+    if _action_count % emotional_state_randomize_interval == 0:
+        emotional_state = randf_range(-1, 1)
+
+
+func update_filter_fast_mode(active: bool) -> void:
+    _filter_fast_mode = active
 
 
 func update_filter_power(delta: float) -> void:
@@ -322,8 +350,8 @@ func generate_response(action: NeuroPlannedAction) -> NeuroFinalAction:
 
 func _handle_filter(chain: NeuroFinalActionChain) -> void:
     var random = randf()
-    var filter_prob = max(0, filter_power)
-    var no_filter_prob = max(0, -filter_power)
+    var filter_prob = clamp(inverse_lerp(filter_activation_threshold, 1, filter_power), 0, 1)
+    var no_filter_prob = clamp(inverse_lerp(-filter_activation_threshold, -1, filter_power), 0, 1)
 
     if random < filter_prob:
         chain.action.action_oopsie = NeuroActionOopsie.Filtered

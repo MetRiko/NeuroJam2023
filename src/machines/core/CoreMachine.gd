@@ -1,4 +1,4 @@
-extends Node2D
+extends BaseMachine
 class_name CoreMachine
 
 
@@ -40,16 +40,32 @@ func _input(event):
 func _ready():
     randomize()
     _execute_action_timer.timeout.connect(handle_planned_action)
-    _new_action_timer.timeout.connect(func(): add_random_planned_action(); _new_action_timer.start(_actual_new_action_interval))
+    _new_action_timer.timeout.connect(handle_new_action)
 
     Game.do_reset.connect(reset)
+    Game.do_pause.connect(pause)
+    Game.do_start.connect(start)
 
     reset()
+
+
+func handle_new_action():
+    if machine_active:
+        add_random_planned_action()
+        _new_action_timer.start(_actual_new_action_interval)
 
 
 func reset_intervals() -> void:
     _actual_execute_action_interval = execute_action_interval
     _actual_new_action_interval = new_action_interval
+
+
+func pause() -> void:
+    deactivate_machine()
+
+
+func start() -> void:
+    activate_machine()
 
 
 func reset() -> void:
@@ -81,8 +97,9 @@ func add_planned_action(action: NeuroLogic.NeuroPlannedAction) -> void:
 
 
 func handle_planned_action() -> void:
-    handle_action(chat_queue.dequeue_message(1))
-    _execute_action_timer.start()
+    if machine_active:
+        handle_action(chat_queue.dequeue_message(1))
+        _execute_action_timer.start()
 
 
 func destroy_chat_message() -> void:
