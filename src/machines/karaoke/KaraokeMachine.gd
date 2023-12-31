@@ -21,6 +21,10 @@ var notes_collected: int:
 @onready var note_progress_bar: TextureProgressBar = $NoteProgress
 @onready var note_icon: Sprite2D = $NoteIcon
 
+@onready var _note_appear_audio: AudioStreamPlayer = $NoteAppearAudio
+@onready var _note_collect_audio: AudioStreamPlayer = $NoteCollectAudio
+@onready var _note_miss_audio: AudioStreamPlayer = $NoteMissAudio
+
 @export var off_color: Color
 @export var available_color: Color
 @export var active_color: Color
@@ -67,14 +71,23 @@ func spawn_note():
         var pos := Vector2(randf_range(rect.position.x, rect.position.x + rect.size.x), randf_range(rect.position.y, rect.position.y + rect.size.y))
         note_spawn_area.add_child(note_inst)
         note_inst.position = pos
-        note_inst.destroy.connect(on_note_collected)
+        note_inst.collect.connect(on_note_collected)
+        note_inst.miss.connect(on_note_missed)
+
+        _note_appear_audio.play()
 
 
 func on_note_collected():
     if not _active and notes_collected < notes_to_start:
         print("Note collected")
         notes_collected += 1
+
+        _note_collect_audio.play()
+
         if notes_collected >= notes_to_start:
             note_icon.modulate = available_color
             start_karaoke()
             
+
+func on_note_missed():
+    _note_miss_audio.play()

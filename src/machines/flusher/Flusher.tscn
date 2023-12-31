@@ -43,3 +43,4 @@ one_shot = true
 
 [node name="FlushAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_xp0e1")
+bus = &"SFX"

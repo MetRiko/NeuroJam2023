@@ -54,12 +54,16 @@ debug_color = Color(0.866846, 0.000555236, 0.858308, 0.42)
 [node name="MoveAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_aga8q")
 volume_db = -30.957
+bus = &"SFX"
 
 [node name="BumpAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_akicp")
+bus = &"SFX"
 
 [node name="GrabAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_x440r")
+bus = &"SFX"
 
 [node name="ReleaseAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_ul45h")
+bus = &"SFX"

@@ -1,7 +1,8 @@
 extends Node2D
 class_name Note
 
-signal destroy
+signal collect
+signal miss
 
 @onready var area: Area2D = $Area2D
 @onready var _timer: Timer = $Timer
@@ -11,7 +12,7 @@ signal destroy
 
 func _ready():
     area.body_entered.connect(_on_body_entered)
-    _timer.timeout.connect(disappear)
+    _timer.timeout.connect(timeout)
     _timer.start(lifetime)
 
     var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_EXPO)
@@ -20,8 +21,13 @@ func _ready():
 
 func _on_body_entered(body):
     if body is Player:
-        destroy.emit()
+        collect.emit()
         disappear()
+
+
+func timeout():
+    miss.emit()
+    disappear()
 
 
 func disappear():

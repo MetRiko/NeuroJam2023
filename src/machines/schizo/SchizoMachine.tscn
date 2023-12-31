@@ -80,6 +80,7 @@ one_shot = true
 
 [node name="SpringAudio" type="AudioStreamPlayer" parent="Tube/Launcher"]
 stream = ExtResource("5_3srsm")
+bus = &"SFX"
 
 [node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
 position = Vector2(0, -4)
