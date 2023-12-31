@@ -4,7 +4,9 @@
 
 [node name="Root" type="Node"]
 
-[node name="World" parent="." node_paths=PackedStringArray("chat_logic", "neuro_logic", "viewership_logic") instance=ExtResource("1_t1pn0")]
+[node name="World" parent="." node_paths=PackedStringArray("chat_logic", "neuro_logic", "viewership_logic", "ram_logic", "gameplay_logic") instance=ExtResource("1_t1pn0")]
 chat_logic = NodePath("Logic/ChatLogic")
 neuro_logic = NodePath("Logic/NeuroLogic")
 viewership_logic = NodePath("Logic/ViewershipLogic")
+ram_logic = NodePath("Logic/RamLogic")
+gameplay_logic = NodePath("Logic/GameplayLogic")

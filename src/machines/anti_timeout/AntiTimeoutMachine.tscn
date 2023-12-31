@@ -1,12 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcu05n18yjc5e"]
+[gd_scene load_steps=11 format=3 uid="uid://dcu05n18yjc5e"]
 
 [ext_resource type="Script" path="res://src/machines/anti_timeout/AntiTimeoutMachine.gd" id="1_31kib"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_irvho"]
+[ext_resource type="Texture2D" uid="uid://kg5mlqabgtob" path="res://res/machines/mod_button_back.png" id="2_45q60"]
 [ext_resource type="AudioStream" uid="uid://diepdve4k6il5" path="res://assets/audio/sfx/AntiTimeoutButtonHit.ogg" id="3_c7xem"]
+[ext_resource type="Texture2D" uid="uid://bf1weiecikqtn" path="res://res/machines/mod_button_button.png" id="3_h5vf2"]
 [ext_resource type="AudioStream" uid="uid://k2afs714rxm2" path="res://assets/audio/sfx/AntiTimeoutCooldownOver.ogg" id="4_5k1rf"]
+[ext_resource type="Texture2D" uid="uid://cvyywfyvm8lko" path="res://res/machines/mod_button_indicator.png" id="4_tbhox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_brvug"]
 size = Vector2(60, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4d25k"]
+size = Vector2(87.6799, 64.4609)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qnii"]
 size = Vector2(26, 45)
@@ -24,11 +30,16 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Base"]
-scale = Vector2(0.46875, 0.46875)
-texture = ExtResource("1_irvho")
+position = Vector2(-1, 28)
+texture = ExtResource("2_45q60")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
 shape = SubResource("RectangleShape2D_brvug")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Base"]
+position = Vector2(19.834, 40.9149)
+rotation = 0.77993
+shape = SubResource("RectangleShape2D_4d25k")
 
 [node name="Button" type="RigidBody2D" parent="."]
 z_index = -1
@@ -38,12 +49,15 @@ collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Button"]
 position = Vector2(-22, -26)
-scale = Vector2(0.203125, 0.359375)
-texture = ExtResource("1_irvho")
+texture = ExtResource("3_h5vf2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Button"]
 position = Vector2(-22, -26.5)
 shape = SubResource("RectangleShape2D_6qnii")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("4_tbhox")
+hframes = 2
 
 [node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
 position = Vector2(-25, 0)
@@ -60,6 +74,7 @@ one_shot = true
 one_shot = true
 
 [node name="CooldownProgressBar" type="TextureProgressBar" parent="."]
+visible = false
 offset_left = -12.0
 offset_top = 21.0
 offset_right = 116.0

@@ -1,19 +1,27 @@
-[gd_scene load_steps=9 format=3 uid="uid://j1102yne22oh"]
+[gd_scene load_steps=12 format=3 uid="uid://j1102yne22oh"]
 
 [ext_resource type="Script" path="res://src/machines/eating_tube/EatingTube.gd" id="1_24od1"]
-[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_ydu4m"]
+[ext_resource type="Texture2D" uid="uid://wtafibxqpyir" path="res://res/machines/tube_back.png" id="2_pni33"]
 [ext_resource type="AudioStream" uid="uid://c3jxnsyxxhvc2" path="res://assets/audio/sfx/TubeEnter.ogg" id="3_3hk70"]
+[ext_resource type="Texture2D" uid="uid://w3xrd0uoopvb" path="res://res/machines/tube_front.png" id="3_5nd2c"]
 [ext_resource type="AudioStream" uid="uid://dw4ktsujs47ih" path="res://assets/audio/sfx/EatCookie.ogg" id="4_7hs4k"]
 [ext_resource type="AudioStream" uid="uid://u4f42jrjk3hn" path="res://assets/audio/sfx/EatSchizoPill.ogg" id="5_legr2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oxv5f"]
-size = Vector2(9.3955, 115.208)
+size = Vector2(9.35057, 58.3062)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_equ3d"]
 size = Vector2(11, 121.715)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bolrb"]
-radius = 25.02
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0hlk"]
+size = Vector2(131.888, 15.0214)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nbe7l"]
+size = Vector2(15.7212, 46.0454)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cqs03"]
+radius = 8.01256
+height = 99.7348
 
 [node name="EatingTube" type="Node2D"]
 script = ExtResource("1_24od1")
@@ -26,25 +34,44 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-texture = ExtResource("1_ydu4m")
+z_index = -1
+texture = ExtResource("2_pni33")
+
+[node name="Sprite2D2" type="Sprite2D" parent="StaticBody2D"]
+z_index = 2
+texture = ExtResource("3_5nd2c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(9, 25)
-rotation = 1.06701
+position = Vector2(65, 50)
+rotation = -0.0157533
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_oxv5f")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-10.1616, 0.883096)
-rotation = 0.273424
+position = Vector2(-59, 21)
+rotation = -0.00774099
 shape = SubResource("RectangleShape2D_equ3d")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-5.96046e-08, 75)
+rotation = -0.00774099
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_w0hlk")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-50, -49)
+rotation = 0.343532
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_nbe7l")
 
 [node name="EatTrigger" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EatTrigger"]
-position = Vector2(12, -3)
-shape = SubResource("CircleShape2D_bolrb")
+position = Vector2(-1, 57)
+rotation = 1.57716
+shape = SubResource("CapsuleShape2D_cqs03")
 
 [node name="TubeEnterAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_3hk70")

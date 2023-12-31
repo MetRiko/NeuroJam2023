@@ -25,8 +25,6 @@ var notes_collected: int:
 @onready var _note_collect_audio: AudioStreamPlayer = $NoteCollectAudio
 @onready var _note_miss_audio: AudioStreamPlayer = $NoteMissAudio
 
-@onready var anim: AnimationPlayer = $Anim
-
 @export var off_color: Color
 @export var available_color: Color
 @export var active_color: Color
