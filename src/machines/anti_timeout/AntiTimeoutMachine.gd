@@ -14,6 +14,9 @@ extends Node2D
 
 @onready var cooldown_progress_bar: TextureProgressBar = $CooldownProgressBar
 
+@onready var _button_hit_audio: AudioStreamPlayer = $ButtonHitAudio
+@onready var _cooldown_over_audio: AudioStreamPlayer = $CooldownOverAudio
+
 
 var _prev_button_pressed: bool
 var _on_cooldown := false
@@ -21,7 +24,7 @@ var _on_cooldown := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    cooldown_timer.timeout.connect(func(): _on_cooldown = false)
+    cooldown_timer.timeout.connect(func(): _cooldown_over_audio.play(); _on_cooldown = false)
 
 
 func _process(delta):
@@ -48,9 +51,11 @@ func _on_button_pressed() -> void:
 
         cooldown_timer.start(cooldown_time)
         timeout_disable_timer.start(timeout_disable_time)
+        _button_hit_audio.play()
 
         Game.get_neuro_logic().update_timeout_block_status(true)
 
         await timeout_disable_timer.timeout
         Game.get_neuro_logic().update_timeout_block_status(false)
+        
 

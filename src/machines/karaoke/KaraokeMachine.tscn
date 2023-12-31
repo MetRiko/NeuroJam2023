@@ -1,15 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://craftysak1elb"]
+[gd_scene load_steps=7 format=3 uid="uid://craftysak1elb"]
 
 [ext_resource type="Script" path="res://src/machines/karaoke/KaraokeMachine.gd" id="1_qsr5t"]
 [ext_resource type="PackedScene" uid="uid://cgaparfy20ixt" path="res://src/objects/Note.tscn" id="2_7c2oo"]
 [ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="2_dq33p"]
+[ext_resource type="AudioStream" uid="uid://c7sje7pegbaic" path="res://assets/audio/sfx/NoteAppear.ogg" id="4_ug5qa"]
+[ext_resource type="AudioStream" uid="uid://bdelx4vwibaap" path="res://assets/audio/sfx/NoteCollect.ogg" id="5_rtitv"]
+[ext_resource type="AudioStream" uid="uid://sl3odd52j0um" path="res://assets/audio/sfx/NoteMissed.ogg" id="6_dfopm"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1nkbr"]
-size = Vector2(130, 128)
-
-[node name="KaraokeMachine" type="RigidBody2D"]
-collision_layer = 4
-collision_mask = 0
+[node name="KaraokeMachine" type="Node2D"]
 script = ExtResource("1_qsr5t")
 notes_to_start = 10
 note_tscn = ExtResource("2_7c2oo")
@@ -22,9 +20,6 @@ active_color = Color(0.966653, 0.792297, 0.905685, 1)
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -2
 texture = ExtResource("2_dq33p")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_1nkbr")
 
 [node name="NoteSpawnTimer" type="Timer" parent="."]
 autostart = true
@@ -47,3 +42,15 @@ offset_bottom = 186.0
 rotation = -1.5708
 scale = Vector2(0.9, 0.2)
 texture_progress = ExtResource("2_dq33p")
+
+[node name="NoteAppearAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ug5qa")
+bus = &"SFX"
+
+[node name="NoteCollectAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_rtitv")
+bus = &"SFX"
+
+[node name="NoteMissAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_dfopm")
+bus = &"SFX"

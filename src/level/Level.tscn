@@ -24,7 +24,7 @@ size = Vector2(110.296, 522)
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rifwp"]
-size = Vector2(906, 452)
+size = Vector2(725, 452)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u010i"]
 size = Vector2(1147, 578)
@@ -143,8 +143,9 @@ position = Vector2(422, 461)
 [node name="CookieBox" parent="Machines" instance=ExtResource("12_x7kqy")]
 position = Vector2(871, 507)
 
-[node name="Flusher" parent="Machines" instance=ExtResource("12_7wsug")]
+[node name="Flusher" parent="Machines" node_paths=PackedStringArray("core_machine") instance=ExtResource("12_7wsug")]
 position = Vector2(645, 45)
+core_machine = NodePath("../../CoreMachine")
 
 [node name="AntiTimeoutMachine" parent="Machines" node_paths=PackedStringArray("button") instance=ExtResource("13_x0fab")]
 position = Vector2(1253, 203)
@@ -153,7 +154,7 @@ button = NodePath("Button")
 [node name="NoteSpawnArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NoteSpawnArea"]
-position = Vector2(822, 291)
+position = Vector2(846.5, 291)
 shape = SubResource("RectangleShape2D_rifwp")
 
 [node name="NeuroActionScreen" parent="." instance=ExtResource("13_ww6ex")]

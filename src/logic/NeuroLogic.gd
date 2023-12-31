@@ -315,7 +315,7 @@ func generate_response(action: NeuroPlannedAction) -> NeuroFinalAction:
 
     _action_count += 1
     _do_natural_growth()
-    _update_fixation()
+    # _update_fixation()
 
     return chain.action
 

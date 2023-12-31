@@ -18,7 +18,7 @@ radius = 18.0278
 script = ExtResource("1_ct0j5")
 lever_torque = -5000.0
 filter_lower_amount = 0.04
-filter_lower_interval = 0.18
+filter_lower_interval = 0.3
 
 [node name="Base" type="StaticBody2D" parent="."]
 scale = Vector2(1, 0.0799999)

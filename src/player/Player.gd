@@ -3,8 +3,6 @@ class_name Player
 
 
 @export var max_speed: float
-@export var max_distance_to_accel: float
-@export var speed_easing: float = 0.3
 
 @export var rotation_amount: float
 @export var rotation_easing: float = 0.3
@@ -15,11 +13,16 @@ class_name Player
 
 @export var inbounds_area: Area2D
 
+@onready var _move_audio: AudioStreamPlayer = $MoveAudio
+@onready var _grab_audio: AudioStreamPlayer = $GrabAudio
+@onready var _release_audio: AudioStreamPlayer = $ReleaseAudio
+
 
 var _interactables: Array[Interactable] = []
 var _nearest_interactable: Interactable
 
 var thing_to_grab: Grabbable = null
+var held_thing: Grabbable = null
 
 @export var kp: float
 @export var ki: float
@@ -37,6 +40,9 @@ func _ready():
     inbounds_area.body_exited.connect(_on_inbounds_area_exited)
 
     _initial_pos = position
+
+    _move_audio.volume_db = -80
+    _move_audio.play()
 
 
 func _on_inbounds_area_exited(body) -> void:
@@ -70,13 +76,22 @@ func find_nearest_interactable() -> Interactable:
 
 
 func connect_joint(body: Grabbable) -> void:
+    _grab_audio.play()
     if body.reset_position_on_grab:
         body.set_new_position(_interaction_joint.global_position)
     thing_to_grab = body
 
 
 func disconnect_joint() -> void:
+    if held_thing != null:
+        _release_audio.play()
     _interaction_joint.node_b = ""
+
+
+func _process(delta):
+    var vel_magnitude = linear_velocity.length()
+    var hum_volume = clamp(vel_magnitude / max_speed, 0, 0.3)
+    _move_audio.volume_db = Conversions.power_to_db(hum_volume)
 
 
 func _physics_process(delta):
@@ -94,6 +109,7 @@ func _physics_process(delta):
 
     if thing_to_grab != null:
         _interaction_joint.node_b = thing_to_grab.get_path()
+        held_thing = thing_to_grab
         thing_to_grab = null
 
     if Input.is_action_just_pressed("Interact") and len(_interactables) > 0:		
@@ -106,9 +122,11 @@ func _physics_process(delta):
         if _nearest_interactable != null:
             _nearest_interactable.stop_interacting()
         disconnect_joint()
-
+        held_thing = null
+            
 
 func _integrate_forces(state):
     if _reset_pos:
         state.transform = Transform2D(0.0, _initial_pos)
-    _reset_pos = false
+    _reset_pos = false        
+    

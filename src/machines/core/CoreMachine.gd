@@ -1,4 +1,5 @@
 extends Node2D
+class_name CoreMachine
 
 
 @export var chat_queue : NeuroActionQueue
@@ -17,6 +18,12 @@ extends Node2D
 @export var vedal_action_time_multiplier: float = 1.7
 @export var bomb_action_time_multiplier: float = 2.6
 
+@export var execute_action_speedup: float = 1.02
+@export var new_action_speedup: float = 1.02
+
+var _actual_execute_action_interval: float
+var _actual_new_action_interval: float
+
 
 func _input(event):
     if event is InputEventKey and event.pressed:
@@ -33,18 +40,25 @@ func _input(event):
 func _ready():
     randomize()
     _execute_action_timer.timeout.connect(handle_planned_action)
-    _new_action_timer.timeout.connect(func(): add_random_planned_action(); _new_action_timer.start(new_action_interval))
+    _new_action_timer.timeout.connect(func(): add_random_planned_action(); _new_action_timer.start(_actual_new_action_interval))
 
     Game.do_reset.connect(reset)
 
     reset()
 
 
+func reset_intervals() -> void:
+    _actual_execute_action_interval = execute_action_interval
+    _actual_new_action_interval = new_action_interval
+
+
 func reset() -> void:
     chat_queue.clear()
 
-    _execute_action_timer.start(execute_action_interval + randf_range(-1, 1) * execute_action_variance)
-    _new_action_timer.start(new_action_interval + randf_range(-1, 1) * new_action_variance)
+    reset_intervals()
+
+    _execute_action_timer.start(_actual_execute_action_interval + randf_range(-1, 1) * execute_action_variance)
+    _new_action_timer.start(_actual_new_action_interval + randf_range(-1, 1) * new_action_variance)
 
     add_hi_action()
     add_hi_action()
@@ -91,7 +105,10 @@ func handle_action(action) -> void:
                 response.is_tutel_receiver
             ])
         
-        var time = execute_action_interval + randf_range(-1, 1) * execute_action_variance
+        _actual_execute_action_interval /= execute_action_speedup
+        _actual_new_action_interval /= new_action_speedup
+
+        var time = _actual_execute_action_interval + randf_range(-1, 1) * execute_action_variance
         match action.origin:
             NeuroLogic.NeuroActionOrigin.Donation:
                 time *= dono_action_time_multiplier

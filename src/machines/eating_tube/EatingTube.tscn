@@ -46,12 +46,15 @@ shape = SubResource("CircleShape2D_bolrb")
 
 [node name="TubeEnterAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_3hk70")
+bus = &"SFX"
 
 [node name="EatCookieAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_7hs4k")
+bus = &"SFX"
 
 [node name="EatSchizoPillAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_legr2")
+bus = &"SFX"
 
 [node name="AudioDelay" type="Timer" parent="."]
 wait_time = 0.32
