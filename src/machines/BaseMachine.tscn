@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjmv8ga8mbs46"]
+
+[ext_resource type="Script" path="res://src/machines/BaseMachine.gd" id="1_tsybl"]
+
+[node name="BaseMachine" type="Node2D"]
+script = ExtResource("1_tsybl")

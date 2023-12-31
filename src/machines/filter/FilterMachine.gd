@@ -1,4 +1,4 @@
-extends Node2D
+extends BaseMachine
 
 @onready var _lever_handle: RigidBody2D = $Handle
 @onready var _lever_ball: RigidBody2D = $Handle/Ball
@@ -14,6 +14,25 @@ extends Node2D
 
 var state := 1
 var _filter_active := false
+
+@export var ram_cost_per_second = 0.2
+
+
+func _ready():
+    Game.do_pause.connect(_on_pause)
+    Game.do_start.connect(_on_start)
+
+
+func _on_pause():
+    filter_off()
+    deactivate_machine()
+    _filter_active = false
+    
+
+func _on_start():
+    filter_off()
+    activate_machine()
+    _filter_active = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -34,9 +53,12 @@ func _process(delta):
             if _lever_handle.rotation_degrees < untrigger_angle:
                 state = 1
                 filter_off()
+    
+    if _filter_active:
+        Game.get_ram_logic().add_ram(ram_cost_per_second * delta)
 
 func filter_on():
-    if not _filter_active:
+    if not _filter_active and machine_active:
         print("Filter on")
         filter_off_audio.stop()
         filter_on_audio.play()
@@ -45,7 +67,7 @@ func filter_on():
 
 
 func filter_off():
-    if _filter_active:
+    if _filter_active and machine_active:
         print("Filter off")
         filter_on_audio.stop()
         filter_off_audio.play()

@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://278hip3aifva"]
+
+[ext_resource type="Texture2D" uid="uid://c5hg8mwt8lgdt" path="res://icon.svg" id="1_lhjwa"]
+[ext_resource type="Script" path="res://src/ram_bar/RamBar.gd" id="1_nvnst"]
+
+[node name="RamBar" type="Control" node_paths=PackedStringArray("progress_bar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nvnst")
+progress_bar = NodePath("HBoxContainer/TextureProgressBar")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RamIcon" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_lhjwa")
+stretch_mode = 4
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+nine_patch_stretch = true
+texture_progress = ExtResource("1_lhjwa")

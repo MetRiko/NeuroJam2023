@@ -20,7 +20,7 @@ func _update_icon():
             $Sprite2D.frame = 4
 
 func _ready():
-    print("New planned action: category %s, origin %s" % [NeuroLogic.NeuroActionCategory.keys()[action.category], NeuroLogic.NeuroActionOrigin.keys()[action.origin]])
+    # print("New planned action: category %s, origin %s" % [NeuroLogic.NeuroActionCategory.keys()[action.category], NeuroLogic.NeuroActionOrigin.keys()[action.origin]])
 
     _update_icon()
     $Sprite2D.scale = Vector2.ZERO
@@ -36,7 +36,7 @@ func update_pos(pos: Vector2) -> void:
 
 
 func execute() -> void:
-    print("Execute action: category %s, origin %s" % [NeuroLogic.NeuroActionCategory.keys()[action.category], NeuroLogic.NeuroActionOrigin.keys()[action.origin]])
+    # print("Execute action: category %s, origin %s" % [NeuroLogic.NeuroActionCategory.keys()[action.category], NeuroLogic.NeuroActionOrigin.keys()[action.origin]])
 
     var tween = get_tree().create_tween().bind_node(self).set_trans(Tween.TRANS_EXPO).set_parallel(true)
     tween.tween_property(self, "scale", Vector2.ZERO, 0.2)

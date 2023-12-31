@@ -1,4 +1,4 @@
-extends Node2D
+extends BaseMachine
 
 
 @export var button: RigidBody2D
@@ -17,6 +17,8 @@ extends Node2D
 @onready var _button_hit_audio: AudioStreamPlayer = $ButtonHitAudio
 @onready var _cooldown_over_audio: AudioStreamPlayer = $CooldownOverAudio
 
+@export var ram_cost: float = 0.5
+
 
 var _prev_button_pressed: bool
 var _on_cooldown := false
@@ -24,7 +26,34 @@ var _on_cooldown := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    cooldown_timer.timeout.connect(func(): _cooldown_over_audio.play(); _on_cooldown = false)
+    cooldown_timer.timeout.connect(_on_cooldown_over)
+    timeout_disable_timer.timeout.connect(_on_timeout_disable_over)
+    Game.do_reset.connect(_on_reset)
+    Game.do_start.connect(_on_start)
+    Game.do_pause.connect(_on_pause)
+    
+    
+func _on_timeout_disable_over():
+    if machine_active:
+        Game.get_neuro_logic().update_timeout_block_status(false)
+
+
+func _on_cooldown_over():
+    _cooldown_over_audio.play() 
+    _on_cooldown = false
+    
+
+func _on_reset():
+    _on_cooldown = false
+    cooldown_timer.stop()
+    
+
+func _on_pause():
+    deactivate_machine()
+    
+
+func _on_start():
+    activate_machine()
 
 
 func _process(delta):
@@ -45,7 +74,7 @@ func _physics_process(delta):
 
 
 func _on_button_pressed() -> void:
-    if not _on_cooldown:
+    if machine_active and not _on_cooldown:
         print("Disable timeouts for %s secs" % timeout_disable_time)
         _on_cooldown = true
 
@@ -54,8 +83,6 @@ func _on_button_pressed() -> void:
         _button_hit_audio.play()
 
         Game.get_neuro_logic().update_timeout_block_status(true)
-
-        await timeout_disable_timer.timeout
-        Game.get_neuro_logic().update_timeout_block_status(false)
+        Game.get_ram_logic().add_ram(ram_cost)
         
 

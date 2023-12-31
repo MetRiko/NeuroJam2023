@@ -1,4 +1,4 @@
-extends Node2D
+extends BaseMachine
 
 
 @export var love_status_texture: Texture2D
@@ -21,6 +21,8 @@ var _wheel_speed: float
 
 var _rotation_counter: float = 0
 
+@export var ram_cost: float = 0.05
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,7 +31,15 @@ func _ready():
 
     _love_audio.play()
     _hate_audio.play()
+    
+    Game.do_pause.connect(_on_pause)
+    Game.do_start.connect(activate_machine)
 
+
+func _on_pause():
+    deactivate_machine()
+    _love_audio.volume_db = -80
+    _hate_audio.volume_db = -80
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -52,15 +62,20 @@ func _process(delta):
         increase_hate()
         _tick_audio.play()
     
-    _love_audio.volume_db = Conversions.power_to_db(max(0, brightness * sign(_wheel_speed) * pad_volume))
-    _hate_audio.volume_db = Conversions.power_to_db(max(0, brightness * -sign(_wheel_speed) * pad_volume))
+    if machine_active:
+        _love_audio.volume_db = Conversions.power_to_db(max(0, brightness * sign(_wheel_speed) * pad_volume))
+        _hate_audio.volume_db = Conversions.power_to_db(max(0, brightness * -sign(_wheel_speed) * pad_volume))
 
 
 func increase_love():
-    print("Increase emotional state by %s" % (adjustment_per_revolution / adjustment_resolution))
-    Game.get_neuro_logic().update_emotional_state(adjustment_per_revolution / adjustment_resolution)
+    if machine_active:
+        print("Increase emotional state by %s" % (adjustment_per_revolution / adjustment_resolution))
+        Game.get_neuro_logic().update_emotional_state(adjustment_per_revolution / adjustment_resolution)
+        Game.get_ram_logic().add_ram(ram_cost)
 
 
 func increase_hate():
-    print("Decrease emotional state by %s" % (-adjustment_per_revolution / adjustment_resolution))
-    Game.get_neuro_logic().update_emotional_state(-adjustment_per_revolution / adjustment_resolution)
+    if machine_active:
+        print("Decrease emotional state by %s" % (-adjustment_per_revolution / adjustment_resolution))
+        Game.get_neuro_logic().update_emotional_state(-adjustment_per_revolution / adjustment_resolution)
+        Game.get_ram_logic().add_ram(ram_cost)

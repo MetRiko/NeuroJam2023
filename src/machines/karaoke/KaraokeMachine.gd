@@ -1,4 +1,4 @@
-extends Node2D
+extends BaseMachine
 
 
 var _notes_collected: int = 0
@@ -31,6 +31,8 @@ var notes_collected: int:
 
 @export var max_notes_in_world: int = 3
 
+@export var ram_cost: float = 10
+
 var _active = false
 
 
@@ -41,6 +43,25 @@ func _ready():
     note_spawn_timer.timeout.connect(spawn_note)
 
     note_icon.modulate = off_color
+    
+    Game.do_pause.connect(_on_pause)
+    Game.do_start.connect(_on_start)
+    Game.do_reset.connect(_on_reset)
+    
+    
+func _on_pause():
+    deactivate_machine()
+    
+
+func _on_start():
+    activate_machine()
+    
+
+func _on_reset():
+    end_karaoke()
+    _active = false
+    notes_collected = 0
+    Game.get_neuro_logic().update_karaoke_status(_active)
 
 
 # func start_interacting():
@@ -49,23 +70,29 @@ func _ready():
 
 
 func start_karaoke():
-    _active = true
-    notes_collected = 0
-    karaoke_timer.start(karaoke_duration)
-    note_icon.modulate = active_color
-    Game.get_neuro_logic().update_karaoke_status(true)
-    print("Karaoke start")
+    if machine_active:
+        _active = true
+        notes_collected = 0
+        karaoke_timer.start(karaoke_duration)
+        note_icon.modulate = active_color
+        Game.get_neuro_logic().update_karaoke_status(true)
+        Game.get_ram_logic().add_ram(ram_cost)
+        print("Karaoke start")
 
-    await karaoke_timer.timeout
+        await karaoke_timer.timeout
+        end_karaoke()
 
-    print("Karaoke end")
-    Game.get_neuro_logic().update_karaoke_status(false)
-    note_icon.modulate = off_color
-    _active = false
+
+func end_karaoke():
+    if _active:
+        print("Karaoke end")
+        Game.get_neuro_logic().update_karaoke_status(false)
+        note_icon.modulate = off_color
+        _active = false
 
 
 func spawn_note():
-    if not _active and notes_collected < notes_to_start and get_tree().get_node_count_in_group("Note") < max_notes_in_world:
+    if machine_active and not _active and notes_collected < notes_to_start and get_tree().get_node_count_in_group("Note") < max_notes_in_world:
         var note_inst: Note = note_tscn.instantiate()
         var rect := note_spawn_area.shape.get_rect()
         var pos := Vector2(randf_range(rect.position.x, rect.position.x + rect.size.x), randf_range(rect.position.y, rect.position.y + rect.size.y))
@@ -79,14 +106,15 @@ func spawn_note():
 
 func on_note_collected():
     if not _active and notes_collected < notes_to_start:
-        print("Note collected")
-        notes_collected += 1
-
         _note_collect_audio.play()
+        
+        if machine_active:
+            print("Note collected")
+            notes_collected += 1
 
-        if notes_collected >= notes_to_start:
-            note_icon.modulate = available_color
-            start_karaoke()
+            if notes_collected >= notes_to_start:
+                note_icon.modulate = available_color
+                start_karaoke()
             
 
 func on_note_missed():

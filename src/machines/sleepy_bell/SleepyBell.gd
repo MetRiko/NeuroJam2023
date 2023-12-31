@@ -1,4 +1,4 @@
-extends Node2D
+extends BaseMachine
 
 
 @export var bell: Grabbable
@@ -9,6 +9,13 @@ extends Node2D
 var _prev_bell_angular_velocity: float
 
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+
+@export var ram_cost: float = 0.05
+
+
+func _ready():
+    Game.do_pause.connect(deactivate_machine)
+    Game.do_start.connect(activate_machine)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -23,8 +30,10 @@ func _process(delta):
 
 
 func ding():
-    print("Lower sleepy power by %s" % sleepy_lower_amount)
-    Game.get_neuro_logic().update_sleepy_power(-sleepy_lower_amount)
-    Game.get_neuro_logic().update_sleep_status(false)
+    if machine_active:
+        print("Lower sleepy power by %s" % sleepy_lower_amount)
+        Game.get_neuro_logic().update_sleepy_power(-sleepy_lower_amount)
+        Game.get_neuro_logic().update_sleep_status(false)
+        Game.get_ram_logic().add_ram(ram_cost)
 
     audio_stream_player.play()

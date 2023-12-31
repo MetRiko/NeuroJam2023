@@ -76,7 +76,7 @@ var prev_action_had_cookie := false
 
 var latest_bomb_defused_successfully := false
 
-@export var filter_variance_frequency := 0.005
+@export var filter_variance_frequency := 0.003
 @export var filter_fast_variance_frequency := 0.08
 @export var filter_activation_threshold := 0.35
 
@@ -154,8 +154,12 @@ var _current_fixation_category: NeuroActionCategory
 @export var fixation_weight_growth: float = 0.2
 
 
+var _logic_active := false
+
+
 func reset():
     filter_power = 0.0
+    _filter_phase = 0.0
     schizo_power = 0.0
     sleepy_power = 0.0
     justice_factor = 0.0
@@ -185,10 +189,15 @@ func _ready():
     randomize()
     reset()
 
+    Game.do_pause.connect(func(): _logic_active = false)
+    Game.do_start.connect(func(): _logic_active = true)
+    Game.do_reset.connect(reset)
+
 
 func _process(delta):
-    _filter_phase += (filter_fast_variance_frequency if _filter_fast_mode else filter_variance_frequency) * delta
-    filter_power = pingpong(_filter_phase * 2, 1.0)
+    if _logic_active:
+        _filter_phase += (filter_fast_variance_frequency if _filter_fast_mode else filter_variance_frequency) * delta
+        filter_power = pingpong(_filter_phase * 4 + 1, 2.0) - 1
 
 
 func _update_fixation() -> void:

@@ -9,7 +9,7 @@
 
 [node name="KaraokeMachine" type="Node2D"]
 script = ExtResource("1_qsr5t")
-notes_to_start = 10
+notes_to_start = 1
 note_tscn = ExtResource("2_7c2oo")
 note_spawn_interval = 7.0
 karaoke_duration = 20.0
